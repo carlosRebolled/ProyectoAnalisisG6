@@ -1,0 +1,112 @@
+USE DB_FacultadFarmacia;
+GO
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '101110111',
+    'Kevin',
+    'Oviedo',
+    'Valverde',
+    '2001-10-02',
+    'kevin.oviedovalverde@ucr.ac.cr',
+    'admin1234',
+    '70904506',
+    1,
+    4,
+    9,
+    1,
+    'Activo',
+    GETDATE()
+)
+go
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '102200200',
+    'Felipe',
+    'Alpizar',
+    'Rodriguez',
+    '1990-01-22',
+    'felipe.alpizar@ucr.ac.cr',
+    '123456',
+    '88769905',
+    1,
+    3,
+    2,
+    2,
+    'Activo',
+    GETDATE()
+)
+go
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '303230300',
+    'Nahomy',
+    'Picado',
+    'Mata',
+    '2002-9-08',
+    'nahomy.picadomata@ucr.ac.cr',
+    '123456',
+    '64559323',
+    2,
+    1,
+    8,
+    1,
+    'Activo',
+    GETDATE()
+)
+go
+
+select * from dbo.Usuarios
