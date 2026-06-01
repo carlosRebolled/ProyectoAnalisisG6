@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using SistemaFarmaciaG6.Models;
 
-namespace SistemaFarmaciaG6.Models;
+namespace SistemaFarmaciaG6.Data;
 
 public partial class DbFacultadFarmaciaContext : DbContext
 {

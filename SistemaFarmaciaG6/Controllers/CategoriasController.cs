@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models; 
 using System.Linq;
 
