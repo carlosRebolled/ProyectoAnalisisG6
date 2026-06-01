@@ -1,0 +1,19 @@
+﻿@model SistemaFarmaciaG6.Models.Categoria
+@{
+    ViewData["Title"] = "Detalles Categoria";
+}
+<h2>Detalles de Categoría</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4>ID: @Model.IdCategoria</h4>
+        <p><strong>Nombre:</strong> @Model.NombreCategoria</p>
+        <p><strong>Estado:</strong> @Model.Estado</p>
+    </div>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.IdCategoria" class="btn btn-primary">Editar</a>
+    <a asp-action="Delete" asp-route-id="@Model.IdCategoria" class="btn btn-danger">Eliminar</a>
+    <a asp-action="Index" class="btn btn-details"> Volver al listado</a>
+</p>
