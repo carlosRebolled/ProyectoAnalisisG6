@@ -1,22 +1,236 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    
+}
+
+
+
+
+.top-bar {
+    background-color: #199490; /* verde agua institucional */
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 20px;
+    font-size: 0.9rem;
+}
+
+
+/* Lado izquierdo */
+.top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .top-bar-left a {
+        color: white !important;
+        font-size: 20px;
+        transition: color 0.3s ease;
+    }
+
+        .top-bar-left a:hover {
+            color: #258cfb !important; /* tono más claro al pasar el mouse */
+        }
+
+/* Lado derecho */
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .top-bar-right a {
+        color: white !important;
+        font-size: 20px;
+        transition: color 0.3s ease;
+    }
+
+        .top-bar-right a:hover {
+            color: #258cfb !important; /* tono más claro al pasar el mouse */
+        }
+
+
+
+
+
+/* Navbar con fondo blanco */
+.navbar-teal {
+    background-color: #ffffff !important;
+}
+
+/* Logo más grande */
+.logo-img {
+    width: 120px;
+    height: 90px;
+}
+
+/* Menú principal: enlaces */
+.navbar-teal .nav-link {
+    color: #576f82 !important; /* gris azulado */
+    font-weight: 600;
+    margin: 0 12px;
+    transition: color 0.3s ease;
+}
+
+    .navbar-teal .nav-link:hover {
+        color: #199490 !important; /*menu principal verde agua al pasar el mouse */
+    }
+
+/* Imagen sección de categorías */
+.categorias-section {
+    background-image: url('/images/fondo1.png');
+    background-size: cover; /*  todo el bloque */
+    background-position: center;
+    background-repeat: no-repeat; /* no repite */
+    padding: 20px;
+    border-radius: 9px;
+}
+
+    /* Opcional: capa semitransparente para mejorar legibilidad */
+    .categorias-section::before {
+        content: "";
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(55, 52, 52, 0,23); /* blanco semitransparente */
+        z-index: -1;
+    }
+
+    .categorias-section h2 {
+        color: white; /* texto blanco */
+        font-weight: 700; /* más grueso para destacar */
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.6); /* sombra para mejor legibilidad */
+    }
+
+
+.btn {
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+}
+
+/* Botón de Detalles con verde agua */
+.btn-details {
+    background-color: #2e2e47;
+    color: white;
+    border: none;
+}
+
+    .btn-details:hover {
+        background-color: #147a74;
+        color: white;
+    }
+
+
+/* Botón de Crear con azul (#5667e3) */
+.btn-create {
+    background-color: #2e2e47;
+    color: white;
+    border: none;
+}
+
+    .btn-create:hover {
+        background-color: #13807c;
+        color: white;
+    }
+
+/* Tabla de categorías */
+.categorias-table {
+    width: 100%; /* ocupa todo el ancho */
+    text-align: left; /* texto alineado a la izquierda */
+}
+
+    .categorias-table thead {
+        background-color: #576f82; /* verde agua institucional */
+        color: white;
+    }
+
+    .categorias-table th,
+    .categorias-table td {
+        vertical-align: middle; /* centra verticalmente */
+        padding: 10px;
+    }
+
+        /* Columna de acciones */
+        .categorias-table td:last-child {
+            text-align: right; /* botones alineados a la derecha */
+            white-space: nowrap; /* evita que se partan en varias líneas */
+        }
+
+            .categorias-table td:last-child .btn {
+                margin-left: 15px; /* separación entre botones */
+            }
+
+
+
+/* Footer institucional */
+.footer-custom {
+    background-color: #199490; /* verde agua */
+    color: white;
+    padding: 15px 0;
+    border-top: 3px solid #147a74;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+/* Logo del footer */
+.footer-img {
+    height: 50px;
+    width: auto;
+}
+
+/* Texto junto al logo */
+.footer-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Enlaces del footer */
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+    .footer-link:hover {
+        color: #5667e3; /* azul del botón Crear */
+    }
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* apila header, main y footer */
+}
+
+main {
+    flex: 1; /* ocupa el espacio disponible y empuja el footer */
+}
+
+footer, .footer-custom {
+    margin-top: auto; /* se queda abajo */
 }

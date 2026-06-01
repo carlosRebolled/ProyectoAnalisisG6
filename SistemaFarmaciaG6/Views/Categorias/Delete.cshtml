@@ -1,0 +1,16 @@
+﻿@model SistemaFarmaciaG6.Models.Categoria
+@{
+    ViewData["Title"] = "Eliminar Categoria";
+}
+<h2>Eliminar Categoría</h2>
+
+<div>
+    <h4>¿Seguro que deseas eliminar esta categoría?</h4>
+    <p><strong>@Model.NombreCategoria</strong></p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="IdCategoria" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
