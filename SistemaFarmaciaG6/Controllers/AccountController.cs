@@ -32,8 +32,27 @@ namespace SistemaFarmaciaG6.Controllers
                 return View();
             }
 
+            var usuarioRol = _context.UsuarioRols
+                .FirstOrDefault(ur => ur.IdUsuario == usuario.IdUsuario);
+
+            if (usuarioRol == null)
+            {
+                ViewBag.Error = "El usuario no tiene un rol asignado";
+                return View();
+            }
+
+            var rol = _context.Roles
+                .FirstOrDefault(r => r.IdRol == usuarioRol.IdRol);
+
+            if (rol == null)
+            {
+                ViewBag.Error = "El rol asignado no existe";
+                return View();
+            }
+
             HttpContext.Session.SetInt32("IdUsuario", usuario.IdUsuario);
             HttpContext.Session.SetString("Nombre", usuario.Nombre);
+            HttpContext.Session.SetString("Rol", rol.NombreRol);
 
             return RedirectToAction("Index", "Home");
         }

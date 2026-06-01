@@ -15,6 +15,9 @@ namespace SistemaFarmaciaG6.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Nombre = HttpContext.Session.GetString("Nombre");
+            ViewBag.Rol = HttpContext.Session.GetString("Rol");
+
             return View();
         }
 
