@@ -15,8 +15,15 @@ namespace SistemaFarmaciaG6.Controllers
 
         public IActionResult Index()
         {
+            var rol = HttpContext.Session.GetString("Rol");
+
+            if (string.IsNullOrEmpty(rol))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             ViewBag.Nombre = HttpContext.Session.GetString("Nombre");
-            ViewBag.Rol = HttpContext.Session.GetString("Rol");
+            ViewBag.Rol = rol;
 
             return View();
         }

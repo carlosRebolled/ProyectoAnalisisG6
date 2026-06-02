@@ -1,0 +1,150 @@
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<h2>Gestión de Usuarios</h2>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-success">
+        Crear Usuario
+    </a>
+</p>
+
+<form method="get" asp-action="Index" class="mb-4">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <label class="form-label">
+                Filtrar por Estado
+            </label>
+
+            <select name="estado" class="form-select">
+
+                @if (string.IsNullOrEmpty(ViewBag.EstadoSeleccionado))
+                {
+                    <option value="" selected>Todos</option>
+                }
+                else
+                {
+                    <option value="">Todos</option>
+                }
+
+                @if (ViewBag.EstadoSeleccionado == "Activo")
+                {
+                    <option value="Activo" selected>Activos</option>
+                }
+                else
+                {
+                    <option value="Activo">Activos</option>
+                }
+
+                @if (ViewBag.EstadoSeleccionado == "Inactivo")
+                {
+                    <option value="Inactivo" selected>Inactivos</option>
+                }
+                else
+                {
+                    <option value="Inactivo">Inactivos</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">
+                Filtrar
+            </button>
+        </div>
+
+    </div>
+
+</form>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Cédula</th>
+            <th>Nombre Completo</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Departamento</th>
+            <th>Estado</th>
+            <th width="120">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @item.Cedula
+                </td>
+
+                <td>
+                    @item.Nombre
+                    @item.Apellido1
+                    @item.Apellido2
+                </td>
+
+                <td>
+                    @item.Correo
+                </td>
+
+                <td>
+                    @item.Telefono
+                </td>
+
+                <td>
+                    @(item.IdDepartamentoNavigation?.NombreDepartamento)
+                </td>
+
+                <td>
+                    @if (item.Estado == "Activo")
+                    {
+                        <span class="badge bg-success">
+                            Activo
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            Inactivo
+                        </span>
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.IdUsuario"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

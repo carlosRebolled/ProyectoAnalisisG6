@@ -1,0 +1,142 @@
+﻿@model SistemaFarmaciaG6.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h2>Editar Usuario</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="IdUsuario" />
+
+    <div class="mb-3">
+        <label>Cédula</label>
+        <input asp-for="Cedula" class="form-control" readonly />
+        <small class="text-muted">La cédula no se puede modificar.</small>
+    </div>
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input asp-for="Nombre" class="form-control" readonly />
+        <small class="text-muted">El nombre no se puede modificar.</small>
+    </div>
+
+    <div class="mb-3">
+        <label>Correo</label>
+        <input asp-for="Correo" class="form-control" readonly />
+        <small class="text-muted">El correo no se puede modificar.</small>
+    </div>
+
+    <div class="mb-3">
+        <label>Primer Apellido</label>
+        <input asp-for="Apellido1" class="form-control" />
+        <span asp-validation-for="Apellido1" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Segundo Apellido</label>
+        <input asp-for="Apellido2" class="form-control" />
+        <span asp-validation-for="Apellido2" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Fecha de Nacimiento</label>
+        <input asp-for="FechaNacimiento" type="date" class="form-control" />
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Teléfono</label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Género</label>
+        <select asp-for="IdGenero" asp-items="ViewBag.Generos" class="form-select">
+            <option value="">Seleccione un género</option>
+        </select>
+        <span asp-validation-for="IdGenero" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Departamento</label>
+        <select asp-for="IdDepartamento" asp-items="ViewBag.Departamentos" class="form-select">
+            <option value="">Seleccione un departamento</option>
+        </select>
+        <span asp-validation-for="IdDepartamento" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Categoría</label>
+        <select asp-for="IdCategoria" asp-items="ViewBag.Categorias" class="form-select">
+            <option value="">Seleccione una categoría</option>
+        </select>
+        <span asp-validation-for="IdCategoria" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Tipo de Nombramiento</label>
+        <select asp-for="IdTipoNombramiento" asp-items="ViewBag.TiposNombramiento" class="form-select">
+            <option value="">Seleccione un tipo</option>
+        </select>
+        <span asp-validation-for="IdTipoNombramiento" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Estado</label>
+        <select asp-for="Estado" class="form-select">
+            <option value="">Seleccione un estado</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+        </select>
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Rol</label>
+        <select name="idRol" class="form-select">
+            <option value="">Seleccione un rol</option>
+
+            @foreach (var rol in ViewBag.Roles)
+            {
+                if (ViewBag.IdRolActual != null && ViewBag.IdRolActual.ToString() == rol.Value)
+                {
+                    <option value="@rol.Value" selected>@rol.Text</option>
+                }
+                else
+                {
+                    <option value="@rol.Value">@rol.Text</option>
+                }
+            }
+        </select>
+
+        <span class="text-danger">
+            @Html.ValidationMessage("idRol")
+        </span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">
+        Guardar Cambios
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Volver
+    </a>
+
+</form>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -2,14 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>Bienvenido, @ViewBag.Nombre</h2>
+<h2>Bienvenido @ViewBag.Nombre</h2>
 
-<p>Rol: <strong>@ViewBag.Rol</strong></p>
+<h4>Rol: @ViewBag.Rol</h4>
 
-<a asp-controller="Account" asp-action="Logout" class="btn btn-danger">
-    Cerrar sesión
+<hr />
+
+@if (ViewBag.Rol == "Administrador")
+{
+    <a class="btn btn-primary" href="/Usuarios/Index">Usuarios</a>
+    <a class="btn btn-success" href="/Roles">Roles</a>
+}
+
+@if (ViewBag.Rol == "Docente")
+{
+    <a class="btn btn-info">Mis Informes</a>
+}
+
+@if (ViewBag.Rol == "Director")
+{
+    <a class="btn btn-warning">Aprobar Informes</a>
+}
+
+<a class="btn btn-danger" href="/Account/Logout">
+    Cerrar Sesión
 </a>
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
