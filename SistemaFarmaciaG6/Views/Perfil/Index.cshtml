@@ -1,0 +1,40 @@
+﻿@model SistemaFarmaciaG6.Models.Usuario
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<h2>Mi Perfil</h2>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Exito"]
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <p><strong>Cédula:</strong> @Model.Cedula</p>
+        <p><strong>Nombre:</strong> @Model.Nombre @Model.Apellido1 @Model.Apellido2</p>
+        <p><strong>Correo:</strong> @Model.Correo</p>
+        <p><strong>Teléfono:</strong> @Model.Telefono</p>
+        <p><strong>Fecha nacimiento:</strong> @Model.FechaNacimiento</p>
+        <p><strong>Género:</strong> @Model.IdGeneroNavigation?.NombreGenero</p>
+        <p><strong>Departamento:</strong> @Model.IdDepartamentoNavigation?.NombreDepartamento</p>
+        <p><strong>Categoría:</strong> @Model.IdCategoriaNavigation?.NombreCategoria</p>
+        <p><strong>Tipo nombramiento:</strong> @Model.IdTipoNombramientoNavigation?.NombreNombramiento</p>
+        <p><strong>Rol:</strong> @(Model.UsuarioRols.FirstOrDefault()?.IdRolNavigation?.NombreRol ?? "Sin rol")</p>
+        <p><strong>Estado:</strong> @Model.Estado</p>
+
+        <a asp-action="Edit" class="btn btn-warning">
+            Editar Perfil
+        </a>
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+            Volver
+        </a>
+
+    </div>
+</div>

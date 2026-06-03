@@ -1,0 +1,55 @@
+﻿@model SistemaFarmaciaG6.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Perfil";
+}
+
+<h2>Editar Perfil</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="Edit" method="post">
+
+    <div class="mb-3">
+        <label>Cédula</label>
+        <input asp-for="Cedula" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input value="@Model.Nombre @Model.Apellido1 @Model.Apellido2"
+               class="form-control"
+               readonly />
+    </div>
+
+    <div class="mb-3">
+        <label>Correo</label>
+        <input asp-for="Correo" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label>Fecha de Nacimiento</label>
+        <input asp-for="FechaNacimiento" type="date" class="form-control" />
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Teléfono</label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">
+        Guardar Cambios
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Volver
+    </a>
+
+</form>

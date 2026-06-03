@@ -4,7 +4,6 @@ using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-
 namespace SistemaFarmaciaG6.Controllers
 {
     public class UsuariosController : Controller
@@ -16,10 +15,19 @@ namespace SistemaFarmaciaG6.Controllers
             _context = context;
         }
 
+        private bool EsAdministrador()
+        {
+            var rol = HttpContext.Session.GetString("Rol");
+            return rol == "Administrador";
+        }
+
+        private IActionResult RedirigirNoAutorizado()
+        {
+            return RedirectToAction("Index", "Home");
+        }
 
         private void CargarCombos()
         {
-
             ViewBag.Roles = new SelectList(_context.Roles.ToList(), "IdRol", "NombreRol");
             ViewBag.Generos = new SelectList(_context.Generos.ToList(), "IdGenero", "NombreGenero");
             ViewBag.Departamentos = new SelectList(_context.Departamentos.ToList(), "IdDepartamento", "NombreDepartamento");
@@ -29,11 +37,9 @@ namespace SistemaFarmaciaG6.Controllers
 
         public IActionResult Index(string estado)
         {
-            var rol = HttpContext.Session.GetString("Rol");
-
-            if (rol != "Administrador")
+            if (!EsAdministrador())
             {
-                return RedirectToAction("Login", "Account");
+                return RedirigirNoAutorizado();
             }
 
             var usuarios = _context.Usuarios
@@ -51,9 +57,13 @@ namespace SistemaFarmaciaG6.Controllers
             return View(usuarios.ToList());
         }
 
-
         public IActionResult Create()
         {
+            if (!EsAdministrador())
+            {
+                return RedirigirNoAutorizado();
+            }
+
             CargarCombos();
             return View();
         }
@@ -61,6 +71,11 @@ namespace SistemaFarmaciaG6.Controllers
         [HttpPost]
         public IActionResult Create(Usuario usuario, int idRol)
         {
+            if (!EsAdministrador())
+            {
+                return RedirigirNoAutorizado();
+            }
+
             try
             {
                 usuario.Estado = "Activo";
@@ -152,9 +167,13 @@ namespace SistemaFarmaciaG6.Controllers
             }
         }
 
-
         public IActionResult Edit(int id)
         {
+            if (!EsAdministrador())
+            {
+                return RedirigirNoAutorizado();
+            }
+
             var usuario = _context.Usuarios.Find(id);
 
             if (usuario == null)
@@ -172,103 +191,104 @@ namespace SistemaFarmaciaG6.Controllers
             return View(usuario);
         }
 
-[HttpPost]
-public IActionResult Edit(int id, Usuario usuario, int idRol)
-{
-    try
-    {
-        var usuarioBD = _context.Usuarios.Find(id);
-
-        if (usuarioBD == null)
+        [HttpPost]
+        public IActionResult Edit(int id, Usuario usuario, int idRol)
         {
-            return NotFound();
-        }
-
-        ModelState.Clear();
-
-        if (string.IsNullOrWhiteSpace(usuario.Apellido1))
-            ModelState.AddModelError("Apellido1", "El primer apellido es obligatorio.");
-
-        if (usuario.FechaNacimiento == default)
-            ModelState.AddModelError("FechaNacimiento", "La fecha de nacimiento es obligatoria.");
-
-        if (usuario.FechaNacimiento > DateOnly.FromDateTime(DateTime.Today))
-            ModelState.AddModelError("FechaNacimiento", "La fecha de nacimiento no puede ser futura.");
-
-        if (usuario.IdGenero == 0)
-            ModelState.AddModelError("IdGenero", "Debe seleccionar un género.");
-
-        if (usuario.IdDepartamento == 0)
-            ModelState.AddModelError("IdDepartamento", "Debe seleccionar un departamento.");
-
-        if (usuario.IdCategoria == 0)
-            ModelState.AddModelError("IdCategoria", "Debe seleccionar una categoría.");
-
-        if (usuario.IdTipoNombramiento == 0)
-            ModelState.AddModelError("IdTipoNombramiento", "Debe seleccionar un tipo de nombramiento.");
-
-        if (string.IsNullOrWhiteSpace(usuario.Estado))
-            ModelState.AddModelError("Estado", "Debe seleccionar un estado.");
-
-        if (idRol == 0)
-            ModelState.AddModelError("idRol", "Debe seleccionar un rol.");
-
-        if (!ModelState.IsValid)
-        {
-            TempData["Error"] = "Revise los datos ingresados.";
-            CargarCombos();
-            ViewBag.IdRolActual = idRol;
-            return View(usuario);
-        }
-
-        // RF-14: estos NO se modifican:
-        // Cédula, Nombre y Correo
-
-        usuarioBD.Apellido1 = usuario.Apellido1;
-        usuarioBD.Apellido2 = usuario.Apellido2;
-        usuarioBD.FechaNacimiento = usuario.FechaNacimiento;
-        usuarioBD.Telefono = usuario.Telefono;
-        usuarioBD.IdGenero = usuario.IdGenero;
-        usuarioBD.IdDepartamento = usuario.IdDepartamento;
-        usuarioBD.IdCategoria = usuario.IdCategoria;
-        usuarioBD.IdTipoNombramiento = usuario.IdTipoNombramiento;
-        usuarioBD.Estado = usuario.Estado;
-
-        _context.SaveChanges();
-
-        var usuarioRol = _context.UsuarioRols
-            .FirstOrDefault(x => x.IdUsuario == id);
-
-        if (usuarioRol != null)
-        {
-            usuarioRol.IdRol = idRol;
-        }
-        else
-        {
-            usuarioRol = new UsuarioRol
+            if (!EsAdministrador())
             {
-                IdUsuario = id,
-                IdRol = idRol
-            };
+                return RedirigirNoAutorizado();
+            }
 
-            _context.UsuarioRols.Add(usuarioRol);
+            try
+            {
+                var usuarioBD = _context.Usuarios.Find(id);
+
+                if (usuarioBD == null)
+                {
+                    return NotFound();
+                }
+
+                ModelState.Clear();
+
+                if (string.IsNullOrWhiteSpace(usuario.Apellido1))
+                    ModelState.AddModelError("Apellido1", "El primer apellido es obligatorio.");
+
+                if (usuario.FechaNacimiento == default)
+                    ModelState.AddModelError("FechaNacimiento", "La fecha de nacimiento es obligatoria.");
+
+                if (usuario.FechaNacimiento > DateOnly.FromDateTime(DateTime.Today))
+                    ModelState.AddModelError("FechaNacimiento", "La fecha de nacimiento no puede ser futura.");
+
+                if (usuario.IdGenero == 0)
+                    ModelState.AddModelError("IdGenero", "Debe seleccionar un género.");
+
+                if (usuario.IdDepartamento == 0)
+                    ModelState.AddModelError("IdDepartamento", "Debe seleccionar un departamento.");
+
+                if (usuario.IdCategoria == 0)
+                    ModelState.AddModelError("IdCategoria", "Debe seleccionar una categoría.");
+
+                if (usuario.IdTipoNombramiento == 0)
+                    ModelState.AddModelError("IdTipoNombramiento", "Debe seleccionar un tipo de nombramiento.");
+
+                if (string.IsNullOrWhiteSpace(usuario.Estado))
+                    ModelState.AddModelError("Estado", "Debe seleccionar un estado.");
+
+                if (idRol == 0)
+                    ModelState.AddModelError("idRol", "Debe seleccionar un rol.");
+
+                if (!ModelState.IsValid)
+                {
+                    TempData["Error"] = "Revise los datos ingresados.";
+                    CargarCombos();
+                    ViewBag.IdRolActual = idRol;
+                    return View(usuario);
+                }
+
+                usuarioBD.Apellido1 = usuario.Apellido1;
+                usuarioBD.Apellido2 = usuario.Apellido2;
+                usuarioBD.FechaNacimiento = usuario.FechaNacimiento;
+                usuarioBD.Telefono = usuario.Telefono;
+                usuarioBD.IdGenero = usuario.IdGenero;
+                usuarioBD.IdDepartamento = usuario.IdDepartamento;
+                usuarioBD.IdCategoria = usuario.IdCategoria;
+                usuarioBD.IdTipoNombramiento = usuario.IdTipoNombramiento;
+                usuarioBD.Estado = usuario.Estado;
+
+                _context.SaveChanges();
+
+                var usuarioRol = _context.UsuarioRols
+                    .FirstOrDefault(x => x.IdUsuario == id);
+
+                if (usuarioRol != null)
+                {
+                    usuarioRol.IdRol = idRol;
+                }
+                else
+                {
+                    usuarioRol = new UsuarioRol
+                    {
+                        IdUsuario = id,
+                        IdRol = idRol
+                    };
+
+                    _context.UsuarioRols.Add(usuarioRol);
+                }
+
+                _context.SaveChanges();
+
+                TempData["Exito"] = "Usuario actualizado correctamente.";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.InnerException?.Message ?? ex.Message;
+
+                CargarCombos();
+                ViewBag.IdRolActual = idRol;
+                return View(usuario);
+            }
         }
-
-        _context.SaveChanges();
-
-        TempData["Exito"] = "Usuario actualizado correctamente.";
-
-        return RedirectToAction(nameof(Index));
-    }
-    catch (Exception ex)
-    {
-        TempData["Error"] = ex.InnerException?.Message ?? ex.Message;
-
-        CargarCombos();
-        ViewBag.IdRolActual = idRol;
-        return View(usuario);
-    }
-}
-
     }
 }

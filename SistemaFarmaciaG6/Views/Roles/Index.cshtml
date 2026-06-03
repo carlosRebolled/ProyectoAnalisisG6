@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.Usuario>
+
+<h2>Gestión de Roles</h2>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Rol actual</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2</td>
+                <td>@usuario.Correo</td>
+                <td>
+                    @(usuario.UsuarioRols.FirstOrDefault()?.IdRolNavigation?.NombreRol ?? "Sin rol")
+                </td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@usuario.IdUsuario"
+                       class="btn btn-warning btn-sm">
+                        Cambiar Rol
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
