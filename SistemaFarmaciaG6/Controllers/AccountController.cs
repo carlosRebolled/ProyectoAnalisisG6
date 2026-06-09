@@ -51,7 +51,7 @@ namespace SistemaFarmaciaG6.Controllers
             }
 
             HttpContext.Session.SetInt32("IdUsuario", usuario.IdUsuario);
-            HttpContext.Session.SetString("Nombre", usuario.Nombre);
+            HttpContext.Session.SetString("Nombre", $"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}");
             HttpContext.Session.SetString("Rol", rol.NombreRol);
 
             return RedirectToAction("Index", "Home");

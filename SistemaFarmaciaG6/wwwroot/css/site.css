@@ -23,8 +23,6 @@ body {
 }
 
 
-
-
 .top-bar {
     background-color: #199490; /* verde agua institucional */
     color: white;
@@ -71,9 +69,6 @@ body {
         }
 
 
-
-
-
 /* Navbar con fondo blanco */
 .navbar-teal {
     background-color: #ffffff !important;
@@ -81,8 +76,8 @@ body {
 
 /* Logo más grande */
 .logo-img {
-    width: 120px;
-    height: 90px;
+    width: auto;
+    height: 40px;
 }
 
 /* Menú principal: enlaces */
@@ -184,41 +179,36 @@ body {
                 margin-left: 15px; /* separación entre botones */
             }
 
-
-
-/* Footer institucional */
 .footer-custom {
-    background-color: #199490; /* verde agua */
-    color: white;
-    padding: 15px 0;
-    border-top: 3px solid #147a74;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    background-color: #D9D7D7;
+    border-top: 1px solid #dcdcdc;
+    padding: 10px 0;
+    text-align: center;
+    color: #555555;
+    font-size: 0.9rem;
+    box-shadow: none;
 }
 
-/* Logo del footer */
-.footer-img {
-    height: 50px;
-    width: auto;
+/* Contenido centrado */
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
-/* Texto junto al logo */
-.footer-text {
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-/* Enlaces del footer */
+/* Enlaces */
 .footer-link {
-    color: #ffffff;
+    color: #555555;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    transition: 0.3s;
 }
 
     .footer-link:hover {
-        color: #5667e3; /* azul del botón Crear */
+        color: #003366;
+        text-decoration: underline;
     }
-
 
 html, body {
     height: 100%;
@@ -281,3 +271,93 @@ footer, .footer-custom {
         background-color: #147a74; /* tono más oscuro al pasar el mouse */
         color: white;
     }
+
+.ucr-bar {
+    background-color: #199490;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+.ucr-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1.2rem;
+}
+
+    .ucr-link:hover {
+        color: #d9f5f4;
+    }
+
+.user-bar {
+    background-color: #D9D7D7;
+    padding: 8px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-menu {
+    background-color: #D9D7D7;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.user-menu a {
+    text-decoration: none;
+    color: #333;
+}
+
+    .user-menu a:hover {
+        color: #199490;
+    }
+
+.ucr-logo {
+    height: 60px;
+    width: auto;
+}
+
+.login-logo {
+    height: 80px;
+    width: auto;
+    margin-bottom: 10px;
+}
+
+.user-role {
+    color: #576f82;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.separator {
+    color: #999;
+}
+
+/* Index */
+
+.welcome-container {
+    max-width: 900px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.welcome-title {
+    color: #199490;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.welcome-text {
+    color: #576f82;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
