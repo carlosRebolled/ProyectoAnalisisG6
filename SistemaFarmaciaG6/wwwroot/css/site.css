@@ -361,3 +361,25 @@ footer, .footer-custom {
     margin-bottom: 20px;
     text-align: justify;
 }
+
+/* Formularios de informes */
+
+.card-header {
+    background-color: #199490;
+    color: white;
+    font-weight: 600;
+}
+
+.form-label {
+    color: #576f82;
+    font-weight: 600;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-check-label {
+    color: #576f82;
+    font-weight: 500;
+}

@@ -1,0 +1,88 @@
+﻿@model List<SistemaFarmaciaG6.Models.InformeDocente>
+
+    @{
+    ViewData["Title"] = "Informes Docentes";
+    }
+
+    <div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="fw-bold">
+                Informes Docentes
+            </h2>
+
+            <a asp-action="Create"
+               class="btn btn-create">
+                Generar Informe
+            </a>
+
+        </div>
+
+        <table class="table table-hover categorias-table">
+
+            <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Estado</th>
+                    <th>Fecha Creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>@item.Anio</td>
+
+                    <td>
+                        @item.IdEstadoNavigation.NombreEstado
+                    </td>
+
+                    <td>
+                        @item.FechaCreacion.ToString("dd/MM/yyyy")
+                    </td>
+
+                    <td>
+
+                        @if (item.IdEstado == 1) // Borrador
+                        {
+                        <a class="btn btn-sm btn-warning">Editar</a>
+                        <a class="btn btn-sm btn-danger">Eliminar</a>
+                        <a class="btn btn-sm btn-success">Enviar</a>
+                        }
+
+                        @if (item.IdEstado == 2) // Pendiente
+                        {
+                        <a class="btn btn-sm btn-info">Ver</a>
+                        }
+
+                        @if (item.IdEstado == 3) // Devuelto
+                        {
+                        <a class="btn btn-sm btn-warning">Editar</a>
+                        }
+
+                        @if (item.IdEstado == 4) // Aprobado
+                        {
+                        <a class="btn btn-sm btn-info">Ver</a>
+                        <a class="btn btn-sm btn-secondary">Exportar</a>
+                        }
+
+                        @if (item.IdEstado == 5) // Finalizado
+                        {
+                        <a class="btn btn-sm btn-secondary">Exportar</a>
+                        }
+
+                    </td>
+
+                </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>

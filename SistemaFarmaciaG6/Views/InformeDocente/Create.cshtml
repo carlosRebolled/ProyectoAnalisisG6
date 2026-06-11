@@ -1,0 +1,1106 @@
+﻿@using SistemaFarmaciaG6.Models
+
+@{
+    ViewData["Title"] = "Crear Informe Docente";
+
+    var usuario = ViewBag.Usuario as Usuario;
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Crear Informe Docente
+    </h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+
+            @TempData["Error"]
+
+        </div>
+    }
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="alert alert-success">
+
+            @TempData["Exito"]
+
+        </div>
+    }
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-secondary text-white">
+            Datos Generales
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Nombre Completo</label>
+                    <input class="form-control"
+                           readonly
+                           value="@($"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}")" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Cédula</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.Cedula" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Correo</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.Correo" />
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Edad</label>
+                    <input class="form-control"
+                           readonly
+                           value="@ViewBag.Edad años" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Género</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdGeneroNavigation.NombreGenero" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Departamento</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdDepartamentoNavigation.NombreDepartamento" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Categoría</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdCategoriaNavigation.NombreCategoria" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Tipo Nombramiento</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdTipoNombramientoNavigation.NombreNombramiento" />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                Información del Informe
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="fw-bold">
+                            Año del Informe
+                        </label>
+
+                        <input type="text"
+                               class="form-control"
+                               value="@DateTime.Now.Year"
+                               readonly />
+
+                        <input type="hidden"
+                               name="Anio"
+                               value="@DateTime.Now.Year" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <form id="formInformeDocente" asp-action="Create" method="post">
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación en Congresos Activos
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadCongresosActivos"
+                                   name="CantidadCongresosActivos"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleCongresosActivos"
+                                      name="DetalleCongresosActivos"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naCongresosActivos">
+
+                        <label class="form-check-label"
+                               for="naCongresosActivos">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación en Congresos Pasivos
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadCongresosPasivos"
+                                   name="CantidadCongresosPasivos"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleCongresosPasivos"
+                                      name="DetalleCongresosPasivos"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naCongresosPasivos">
+
+                        <label class="form-check-label"
+                               for="naCongresosPasivos">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación en proyectos de acción social
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadAccionSocial"
+                                   name="CantidadAccionSocial"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleAccionSocial"
+                                      name="DetalleAccionSocial"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naAccionSocial">
+
+                        <label class="form-check-label"
+                               for="naAccionSocial">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación en proyectos de investigación
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadInvestigacion"
+                                   name="CantidadInvestigacion"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleInvestigacion"
+                                      name="DetalleInvestigacion"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naInvestigacion">
+
+                        <label class="form-check-label"
+                               for="naInvestigacion">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación en proyectos de docencia
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadDocencia"
+                                   name="CantidadDocencia"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleDocencia"
+                                      name="DetalleDocencia"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naDocencia">
+
+                        <label class="form-check-label"
+                               for="naDocencia">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Publicaciones por año
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadPublicaciones"
+                                   name="CantidadPublicaciones"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetallePublicaciones"
+                                      name="DetallePublicaciones"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naPublicaciones">
+
+                        <label class="form-check-label"
+                               for="naPublicaciones">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación de cursos de grado (Otra Carrera)
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadCursosGrado"
+                                   name="CantidadCursosGrado"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleCursosGrado"
+                                      name="DetalleCursosGrado"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naCursosGrado">
+
+                        <label class="form-check-label"
+                               for="naCursosGrado">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Participación en cursos de posgrado o TFG
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadPosgrado"
+                                   name="CantidadPosgrado"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetallePosgrado"
+                                      name="DetallePosgrado"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naPosgrado">
+
+                        <label class="form-check-label"
+                               for="naPosgrado">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Representación fuera de la Facultad
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Cantidad
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   id="CantidadRepresentacion"
+                                   name="CantidadRepresentacion"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <label class="form-label">
+                                Detalle
+                            </label>
+
+                            <textarea id="DetalleRepresentacion"
+                                      name="DetalleRepresentacion"
+                                      class="form-control"
+                                      rows="3"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naRepresentacion">
+
+                        <label class="form-check-label"
+                               for="naRepresentacion">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    Otros
+                </div>
+
+                <div class="card-body">
+
+                    <label class="form-label">
+                        Detalle
+                    </label>
+
+                    <textarea id="DetalleOtros"
+                              class="form-control"
+                              rows="4"
+                              name="DetalleOtros"></textarea>
+
+                    <div class="form-check mt-3">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="naOtros">
+
+                        <label class="form-check-label"
+                               for="naOtros">
+
+                            No aplica
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header">
+                    Observaciones del Docente
+                </div>
+
+                <div class="card-body">
+
+                    <textarea id="ObservacionesDocente"
+                              class="form-control"
+                              rows="6"
+                              name="ObservacionesDocente"
+                              placeholder="Ingrese observaciones adicionales si lo considera necesario"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4 mb-5">
+                <button type="submit" class="btn btn-create">
+                    Guardar Borrador
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+
+        </form>
+
+        @section Scripts{
+
+            <script>
+
+                        document.getElementById("naCongresosActivos")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadCongresosActivos");
+                            let detalle = document.getElementById("DetalleCongresosActivos");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naCongresosPasivos")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadCongresosPasivos");
+                            let detalle = document.getElementById("DetalleCongresosPasivos");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naAccionSocial")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadAccionSocial");
+                            let detalle = document.getElementById("DetalleAccionSocial");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naInvestigacion")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadInvestigacion");
+                            let detalle = document.getElementById("DetalleInvestigacion");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naDocencia")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadDocencia");
+                            let detalle = document.getElementById("DetalleDocencia");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naPublicaciones")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadPublicaciones");
+                            let detalle = document.getElementById("DetallePublicaciones");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naCursosGrado")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadCursosGrado");
+                            let detalle = document.getElementById("DetalleCursosGrado");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naPosgrado")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadPosgrado");
+                            let detalle = document.getElementById("DetallePosgrado");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                        document.getElementById("naRepresentacion")
+                        .addEventListener("change", function () {
+
+                            let cantidad = document.getElementById("CantidadRepresentacion");
+                            let detalle = document.getElementById("DetalleRepresentacion");
+
+                            if (this.checked) {
+
+                                cantidad.value = 0;
+                                detalle.value = "N/A";
+
+                                cantidad.readOnly = true;
+                                detalle.readOnly = true;
+
+                            }
+                            else {
+
+                                cantidad.readOnly = false;
+                                detalle.readOnly = false;
+
+                                cantidad.value = "";
+                                detalle.value = "";
+
+                            }
+
+                        });
+
+            </script>
+
+            <script>
+
+                document.getElementById("naOtros")
+                .addEventListener("change", function () {
+
+                let detalle = document.getElementById("DetalleOtros");
+
+                if (this.checked) {
+
+                detalle.value = "N/A";
+                detalle.readOnly = true;
+
+                }
+                else {
+
+                detalle.value = "";
+                detalle.readOnly = false;
+
+                }
+
+                });
+
+            </script>
+            
+        }
+        <script>
+
+                    document.addEventListener("DOMContentLoaded", function () {
+
+                        const formulario =
+                            document.getElementById("formInformeDocente");
+
+                        const campos =
+                            formulario.querySelectorAll("input, textarea");
+
+                        campos.forEach(campo => {
+
+                            let valorGuardado =
+                                localStorage.getItem(campo.name);
+
+                            if (valorGuardado !== null)
+                            {
+                                campo.value = valorGuardado;
+                            }
+
+                        });
+
+                        campos.forEach(campo => {
+
+                            campo.addEventListener("input", function () {
+
+                                localStorage.setItem(
+                                    campo.name,
+                                    campo.value
+                                );
+
+                            });
+
+                        });
+
+                    });
+
+        </script>
+
+        @if (TempData["LimpiarLocalStorage"] != null)
+        {
+            <script>
+
+                        localStorage.clear();
+
+            </script>
+        }
+
+    </div>
+
+</div>
+
+
+
