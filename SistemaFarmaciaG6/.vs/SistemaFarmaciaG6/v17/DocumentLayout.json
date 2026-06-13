@@ -362,8 +362,7 @@
               "RelativeToolTip": "Controllers\\RolesController.cs",
               "ViewState": "AgIAAF0AAAAAAAAAAAAwwHUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T08:12:25.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:12:25.593Z"
             },
             {
               "$type": "Document",
@@ -375,8 +374,7 @@
               "RelativeToolTip": "Controllers\\UsuariosController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T07:33:48.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T07:33:48.752Z"
             },
             {
               "$type": "Document",
@@ -388,8 +386,7 @@
               "RelativeToolTip": "Controllers\\PerfilController.cs",
               "ViewState": "AgIAAE4AAAAAAAAAAAAAAGUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T08:24:44.269Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:24:44.269Z"
             },
             {
               "$type": "Document",
@@ -401,8 +398,7 @@
               "RelativeToolTip": "Controllers\\HomeController.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAA3wBwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-31T23:41:26.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:41:26.49Z"
             },
             {
               "$type": "Document",
@@ -412,7 +408,7 @@
               "RelativeDocumentMoniker": "Controllers\\CategoriasController.cs",
               "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\CategoriasController.cs",
               "RelativeToolTip": "Controllers\\CategoriasController.cs",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAwwLoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwLoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-31T23:41:21.184Z",
               "EditorCaption": ""
@@ -427,8 +423,7 @@
               "RelativeToolTip": "Helpers\\SeguridadHelper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T08:44:08.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:44:08.917Z"
             },
             {
               "$type": "Document",
@@ -440,8 +435,7 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAGMAAAAAAAAAAAAAAOMAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-31T23:46:45.836Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:46:45.836Z"
             },
             {
               "$type": "Document",
@@ -453,8 +447,7 @@
               "RelativeToolTip": "Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-01T09:02:16.074Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T09:02:16.074Z"
             },
             {
               "$type": "Document",
@@ -466,8 +459,7 @@
               "RelativeToolTip": "Views\\Usuarios\\Edit.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAI0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-02T09:58:08.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T09:58:08.711Z"
             },
             {
               "$type": "Document",
@@ -479,8 +471,7 @@
               "RelativeToolTip": "Models\\Role.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T09:58:19.159Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T09:58:19.159Z"
             },
             {
               "$type": "Document",
@@ -492,8 +483,7 @@
               "RelativeToolTip": "Views\\Roles\\Index.cshtml",
               "ViewState": "AgIAAA8AAAAAAAAAAAAowCYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-03T08:16:06.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:16:06.173Z"
             },
             {
               "$type": "Document",
@@ -501,12 +491,11 @@
               "Title": "SistemaFarmaciaG6.csproj",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\SistemaFarmaciaG6.csproj",
               "RelativeDocumentMoniker": "SistemaFarmaciaG6.csproj",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\SistemaFarmaciaG6.csproj*",
-              "RelativeToolTip": "SistemaFarmaciaG6.csproj*",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\SistemaFarmaciaG6.csproj",
+              "RelativeToolTip": "SistemaFarmaciaG6.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-06-01T08:18:09.361Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T08:18:09.361Z"
             },
             {
               "$type": "Document",
@@ -518,8 +507,7 @@
               "RelativeToolTip": "Views\\Perfil\\Edit.cshtml",
               "ViewState": "AgIAAB8AAAAAAAAAAAAwwDYAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-03T08:26:21.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:26:21.737Z"
             },
             {
               "$type": "Document",
@@ -531,8 +519,7 @@
               "RelativeToolTip": "Views\\Perfil\\Index.cshtml",
               "ViewState": "AgIAAA8AAAAAAAAAAAAswCcAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-03T08:25:48.131Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:25:48.131Z"
             },
             {
               "$type": "Document",
@@ -556,8 +543,7 @@
               "RelativeToolTip": "Views\\Roles\\Edit.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-03T08:16:57.744Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:16:57.744Z"
             },
             {
               "$type": "Document",
