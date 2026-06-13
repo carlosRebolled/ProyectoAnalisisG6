@@ -1,35 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<div class="welcome-container">
 
-<h2>Bienvenido @ViewBag.Nombre</h2>
+    <h1 class="welcome-title">
+        Bienvenido al Sistema de Informes de Labores Docentes
+    </h1>
 
-<h4>Rol: @ViewBag.Rol</h4>
+    <p class="welcome-text">
+        Este sistema ha sido desarrollado con el propósito de facilitar la elaboración,
+        gestión y seguimiento de los informes de labores del personal docente de la
+        Facultad de Farmacia de la Universidad de Costa Rica.
+    </p>
 
-<hr />
+    <p class="welcome-text">
+        Desde esta plataforma podrá registrar y actualizar la información correspondiente
+        a sus actividades académicas, elaborar su informe anual de labores y enviarlo
+        para la revisión y aprobación de la Dirección del Departamento correspondiente.
+    </p>
 
-@if (ViewBag.Rol == "Administrador")
-{
-    <a class="btn btn-primary" href="/Usuarios/Index">Usuarios</a>
-    <a class="btn btn-success" href="/Roles/Index">Roles</a>
-}
+    <p class="welcome-text">
+        Asimismo, el sistema permite la consulta del historial de informes y la
+        exportación de la información en distintos formatos, tales como PDF,
+        Microsoft Excel y Microsoft Word, facilitando su almacenamiento,
+        distribución y respaldo.
+    </p>
 
-@if (ViewBag.Rol == "Docente")
-{
-    <a class="btn btn-info">Mis Informes</a>
-}
-
-@if (ViewBag.Rol == "Director")
-{
-    <a class="btn btn-warning">Aprobar Informes</a>
-}
-
-<a class="btn btn-danger" href="/Account/Logout">
-    Cerrar Sesión
-</a>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-
-
