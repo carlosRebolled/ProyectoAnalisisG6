@@ -34,6 +34,23 @@
 
     </div>
 
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <label class="form-label">
+                Buscar categoría
+            </label>
+
+            <input type="text"
+                   id="buscarCategoria"
+                   class="form-control"
+                   placeholder="Escriba el nombre de la categoría..." />
+
+        </div>
+
+    </div>
+
     <table class="table table-hover shadow-sm categorias-table">
 
         <thead>
@@ -49,13 +66,13 @@
 
             @foreach (var item in Model)
             {
-                <tr>
+                <tr class="fila-categoria">
 
                     <td>
                         @item.IdCategoria
                     </td>
 
-                    <td>
+                    <td class="nombre-categoria">
                         @item.NombreCategoria
                     </td>
 
@@ -104,3 +121,33 @@
     </table>
 
 </div>
+
+@section Scripts {
+
+    <script>
+
+        document.getElementById("buscarCategoria")
+        .addEventListener("keyup", function () {
+
+            let texto = this.value.toLowerCase();
+
+            let filas = document.querySelectorAll(".fila-categoria");
+
+            filas.forEach(function (fila) {
+
+                let nombreCategoria = fila.querySelector(".nombre-categoria")
+                                          .innerText
+                                          .toLowerCase();
+
+                fila.style.display =
+                    nombreCategoria.includes(texto)
+                    ? ""
+                    : "none";
+
+            });
+
+        });
+
+    </script>
+
+}
