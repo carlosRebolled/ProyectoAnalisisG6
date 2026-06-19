@@ -110,3 +110,18 @@ VALUES
 go
 
 select * from dbo.Usuarios
+
+
+
+
+DELETE FROM dbo.UsuarioRol;
+GO
+
+INSERT INTO dbo.UsuarioRol (id_usuario, id_rol)
+VALUES
+(1, 4), -- Kevin Administrador
+(2, 1), -- Felipe Docente
+(3, 2); -- Nahomy Director
+GO
+
+SELECT * FROM dbo.UsuarioRol;

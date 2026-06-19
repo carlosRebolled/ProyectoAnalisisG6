@@ -13,8 +13,14 @@ INSERT INTO dbo.UsuarioRol
     id_rol
 )
 VALUES
-(4,1), -- Felipe -- Docente
-(5,2); -- Nahomy -- Director
+(2,1), -- Felipe -- Docente
+(3,2); -- Nahomy -- Director
 GO
 
+
+select * from dbo.Roles
+
 select * from dbo.UsuarioRol
+
+SELECT id_usuario, nombre, correo
+FROM dbo.Usuarios;

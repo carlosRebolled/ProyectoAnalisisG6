@@ -169,5 +169,310 @@ namespace SistemaFarmaciaG6.Controllers
             }
         }
 
+
+
+
+
+        public IActionResult Details(int id)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDocentes
+                .Include(i => i.IdEstadoNavigation)
+                .Include(i => i.IdUsuarioNavigation)
+                .FirstOrDefault(i => i.IdInformeDocente == id &&
+                                     i.IdUsuario == idUsuario);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            return View(informe);
+        }
+
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDocentes
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdGeneroNavigation)
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdDepartamentoNavigation)
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdCategoriaNavigation)
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdTipoNombramientoNavigation)
+                .FirstOrDefault(i => i.IdInformeDocente == id &&
+                                     i.IdUsuario == idUsuario);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            if (informe.IdEstado != 1 && informe.IdEstado != 3)
+            {
+                TempData["Error"] = "Solo se pueden editar informes en estado Borrador o Devuelto.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var usuario = informe.IdUsuarioNavigation;
+
+            var hoy = DateTime.Today;
+            var edad = hoy.Year - usuario.FechaNacimiento.Year;
+
+            if (usuario.FechaNacimiento.ToDateTime(TimeOnly.MinValue) > hoy.AddYears(-edad))
+            {
+                edad--;
+            }
+
+            ViewBag.Usuario = usuario;
+            ViewBag.Edad = edad;
+
+            return View(informe);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, InformeDocente informe)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informeBD = _context.InformeDocentes
+                .FirstOrDefault(i => i.IdInformeDocente == id &&
+                                     i.IdUsuario == idUsuario);
+
+            if (informeBD == null)
+            {
+                return NotFound();
+            }
+
+            if (informeBD.IdEstado != 1 && informeBD.IdEstado != 3)
+            {
+                TempData["Error"] = "No se puede editar este informe porque ya fue enviado o aprobado.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                informeBD.CantidadCongresosActivos = informe.CantidadCongresosActivos;
+                informeBD.DetalleCongresosActivos = informe.DetalleCongresosActivos;
+
+                informeBD.CantidadCongresosPasivos = informe.CantidadCongresosPasivos;
+                informeBD.DetalleCongresosPasivos = informe.DetalleCongresosPasivos;
+
+                informeBD.CantidadAccionSocial = informe.CantidadAccionSocial;
+                informeBD.DetalleAccionSocial = informe.DetalleAccionSocial;
+
+                informeBD.CantidadInvestigacion = informe.CantidadInvestigacion;
+                informeBD.DetalleInvestigacion = informe.DetalleInvestigacion;
+
+                informeBD.CantidadDocencia = informe.CantidadDocencia;
+                informeBD.DetalleDocencia = informe.DetalleDocencia;
+
+                informeBD.CantidadPublicaciones = informe.CantidadPublicaciones;
+                informeBD.DetallePublicaciones = informe.DetallePublicaciones;
+
+                informeBD.CantidadCursosGrado = informe.CantidadCursosGrado;
+                informeBD.DetalleCursosGrado = informe.DetalleCursosGrado;
+
+                informeBD.CantidadPosgrado = informe.CantidadPosgrado;
+                informeBD.DetallePosgrado = informe.DetallePosgrado;
+
+                informeBD.CantidadRepresentacion = informe.CantidadRepresentacion;
+                informeBD.DetalleRepresentacion = informe.DetalleRepresentacion;
+
+                informeBD.DetalleOtros = informe.DetalleOtros;
+                informeBD.ObservacionesDocente = informe.ObservacionesDocente;
+
+                _context.SaveChanges();
+
+                TempData["Exito"] = "Informe actualizado correctamente.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.InnerException?.Message ?? ex.Message;
+                return RedirectToAction(nameof(Edit), new { id = id });
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDocentes
+                .Include(i => i.IdEstadoNavigation)
+                .FirstOrDefault(i =>
+                    i.IdInformeDocente == id &&
+                    i.IdUsuario == idUsuario);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            // Solo se permite eliminar borradores
+            if (informe.IdEstado != 1)
+            {
+                TempData["Error"] =
+                    "Solo se pueden eliminar informes en estado Borrador.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(informe);
+        }
+
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDocentes
+                .FirstOrDefault(i =>
+                    i.IdInformeDocente == id &&
+                    i.IdUsuario == idUsuario);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            // Seguridad: solo borrar si está en borrador
+            if (informe.IdEstado != 1)
+            {
+                TempData["Error"] =
+                    "Solo se pueden eliminar informes en estado Borrador.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                _context.InformeDocentes.Remove(informe);
+
+                _context.SaveChanges();
+
+                TempData["Exito"] =
+                    "Informe eliminado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] =
+                    ex.InnerException?.Message ?? ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult Enviar(int id)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDocentes
+                .Include(i => i.IdEstadoNavigation)
+                .FirstOrDefault(i =>
+                    i.IdInformeDocente == id &&
+                    i.IdUsuario == idUsuario);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            if (informe.IdEstado != 1)
+            {
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(informe);
+        }
+
+
+
+        [HttpPost, ActionName("Enviar")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EnviarConfirmado(int id)
+        {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDocentes
+                .FirstOrDefault(i =>
+                    i.IdInformeDocente == id &&
+                    i.IdUsuario == idUsuario);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            if (informe.IdEstado != 1)
+            {
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            informe.IdEstado = 2;
+            informe.FechaEnvio = DateTime.Now;
+
+            _context.SaveChanges();
+
+            TempData["Exito"] =
+                "Informe enviado correctamente para revisión.";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

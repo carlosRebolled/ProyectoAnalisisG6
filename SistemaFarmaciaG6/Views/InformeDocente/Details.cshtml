@@ -1,0 +1,109 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDocente
+
+@{
+    ViewData["Title"] = "Detalle del Informe";
+}
+
+<h2>Detalle del Informe de Labores</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+
+        <div class="mb-3">
+            <strong>Año:</strong>
+            @Model.Anio
+        </div>
+
+        <div class="mb-3">
+            <strong>Estado:</strong>
+
+            @if (Model.IdEstado == 1)
+            {
+                <span class="badge bg-warning">Pendiente</span>
+            }
+            else if (Model.IdEstado == 2)
+            {
+                <span class="badge bg-success">Aprobado</span>
+            }
+            else if (Model.IdEstado == 3)
+            {
+                <span class="badge bg-danger">Devuelto</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">
+                    @Model.IdEstadoNavigation?.NombreEstado
+                </span>
+            }
+        </div>
+
+        <hr />
+
+        <h5>Congresos Activos</h5>
+        <p>@Model.DetalleCongresosActivos</p>
+
+        <h5>Congresos Pasivos</h5>
+        <p>@Model.DetalleCongresosPasivos</p>
+
+        <h5>Acción Social</h5>
+        <p>@Model.DetalleAccionSocial</p>
+
+        <h5>Investigación</h5>
+        <p>@Model.DetalleInvestigacion</p>
+
+        <h5>Docencia</h5>
+        <p>@Model.DetalleDocencia</p>
+
+        <h5>Publicaciones</h5>
+        <p>@Model.DetallePublicaciones</p>
+
+        <h5>Cursos de Grado</h5>
+        <p>@Model.DetalleCursosGrado</p>
+
+        <h5>Posgrado</h5>
+        <p>@Model.DetallePosgrado</p>
+
+        <h5>Representación</h5>
+        <p>@Model.DetalleRepresentacion</p>
+
+        <h5>Otros</h5>
+        <p>@Model.DetalleOtros</p>
+
+        <hr />
+
+        <div class="mb-3">
+            <strong>Fecha de creación:</strong>
+            @Model.FechaCreacion
+        </div>
+
+        @if (Model.FechaEnvio != null)
+        {
+            <div class="mb-3">
+                <strong>Fecha de envío:</strong>
+                @Model.FechaEnvio
+            </div>
+        }
+
+        @if (Model.FechaAprobacion != null)
+        {
+            <div class="mb-3">
+                <strong>Fecha de aprobación:</strong>
+                @Model.FechaAprobacion
+            </div>
+        }
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Volver
+        </a>
+
+        @if (Model.IdEstado == 1 || Model.IdEstado == 3)
+        {
+            <a asp-action="Edit"
+               asp-route-id="@Model.IdInformeDocente"
+               class="btn btn-warning">
+                Editar
+            </a>
+        }
+
+    </div>
+</div>

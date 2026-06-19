@@ -1,45 +1,96 @@
 ﻿@model List<SistemaFarmaciaG6.Models.InformeDocente>
 
-    @{
+@{
     ViewData["Title"] = "Informes Docentes";
+}
+
+<div class="container mt-4">
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Exito"]
+        </div>
     }
 
-    <div class="container mt-4">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-
-            <h2 class="fw-bold">
-                Informes Docentes
-            </h2>
-
-            <a asp-action="Create"
-               class="btn btn-create">
-                Generar Informe
-            </a>
-
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
         </div>
+    }
 
-        <table class="table table-hover categorias-table">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <thead>
+        <h2 class="fw-bold">
+            Informes Docentes
+        </h2>
+
+        <a asp-action="Create"
+           class="btn btn-success">
+            Generar Informe
+        </a>
+
+    </div>
+
+    <table class="table table-hover table-bordered">
+
+        <thead class="table-light">
+            <tr>
+                <th>Año</th>
+                <th>Estado</th>
+                <th>Fecha Creación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>Año</th>
-                    <th>Estado</th>
-                    <th>Fecha Creación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach (var item in Model)
-                {
-                <tr>
-
-                    <td>@item.Anio</td>
 
                     <td>
-                        @item.IdEstadoNavigation.NombreEstado
+                        @item.Anio
+                    </td>
+
+                    <td>
+
+                        @if (item.IdEstado == 1)
+                        {
+                            <span class="badge bg-secondary">
+                                Borrador
+                            </span>
+                        }
+
+                        @if (item.IdEstado == 2)
+                        {
+                            <span class="badge bg-warning text-dark">
+                                Pendiente
+                            </span>
+                        }
+
+                        @if (item.IdEstado == 3)
+                        {
+                            <span class="badge bg-danger">
+                                Devuelto
+                            </span>
+                        }
+
+                        @if (item.IdEstado == 4)
+                        {
+                            <span class="badge bg-success">
+                                Aprobado
+                            </span>
+                        }
+
+                        @if (item.IdEstado == 5)
+                        {
+                            <span class="badge bg-primary">
+                                Finalizado
+                            </span>
+                        }
+
                     </td>
 
                     <td>
@@ -50,39 +101,89 @@
 
                         @if (item.IdEstado == 1) // Borrador
                         {
-                        <a class="btn btn-sm btn-warning">Editar</a>
-                        <a class="btn btn-sm btn-danger">Eliminar</a>
-                        <a class="btn btn-sm btn-success">Enviar</a>
+                            <a asp-action="Details"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-info">
+                                Ver
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-warning">
+                                Editar
+                            </a>
+
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-danger">
+                                Eliminar
+                            </a>
+
+                            <a asp-action="Enviar"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-success">
+                                Enviar
+                            </a>
                         }
 
                         @if (item.IdEstado == 2) // Pendiente
                         {
-                        <a class="btn btn-sm btn-info">Ver</a>
+                            <a asp-action="Details"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-info">
+                                Ver
+                            </a>
                         }
 
                         @if (item.IdEstado == 3) // Devuelto
                         {
-                        <a class="btn btn-sm btn-warning">Editar</a>
+                            <a asp-action="Details"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-info">
+                                Ver
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-warning">
+                                Editar
+                            </a>
                         }
 
                         @if (item.IdEstado == 4) // Aprobado
                         {
-                        <a class="btn btn-sm btn-info">Ver</a>
-                        <a class="btn btn-sm btn-secondary">Exportar</a>
+                            <a asp-action="Details"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-info">
+                                Ver
+                            </a>
+
+                            <a class="btn btn-sm btn-secondary">
+                                Exportar
+                            </a>
                         }
 
                         @if (item.IdEstado == 5) // Finalizado
                         {
-                        <a class="btn btn-sm btn-secondary">Exportar</a>
+                            <a asp-action="Details"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-sm btn-info">
+                                Ver
+                            </a>
+
+                            <a class="btn btn-sm btn-secondary">
+                                Exportar
+                            </a>
                         }
 
                     </td>
 
                 </tr>
-                }
+            }
 
-            </tbody>
+        </tbody>
 
-        </table>
+    </table>
 
-    </div>
+</div>

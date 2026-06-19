@@ -1,0 +1,849 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDocente
+@using SistemaFarmaciaG6.Models
+
+@{
+    ViewData["Title"] = "Editar Informe Docente";
+    var usuario = ViewBag.Usuario as Usuario;
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Editar Informe Docente
+    </h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Exito"]
+        </div>
+    }
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-secondary text-white">
+            Datos Generales
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Nombre Completo</label>
+                    <input class="form-control"
+                           readonly
+                           value="@($"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}")" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Cédula</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.Cedula" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Correo</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.Correo" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Edad</label>
+                    <input class="form-control"
+                           readonly
+                           value="@ViewBag.Edad años" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Género</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdGeneroNavigation.NombreGenero" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Departamento</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdDepartamentoNavigation.NombreDepartamento" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Categoría</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdCategoriaNavigation.NombreCategoria" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Tipo Nombramiento</label>
+                    <input class="form-control"
+                           readonly
+                           value="@usuario.IdTipoNombramientoNavigation.NombreNombramiento" />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+            Información del Informe
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Año del Informe</label>
+                    <input class="form-control"
+                           value="@Model.Anio"
+                           readonly />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold">Estado</label>
+                    <input class="form-control"
+                           value="@(Model.IdEstado == 1 ? "Borrador" : "Devuelto")"
+                           readonly />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <form id="formInformeDocenteEdit"
+          asp-action="Edit"
+          method="post">
+
+        <input type="hidden"
+               asp-for="IdInformeDocente" />
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación en Congresos Activos
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadCongresosActivos"
+                               type="number"
+                               min="0"
+                               id="CantidadCongresosActivos"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-9">
+
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleCongresosActivos"
+                                  id="DetalleCongresosActivos"
+                                  class="form-control"
+                                  rows="3"></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naCongresosActivos"
+                           @(Model.DetalleCongresosActivos == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naCongresosActivos">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación en Congresos Pasivos
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadCongresosPasivos"
+                               type="number"
+                               min="0"
+                               id="CantidadCongresosPasivos"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleCongresosPasivos"
+                                  id="DetalleCongresosPasivos"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naCongresosPasivos"
+                           @(Model.DetalleCongresosPasivos == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naCongresosPasivos">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación en proyectos de acción social
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadAccionSocial"
+                               type="number"
+                               min="0"
+                               id="CantidadAccionSocial"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleAccionSocial"
+                                  id="DetalleAccionSocial"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naAccionSocial"
+                           @(Model.DetalleAccionSocial == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naAccionSocial">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación en proyectos de investigación
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadInvestigacion"
+                               type="number"
+                               min="0"
+                               id="CantidadInvestigacion"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleInvestigacion"
+                                  id="DetalleInvestigacion"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naInvestigacion"
+                           @(Model.DetalleInvestigacion == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naInvestigacion">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación en proyectos de docencia
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadDocencia"
+                               type="number"
+                               min="0"
+                               id="CantidadDocencia"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleDocencia"
+                                  id="DetalleDocencia"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naDocencia"
+                           @(Model.DetalleDocencia == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naDocencia">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Publicaciones por año
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadPublicaciones"
+                               type="number"
+                               min="0"
+                               id="CantidadPublicaciones"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetallePublicaciones"
+                                  id="DetallePublicaciones"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naPublicaciones"
+                           @(Model.DetallePublicaciones == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naPublicaciones">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación de cursos de grado
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadCursosGrado"
+                               type="number"
+                               min="0"
+                               id="CantidadCursosGrado"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleCursosGrado"
+                                  id="DetalleCursosGrado"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naCursosGrado"
+                           @(Model.DetalleCursosGrado == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naCursosGrado">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Participación en cursos de posgrado o TFG
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadPosgrado"
+                               type="number"
+                               min="0"
+                               id="CantidadPosgrado"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetallePosgrado"
+                                  id="DetallePosgrado"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naPosgrado"
+                           @(Model.DetallePosgrado == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naPosgrado">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Representación fuera de la Facultad
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
+
+                        <input asp-for="CantidadRepresentacion"
+                               type="number"
+                               min="0"
+                               id="CantidadRepresentacion"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <label class="form-label">
+                            Detalle
+                        </label>
+
+                        <textarea asp-for="DetalleRepresentacion"
+                                  id="DetalleRepresentacion"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naRepresentacion"
+                           @(Model.DetalleRepresentacion == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naRepresentacion">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                Otros
+            </div>
+
+            <div class="card-body">
+
+                <label class="form-label">
+                    Detalle
+                </label>
+
+                <textarea asp-for="DetalleOtros"
+                          id="DetalleOtros"
+                          class="form-control"
+                          rows="4"></textarea>
+
+                <div class="form-check mt-3">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="naOtros"
+                           @(Model.DetalleOtros == "N/A" ? "checked" : "") />
+
+                    <label class="form-check-label"
+                           for="naOtros">
+                        No aplica
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                Observaciones del Docente
+            </div>
+
+            <div class="card-body">
+
+                <textarea asp-for="ObservacionesDocente"
+                          class="form-control"
+                          rows="6"
+                          placeholder="Ingrese observaciones adicionales si lo considera necesario"></textarea>
+
+            </div>
+
+        </div>
+
+        <div class="text-center mt-4 mb-5">
+
+            <button type="submit"
+                    class="btn btn-warning">
+                Guardar Cambios
+            </button>
+
+            <a asp-action="Details"
+               asp-route-id="@Model.IdInformeDocente"
+               class="btn btn-info">
+                Ver Detalle
+            </a>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            configurarNoAplica(
+                "naCongresosActivos",
+                "CantidadCongresosActivos",
+                "DetalleCongresosActivos"
+            );
+
+            configurarNoAplica(
+                "naCongresosPasivos",
+                "CantidadCongresosPasivos",
+                "DetalleCongresosPasivos"
+            );
+
+            configurarNoAplica(
+                "naAccionSocial",
+                "CantidadAccionSocial",
+                "DetalleAccionSocial"
+            );
+
+            configurarNoAplica(
+                "naInvestigacion",
+                "CantidadInvestigacion",
+                "DetalleInvestigacion"
+            );
+
+            configurarNoAplica(
+                "naDocencia",
+                "CantidadDocencia",
+                "DetalleDocencia"
+            );
+
+            configurarNoAplica(
+                "naPublicaciones",
+                "CantidadPublicaciones",
+                "DetallePublicaciones"
+            );
+
+            configurarNoAplica(
+                "naCursosGrado",
+                "CantidadCursosGrado",
+                "DetalleCursosGrado"
+            );
+
+            configurarNoAplica(
+                "naPosgrado",
+                "CantidadPosgrado",
+                "DetallePosgrado"
+            );
+
+            configurarNoAplica(
+                "naRepresentacion",
+                "CantidadRepresentacion",
+                "DetalleRepresentacion"
+            );
+
+            configurarNoAplicaSoloDetalle(
+                "naOtros",
+                "DetalleOtros"
+            );
+
+        });
+
+        function configurarNoAplica(idCheck, idCantidad, idDetalle) {
+
+            let check = document.getElementById(idCheck);
+            let cantidad = document.getElementById(idCantidad);
+            let detalle = document.getElementById(idDetalle);
+
+            function actualizar() {
+
+                if (check.checked) {
+
+                    cantidad.value = 0;
+                    detalle.value = "N/A";
+
+                    cantidad.readOnly = true;
+                    detalle.readOnly = true;
+
+                }
+                else {
+
+                    cantidad.readOnly = false;
+                    detalle.readOnly = false;
+
+                    if (detalle.value === "N/A") {
+                        detalle.value = "";
+                    }
+
+                }
+
+            }
+
+            actualizar();
+
+            check.addEventListener("change", actualizar);
+
+        }
+
+        function configurarNoAplicaSoloDetalle(idCheck, idDetalle) {
+
+            let check = document.getElementById(idCheck);
+            let detalle = document.getElementById(idDetalle);
+
+            function actualizar() {
+
+                if (check.checked) {
+
+                    detalle.value = "N/A";
+                    detalle.readOnly = true;
+
+                }
+                else {
+
+                    detalle.readOnly = false;
+
+                    if (detalle.value === "N/A") {
+                        detalle.value = "";
+                    }
+
+                }
+
+            }
+
+            actualizar();
+
+            check.addEventListener("change", actualizar);
+
+        }
+
+    </script>
+
+}

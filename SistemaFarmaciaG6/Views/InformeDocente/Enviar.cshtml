@@ -1,0 +1,66 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDocente
+
+@{
+    ViewData["Title"] = "Confirmar envío";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow border-success">
+
+        <div class="card-header bg-success text-white">
+            Confirmar envío
+        </div>
+
+        <div class="card-body">
+
+            <h4 class="text-success">
+                ¿Desea enviar este informe?
+            </h4>
+
+            <p>
+                Una vez enviado, no podrá editarlo nuevamente hasta que sea devuelto.
+            </p>
+
+            <hr />
+
+            <p>
+                <strong>Año:</strong>
+                @Model.Anio
+            </p>
+
+            <p>
+                <strong>Estado actual:</strong>
+                @Model.IdEstadoNavigation?.NombreEstado
+            </p>
+
+            <p>
+                <strong>Fecha de creación:</strong>
+                @Model.FechaCreacion.ToString("dd/MM/yyyy")
+            </p>
+
+            <form asp-action="Enviar" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="id"
+                       value="@Model.IdInformeDocente" />
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Sí, enviar
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
