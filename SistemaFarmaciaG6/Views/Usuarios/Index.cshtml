@@ -63,6 +63,30 @@
 
         </div>
 
+        <div class="col-md-4">
+
+            <label class="form-label">
+                Filtrar por Categoría
+            </label>
+
+            <select id="filtroCategoria" class="form-select">
+                <option value="">Todas</option>
+
+                @foreach (var categoria in Model
+                                .Select(x => x.IdCategoriaNavigation?.NombreCategoria)
+                                .Where(x => !string.IsNullOrWhiteSpace(x))
+                                .Distinct()
+                                .OrderBy(x => x))
+                {
+                    <option value="@categoria">
+                        @categoria
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
     </div>
 
     <table class="table table-hover shadow-sm categorias-table">
@@ -102,7 +126,7 @@
                         @(item.IdDepartamentoNavigation?.NombreDepartamento)
                     </td>
 
-                    <td>
+                    <td class="categoria-usuario">
                         @(item.IdCategoriaNavigation?.NombreCategoria)
                     </td>
 
@@ -148,27 +172,44 @@
 
         document.getElementById("buscarUsuario").addEventListener("keyup", filtrarUsuarios);
         document.getElementById("filtroEstado").addEventListener("change", filtrarUsuarios);
+        document.getElementById("filtroCategoria").addEventListener("change", filtrarUsuarios);
 
         function filtrarUsuarios()
         {
             let texto = document.getElementById("buscarUsuario").value.toLowerCase();
             let estado = document.getElementById("filtroEstado").value.toLowerCase();
+            let categoria = document.getElementById("filtroCategoria").value.toLowerCase();
 
             let filas = document.querySelectorAll(".fila-usuario");
 
             filas.forEach(function(fila){
 
                 let contenido = fila.innerText.toLowerCase();
-                let estadoFila = fila.querySelector(".estado-usuario").innerText.toLowerCase();
+
+                let estadoFila = fila.querySelector(".estado-usuario")
+                                     .innerText
+                                     .trim()
+                                     .toLowerCase();
+
+                let categoriaFila = fila.querySelector(".categoria-usuario")
+                                        .innerText
+                                        .trim()
+                                        .toLowerCase();
 
                 let coincideTexto = contenido.includes(texto);
 
-        let coincideEstado =
-            estado === "" ||
-            estadoFila === estado;
+                let coincideEstado =
+                    estado === "" ||
+                    estadoFila === estado;
+
+                let coincideCategoria =
+                    categoria === "" ||
+                    categoriaFila === categoria;
 
                 fila.style.display =
-                    coincideTexto && coincideEstado
+                    coincideTexto &&
+                    coincideEstado &&
+                    coincideCategoria
                     ? ""
                     : "none";
 

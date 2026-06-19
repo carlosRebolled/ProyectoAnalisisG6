@@ -183,6 +183,13 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
+            var observaciones = _context.Observaciones
+                .Where(o => o.IdInformeDocente == id)
+                .OrderByDescending(o => o.Fecha)
+                .ToList();
+
+            ViewBag.Observaciones = observaciones;
+
             return View(informe);
         }
 
@@ -333,9 +340,11 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
-            if (informe.IdEstado != 1)
+            if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
-                TempData["Error"] = "Solo se pueden eliminar informes en estado Borrador.";
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -363,9 +372,11 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
-            if (informe.IdEstado != 1)
+            if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
-                TempData["Error"] = "Solo se pueden eliminar informes en estado Borrador.";
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -416,9 +427,11 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
-            if (informe.IdEstado != 1)
+            if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
-                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador.";
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -446,9 +459,11 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
-            if (informe.IdEstado != 1)
+            if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
-                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador.";
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+
                 return RedirectToAction(nameof(Index));
             }
 

@@ -1,0 +1,182 @@
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.InformeDocente>
+
+@{
+    ViewData["Title"] = "Revisión de Informes";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Revisión de Informes Docentes
+        </h2>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <label class="form-label">
+                Buscar docente
+            </label>
+
+            <input type="text"
+                   id="buscarDocente"
+                   class="form-control"
+                   placeholder="Escriba el nombre del docente..." />
+
+        </div>
+
+        <div class="col-md-4">
+
+            <label class="form-label">
+                Filtrar por estado
+            </label>
+
+            <select id="filtroEstado" class="form-select">
+                <option value="">Todos</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Devuelto">Devuelto</option>
+                <option value="Aprobado">Aprobado</option>
+            </select>
+
+        </div>
+
+    </div>
+
+    <table class="table table-hover shadow-sm categorias-table">
+
+        <thead>
+            <tr>
+                <th>Docente</th>
+                <th>Año</th>
+                <th>Estado</th>
+                <th>Fecha Envío</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr class="fila-informe">
+
+                    <td class="nombre-docente">
+                        @item.IdUsuarioNavigation.Nombre
+                        @item.IdUsuarioNavigation.Apellido1
+                        @item.IdUsuarioNavigation.Apellido2
+                    </td>
+
+                    <td>
+                        @item.Anio
+                    </td>
+
+                    <td class="estado-informe">
+
+                        @if (item.IdEstado == 2)
+                        {
+                            <span class="badge bg-warning text-dark">
+                                Pendiente
+                            </span>
+                        }
+                        else if (item.IdEstado == 3)
+                        {
+                            <span class="badge bg-danger">
+                                Devuelto
+                            </span>
+                        }
+                        else if (item.IdEstado == 4)
+                        {
+                            <span class="badge bg-success">
+                                Aprobado
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                @item.IdEstadoNavigation?.NombreEstado
+                            </span>
+                        }
+
+                    </td>
+
+                    <td>
+                        @(item.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "Sin enviar")
+                    </td>
+
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@item.IdInformeDocente"
+                           class="btn btn-primary btn-sm">
+                            Revisar
+                        </a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        document.getElementById("buscarDocente").addEventListener("keyup", filtrarInformes);
+        document.getElementById("filtroEstado").addEventListener("change", filtrarInformes);
+
+        function filtrarInformes()
+        {
+            let texto = document.getElementById("buscarDocente").value.toLowerCase();
+            let estado = document.getElementById("filtroEstado").value.toLowerCase();
+
+            let filas = document.querySelectorAll(".fila-informe");
+
+            filas.forEach(function (fila) {
+
+                let nombre = fila.querySelector(".nombre-docente")
+                                 .innerText
+                                 .toLowerCase();
+
+                let estadoFila = fila.querySelector(".estado-informe")
+                                     .innerText
+                                     .trim()
+                                     .toLowerCase();
+
+                let coincideNombre = nombre.includes(texto);
+
+                let coincideEstado =
+                    estado === "" ||
+                    estadoFila === estado;
+
+                fila.style.display =
+                    coincideNombre && coincideEstado
+                    ? ""
+                    : "none";
+
+            });
+        }
+
+    </script>
+
+}

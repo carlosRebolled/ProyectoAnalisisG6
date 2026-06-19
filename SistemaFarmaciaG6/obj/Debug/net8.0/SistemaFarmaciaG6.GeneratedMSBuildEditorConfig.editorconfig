@@ -52,6 +52,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Decano/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVjYW5vXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Director/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyZWN0b3JcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Docente/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jZW50ZVxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -84,12 +96,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Jefatura/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmVmYXR1cmFcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Perfil/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Perfil/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aXNpb25JbmZvcm1lc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aXNpb25JbmZvcm1lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Roles/Edit.cshtml]
@@ -118,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Visualizador/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzdWFsaXphZG9yXERhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/_ViewImports.cshtml]

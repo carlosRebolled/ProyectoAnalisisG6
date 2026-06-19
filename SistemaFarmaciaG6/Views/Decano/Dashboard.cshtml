@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Dashboard Decano";
+}
+
+<div class="container-fluid">
+    <div class="categorias-section">
+        <h2 class="mb-3">Dashboard Decano</h2>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4 mb-3"><div class="card shadow-sm"><div class="card-body"><h6>Total Informes Docentes</h6><h2>@ViewBag.TotalInformesDocentes</h2></div></div></div>
+        <div class="col-md-4 mb-3"><div class="card shadow-sm"><div class="card-body"><h6>Pendientes</h6><h2>@ViewBag.InformesPendientes</h2></div></div></div>
+        <div class="col-md-4 mb-3"><div class="card shadow-sm"><div class="card-body"><h6>Aprobados</h6><h2>@ViewBag.InformesAprobados</h2></div></div></div>
+    </div>
+
+    <a asp-controller="InformeDocente" asp-action="Index" class="btn btn-primary">
+        Consultar informes
+    </a>
+
+    <a asp-controller="InformeFinalFacultad" asp-action="Index" class="btn btn-secondary">
+        Informe final
+    </a>
+</div>

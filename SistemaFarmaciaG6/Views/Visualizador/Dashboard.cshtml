@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Dashboard Visualizador";
+}
+
+<div class="container-fluid">
+    <div class="categorias-section">
+        <h2 class="mb-3">Dashboard Visualizador</h2>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4 mb-3"><div class="card shadow-sm"><div class="card-body"><h6>Total Informes</h6><h2>@ViewBag.TotalInformes</h2></div></div></div>
+        <div class="col-md-4 mb-3"><div class="card shadow-sm"><div class="card-body"><h6>Aprobados</h6><h2>@ViewBag.Aprobados</h2></div></div></div>
+        <div class="col-md-4 mb-3"><div class="card shadow-sm"><div class="card-body"><h6>Finalizados</h6><h2>@ViewBag.Finalizados</h2></div></div></div>
+    </div>
+
+    <a asp-controller="InformeDocente" asp-action="Index" class="btn btn-primary">
+        Consultar informes
+    </a>
+</div>

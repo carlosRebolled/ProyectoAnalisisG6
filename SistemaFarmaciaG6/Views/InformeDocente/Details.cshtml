@@ -1,4 +1,5 @@
-﻿@model SistemaFarmaciaG6.Models.InformeDocente
+﻿
+@model SistemaFarmaciaG6.Models.InformeDocente
 
 @{
     ViewData["Title"] = "Detalle del Informe";
@@ -19,15 +20,19 @@
 
             @if (Model.IdEstado == 1)
             {
-                <span class="badge bg-warning">Pendiente</span>
+                <span class="badge bg-secondary">Borrador</span>
             }
             else if (Model.IdEstado == 2)
             {
-                <span class="badge bg-success">Aprobado</span>
+                <span class="badge bg-warning text-dark">Pendiente</span>
             }
             else if (Model.IdEstado == 3)
             {
                 <span class="badge bg-danger">Devuelto</span>
+            }
+            else if (Model.IdEstado == 4)
+            {
+                <span class="badge bg-success">Aprobado</span>
             }
             else
             {
@@ -35,6 +40,7 @@
                     @Model.IdEstadoNavigation?.NombreEstado
                 </span>
             }
+
         </div>
 
         <hr />
@@ -92,7 +98,77 @@
             </div>
         }
 
-        <a asp-action="Index" class="btn btn-secondary">
+        <hr />
+
+        <div class="card border-info mb-3">
+
+            <div class="card-header bg-info text-white">
+                Observaciones del Docente
+            </div>
+
+            <div class="card-body">
+
+                @if (string.IsNullOrWhiteSpace(Model.ObservacionesDocente))
+                {
+                    <span class="text-muted">
+                        Sin observaciones.
+                    </span>
+                }
+                else
+                {
+                    @Model.ObservacionesDocente
+                }
+
+            </div>
+
+        </div>
+
+
+        @if (ViewBag.Observaciones != null)
+        {
+            var observaciones = ViewBag.Observaciones as List<SistemaFarmaciaG6.Models.Observacione>;
+
+            if (observaciones.Any())
+            {
+                <div class="card border-danger mb-3">
+
+                    <div class="card-header bg-danger text-white">
+                        Observaciones del Director
+                    </div>
+
+                    <div class="card-body">
+
+                        @foreach (var obs in observaciones)
+                        {
+                            <div class="border rounded p-3 mb-3">
+
+                                <strong>
+                                    @(obs.TipoObservacion ?? "Observación")
+                                </strong>
+
+                                <br />
+
+                                <small class="text-muted">
+                                    @obs.Fecha.ToString("dd/MM/yyyy HH:mm")
+                                </small>
+
+                                <hr />
+
+                                <p class="mb-0">
+                                    @obs.Comentario
+                                </p>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            }
+        }
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
             Volver
         </a>
 
@@ -106,4 +182,5 @@
         }
 
     </div>
+
 </div>

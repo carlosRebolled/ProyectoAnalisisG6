@@ -1,0 +1,254 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDocente
+
+@{
+    ViewData["Title"] = "Detalle del Informe";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+        <h2 class="mb-3">Detalle del Informe Docente</h2>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
+        }
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <p>
+                <strong>Docente:</strong>
+                @Model.IdUsuarioNavigation.Nombre
+                @Model.IdUsuarioNavigation.Apellido1
+                @Model.IdUsuarioNavigation.Apellido2
+            </p>
+
+            <p>
+                <strong>Año:</strong>
+                @Model.Anio
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+
+                @if (Model.IdEstado == 1)
+                {
+                    <span class="badge bg-secondary">
+                        Borrador
+                    </span>
+                }
+                else if (Model.IdEstado == 2)
+                {
+                    <span class="badge bg-warning text-dark">
+                        Pendiente
+                    </span>
+                }
+                else if (Model.IdEstado == 3)
+                {
+                    <span class="badge bg-danger">
+                        Devuelto
+                    </span>
+                }
+                else if (Model.IdEstado == 4)
+                {
+                    <span class="badge bg-success">
+                        Aprobado
+                    </span>
+                }
+                else if (Model.IdEstado == 5)
+                {
+                    <span class="badge bg-primary">
+                        Finalizado
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">
+                        @Model.IdEstadoNavigation?.NombreEstado
+                    </span>
+                }
+            </p>
+
+            <p>
+                <strong>Fecha creación:</strong>
+                @Model.FechaCreacion.ToString("dd/MM/yyyy")
+            </p>
+
+            <p>
+                <strong>Fecha envío:</strong>
+                @(Model.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "Sin enviar")
+            </p>
+
+        </div>
+    </div>
+
+    <table class="table table-hover shadow-sm categorias-table">
+
+        <thead>
+            <tr>
+                <th>Sección</th>
+                <th>Cantidad</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Congresos Activos</td>
+                <td>@Model.CantidadCongresosActivos</td>
+                <td>@Model.DetalleCongresosActivos</td>
+            </tr>
+
+            <tr>
+                <td>Congresos Pasivos</td>
+                <td>@Model.CantidadCongresosPasivos</td>
+                <td>@Model.DetalleCongresosPasivos</td>
+            </tr>
+
+            <tr>
+                <td>Acción Social</td>
+                <td>@Model.CantidadAccionSocial</td>
+                <td>@Model.DetalleAccionSocial</td>
+            </tr>
+
+            <tr>
+                <td>Investigación</td>
+                <td>@Model.CantidadInvestigacion</td>
+                <td>@Model.DetalleInvestigacion</td>
+            </tr>
+
+            <tr>
+                <td>Docencia</td>
+                <td>@Model.CantidadDocencia</td>
+                <td>@Model.DetalleDocencia</td>
+            </tr>
+
+            <tr>
+                <td>Publicaciones</td>
+                <td>@Model.CantidadPublicaciones</td>
+                <td>@Model.DetallePublicaciones</td>
+            </tr>
+
+            <tr>
+                <td>Cursos de Grado</td>
+                <td>@Model.CantidadCursosGrado</td>
+                <td>@Model.DetalleCursosGrado</td>
+            </tr>
+
+            <tr>
+                <td>Posgrado</td>
+                <td>@Model.CantidadPosgrado</td>
+                <td>@Model.DetallePosgrado</td>
+            </tr>
+
+            <tr>
+                <td>Representación</td>
+                <td>@Model.CantidadRepresentacion</td>
+                <td>@Model.DetalleRepresentacion</td>
+            </tr>
+
+            <tr>
+                <td>Otros</td>
+                <td>-</td>
+                <td>@Model.DetalleOtros</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+            Observaciones del Docente
+        </div>
+
+        <div class="card-body">
+
+            @if (string.IsNullOrWhiteSpace(Model.ObservacionesDocente))
+            {
+                <span class="text-muted">
+                    Sin observaciones.
+                </span>
+            }
+            else
+            {
+                @Model.ObservacionesDocente
+            }
+
+        </div>
+
+    </div>
+
+    @if (Model.IdEstado == 2)
+    {
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-warning">
+                Acciones del Director
+            </div>
+
+            <div class="card-body">
+
+                <form asp-action="Aprobar"
+                      asp-route-id="@Model.IdInformeDocente"
+                      method="post"
+                      class="mb-3">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Aprobar Informe
+                    </button>
+
+                </form>
+
+                <form asp-action="Devolver"
+                      asp-route-id="@Model.IdInformeDocente"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Observación para devolver
+                        </label>
+
+                        <textarea name="observacion"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Escriba la observación..."
+                              required></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Devolver Informe
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    }
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Volver
+    </a>
+
+</div>
