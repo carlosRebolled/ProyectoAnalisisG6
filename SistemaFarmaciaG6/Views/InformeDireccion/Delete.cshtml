@@ -1,0 +1,65 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDireccion
+
+@{
+    ViewData["Title"] = "Confirmar eliminación";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+        <h2 class="mb-3">Confirmar eliminación</h2>
+    </div>
+
+    <div class="card shadow-sm border-danger">
+
+        <div class="card-header bg-danger text-white">
+            Eliminar Informe de Dirección
+        </div>
+
+        <div class="card-body">
+
+            <h4 class="text-danger">
+                ¿Está seguro que desea eliminar este informe?
+            </h4>
+
+            <p class="text-muted">
+                Esta acción no se puede deshacer.
+            </p>
+
+            <hr />
+
+            <p>
+                <strong>Año:</strong> @Model.Anio
+            </p>
+
+            <p>
+                <strong>Estado:</strong> @Model.IdEstadoNavigation?.NombreEstado
+            </p>
+
+            <p>
+                <strong>Fecha creación:</strong> @Model.FechaCreacion.ToString("dd/MM/yyyy")
+            </p>
+
+            <form asp-action="Delete" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="id"
+                       value="@Model.IdInformeDireccion" />
+
+                <button type="submit" class="btn btn-danger">
+                    Sí, eliminar
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Cancelar
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

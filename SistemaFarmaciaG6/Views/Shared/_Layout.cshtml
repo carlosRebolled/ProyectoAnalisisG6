@@ -69,6 +69,21 @@
                         @if (rolUsuario == "Administrador")
                         {
 
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="RevisionInformeDireccion"
+                                   asp-action="Index">
+                                    📋 Revisión Informes Dirección
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="InformeDireccion"
+                                   asp-action="Index">
+                                    Informe Dirección
+                                </a>
+                            </li>
 
                             <li class="nav-item">
                                 <a class="nav-link"
@@ -155,7 +170,13 @@
 
                         @if (rolUsuario == "Director")
                         {
-
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="InformeDireccion"
+                                   asp-action="Index">
+                                    Informe Dirección
+                                </a>
+                            </li>
               
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Director" asp-action="Dashboard">
@@ -188,6 +209,13 @@
                         @if (rolUsuario == "Decano")
                         {
 
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="RevisionInformeDireccion"
+                                   asp-action="Index">
+                                    📋 Revisión Informes Dirección
+                                </a>
+                            </li>
                           
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Decano" asp-action="Dashboard">

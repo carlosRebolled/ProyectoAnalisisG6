@@ -1,0 +1,188 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDireccion
+
+@{
+    ViewData["Title"] = "Detalle Informe Dirección";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Revisión del Informe de Dirección
+        </h2>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+    </div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <p>
+                <strong>Director:</strong>
+                @Model.IdUsuarioNavigation.Nombre
+                @Model.IdUsuarioNavigation.Apellido1
+                @Model.IdUsuarioNavigation.Apellido2
+            </p>
+
+            <p>
+                <strong>Año:</strong>
+                @Model.Anio
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+                @Model.IdEstadoNavigation?.NombreEstado
+            </p>
+
+            <p>
+                <strong>Fecha creación:</strong>
+                @Model.FechaCreacion.ToString("dd/MM/yyyy")
+            </p>
+
+            <p>
+                <strong>Fecha envío:</strong>
+                @(Model.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "Sin enviar")
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+            Observaciones del Director
+        </div>
+
+        <div class="card-body">
+
+            @if (string.IsNullOrWhiteSpace(Model.ObservacionesDirector))
+            {
+                <span class="text-muted">
+                    Sin observaciones.
+                </span>
+            }
+            else
+            {
+                @Model.ObservacionesDirector
+            }
+
+        </div>
+
+    </div>
+
+
+    @if (ViewBag.Observaciones != null)
+    {
+        var observaciones = ViewBag.Observaciones as List<SistemaFarmaciaG6.Models.Observacione>;
+
+        if (observaciones.Any())
+        {
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header bg-danger text-white">
+                    Observaciones del Decano
+                </div>
+
+                <div class="card-body">
+
+                    @foreach (var obs in observaciones)
+                    {
+                        <div class="border rounded p-3 mb-3">
+
+                            <strong>
+                                @(obs.TipoObservacion ?? "Observación")
+                            </strong>
+
+                            <br />
+
+                            <small class="text-muted">
+                                @obs.Fecha.ToString("dd/MM/yyyy HH:mm")
+                            </small>
+
+                            <hr />
+
+                            <p class="mb-0">
+                                @obs.Comentario
+                            </p>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        }
+    }
+
+
+    @if (Model.IdEstado == 2)
+    {
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-warning">
+                Acciones del Decano
+            </div>
+
+            <div class="card-body">
+
+                <form asp-action="Aprobar"
+                      asp-route-id="@Model.IdInformeDireccion"
+                      method="post"
+                      class="mb-3">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Aprobar Informe
+                    </button>
+
+                </form>
+
+
+                <form asp-action="Devolver"
+                      asp-route-id="@Model.IdInformeDireccion"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Observación para devolver
+                        </label>
+
+                        <textarea name="observacion"
+                              class="form-control"
+                              rows="4"
+                              required></textarea>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Devolver Informe
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    }
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Volver
+    </a>
+
+</div>

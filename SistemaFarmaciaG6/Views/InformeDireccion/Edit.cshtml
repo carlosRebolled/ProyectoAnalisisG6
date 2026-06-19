@@ -1,0 +1,80 @@
+﻿```cshtml
+@model SistemaFarmaciaG6.Models.InformeDireccion
+
+@{
+    ViewData["Title"] = "Editar Informe de Dirección";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Editar Informe de Dirección
+        </h2>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+    </div>
+
+    <form asp-action="Edit" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               asp-for="IdInformeDireccion" />
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Año
+                    </label>
+
+                    <input asp-for="Anio"
+                           class="form-control"
+                           readonly />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Observaciones del Director
+                    </label>
+
+                    <textarea asp-for="ObservacionesDirector"
+                              class="form-control"
+                              rows="8"
+                              placeholder="Ingrese observaciones generales del informe"></textarea>
+
+                </div>
+
+                <hr />
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Guardar Cambios
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Volver
+                </a>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+```

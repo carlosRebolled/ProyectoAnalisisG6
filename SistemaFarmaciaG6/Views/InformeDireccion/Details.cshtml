@@ -1,0 +1,60 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDireccion
+
+@{
+    ViewData["Title"] = "Detalle Informe Dirección";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+        <h2 class="mb-3">Detalle del Informe de Dirección</h2>
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <p><strong>Año:</strong> @Model.Anio</p>
+
+            <p>
+                <strong>Director:</strong>
+                @Model.IdUsuarioNavigation.Nombre @Model.IdUsuarioNavigation.Apellido1
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+                @Model.IdEstadoNavigation?.NombreEstado
+            </p>
+
+            <p>
+                <strong>Fecha creación:</strong>
+                @Model.FechaCreacion.ToString("dd/MM/yyyy")
+            </p>
+
+            <p>
+                <strong>Fecha envío:</strong>
+                @(Model.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
+            </p>
+
+            <hr />
+
+            <h5>Observaciones del Director</h5>
+
+            @if (string.IsNullOrWhiteSpace(Model.ObservacionesDirector))
+            {
+                <p class="text-muted">Sin observaciones.</p>
+            }
+            else
+            {
+                <p>@Model.ObservacionesDirector</p>
+            }
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

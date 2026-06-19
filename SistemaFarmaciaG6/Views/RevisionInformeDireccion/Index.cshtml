@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.InformeDireccion>
+
+@{
+    ViewData["Title"] = "Revisión Informe Dirección";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Revisión de Informes de Dirección
+        </h2>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+    </div>
+
+    <table class="table table-hover shadow-sm categorias-table">
+
+        <thead>
+            <tr>
+                <th>Año</th>
+                <th>Director</th>
+                <th>Estado</th>
+                <th>Fecha Envío</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Anio</td>
+
+                    <td>
+                        @item.IdUsuarioNavigation?.Nombre
+                        @item.IdUsuarioNavigation?.Apellido1
+                    </td>
+
+                    <td>
+                        @if (item.IdEstado == 1)
+                        {
+                            <span class="badge bg-secondary">Borrador</span>
+                        }
+                        else if (item.IdEstado == 2)
+                        {
+                            <span class="badge bg-warning text-dark">Pendiente</span>
+                        }
+                        else if (item.IdEstado == 3)
+                        {
+                            <span class="badge bg-danger">Devuelto</span>
+                        }
+                        else if (item.IdEstado == 4)
+                        {
+                            <span class="badge bg-success">Aprobado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                @item.IdEstadoNavigation?.NombreEstado
+                            </span>
+                        }
+                    </td>
+
+                    <td>
+                        @(item.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
+                    </td>
+
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@item.IdInformeDireccion"
+                           class="btn btn-primary btn-sm">
+                            Revisar
+                        </a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
