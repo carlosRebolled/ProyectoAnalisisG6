@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
+using SistemaFarmaciaG6.Helpers;
 
 namespace SistemaFarmaciaG6.Controllers
 {
@@ -92,7 +93,15 @@ namespace SistemaFarmaciaG6.Controllers
             }
 
             var usuarioRol = _context.UsuarioRols
+                .Include(ur => ur.IdRolNavigation)
                 .FirstOrDefault(ur => ur.IdUsuario == id);
+
+            string rolAnterior = usuarioRol?.IdRolNavigation?.NombreRol ?? "Sin rol";
+
+            var rolNuevo = _context.Roles
+                .FirstOrDefault(r => r.IdRol == idRol);
+
+            string nombreRolNuevo = rolNuevo?.NombreRol ?? "Rol desconocido";
 
             if (usuarioRol == null)
             {
@@ -110,6 +119,14 @@ namespace SistemaFarmaciaG6.Controllers
             }
 
             _context.SaveChanges();
+
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "UsuarioRol",
+                "Cambiar Rol",
+                $"Se cambió el rol del usuario {usuario.Nombre} {usuario.Apellido1}. Rol anterior: {rolAnterior}. Rol nuevo: {nombreRolNuevo}."
+            );
 
             TempData["Exito"] = "Rol actualizado correctamente.";
             return RedirectToAction(nameof(Index));

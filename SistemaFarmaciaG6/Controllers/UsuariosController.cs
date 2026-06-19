@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SistemaFarmaciaG6.Helpers;
 
 namespace SistemaFarmaciaG6.Controllers
 {
@@ -164,6 +165,14 @@ namespace SistemaFarmaciaG6.Controllers
                 _context.UsuarioRols.Add(usuarioRol);
                 _context.SaveChanges();
 
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "Usuarios",
+                    "Crear",
+                    $"Se creó el usuario {usuario.Nombre} {usuario.Apellido1} con cédula {usuario.Cedula}."
+                );
+
                 TempData["Exito"] = "Usuario creado correctamente.";
                 return RedirectToAction(nameof(Index));
             }
@@ -215,6 +224,8 @@ namespace SistemaFarmaciaG6.Controllers
                 {
                     return NotFound();
                 }
+
+                string estadoAnterior = usuarioBD.Estado;
 
                 ModelState.Clear();
 
@@ -284,6 +295,14 @@ namespace SistemaFarmaciaG6.Controllers
                 }
 
                 _context.SaveChanges();
+
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "Usuarios",
+                    "Editar",
+                    $"Se editó el usuario {usuarioBD.Nombre} {usuarioBD.Apellido1}. Estado anterior: {estadoAnterior}, estado actual: {usuarioBD.Estado}."
+                );
 
                 TempData["Exito"] = "Usuario actualizado correctamente.";
                 return RedirectToAction(nameof(Index));

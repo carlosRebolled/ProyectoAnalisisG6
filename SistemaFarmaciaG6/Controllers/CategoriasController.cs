@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
+using SistemaFarmaciaG6.Helpers;
 using System.Linq;
 
 namespace SistemaFarmaciaG6.Controllers
@@ -67,6 +68,14 @@ namespace SistemaFarmaciaG6.Controllers
                 _context.Categorias.Add(categoria);
                 _context.SaveChanges();
 
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "Categorias",
+                    "Crear",
+                    $"Se creó la categoría {categoria.NombreCategoria} con estado {categoria.Estado}."
+                );
+
                 TempData["Exito"] = "Categoría creada correctamente.";
 
                 return RedirectToAction(nameof(Index));
@@ -112,8 +121,28 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Update(categoria);
+                var categoriaBD = _context.Categorias.Find(id);
+
+                if (categoriaBD == null)
+                {
+                    return NotFound();
+                }
+
+                string nombreAnterior = categoriaBD.NombreCategoria;
+                string estadoAnterior = categoriaBD.Estado;
+
+                categoriaBD.NombreCategoria = categoria.NombreCategoria;
+                categoriaBD.Estado = categoria.Estado;
+
                 _context.SaveChanges();
+
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "Categorias",
+                    "Editar",
+                    $"Se editó la categoría #{categoriaBD.IdCategoria}. Nombre anterior: {nombreAnterior}, nombre actual: {categoriaBD.NombreCategoria}. Estado anterior: {estadoAnterior}, estado actual: {categoriaBD.Estado}."
+                );
 
                 TempData["Exito"] = "Categoría actualizada correctamente.";
 
@@ -172,13 +201,42 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            string nombreCategoria = categoria.NombreCategoria;
+            int idCategoria = categoria.IdCategoria;
+
             _context.Categorias.Remove(categoria);
             _context.SaveChanges();
+
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "Categorias",
+                "Eliminar",
+                $"Se eliminó la categoría #{idCategoria}: {nombreCategoria}."
+            );
 
             TempData["Exito"] =
                 "Categoría eliminada correctamente.";
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // DETALLES (GET)
+        public IActionResult Details(int id)
+        {
+            if (!EsAdministrador())
+            {
+                return RedirigirNoAutorizado();
+            }
+
+            var categoria = _context.Categorias.Find(id);
+
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
+using SistemaFarmaciaG6.Helpers;
 
 namespace SistemaFarmaciaG6.Controllers
 {
@@ -60,12 +61,40 @@ namespace SistemaFarmaciaG6.Controllers
             HttpContext.Session.SetString("Nombre", $"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}");
             HttpContext.Session.SetString("Rol", rol.NombreRol);
 
+            // Auditoría Login
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "Usuarios",
+                "Login",
+                $"Inicio de sesión del usuario {usuario.Nombre} {usuario.Apellido1} con rol {rol.NombreRol}."
+            );
+
             return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Logout()
         {
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario != null)
+            {
+                var usuario = _context.Usuarios.Find(idUsuario);
+
+                if (usuario != null)
+                {
+                    AuditoriaHelper.Registrar(
+                        _context,
+                        HttpContext,
+                        "Usuarios",
+                        "Logout",
+                        $"Cierre de sesión del usuario {usuario.Nombre} {usuario.Apellido1}."
+                    );
+                }
+            }
+
             HttpContext.Session.Clear();
+
             return RedirectToAction("Login");
         }
     }

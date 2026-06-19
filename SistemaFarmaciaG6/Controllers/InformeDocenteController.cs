@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
+using SistemaFarmaciaG6.Helpers;
 
 namespace SistemaFarmaciaG6.Controllers
 {
@@ -55,7 +56,6 @@ namespace SistemaFarmaciaG6.Controllers
             }
 
             var hoy = DateTime.Today;
-
             var edad = hoy.Year - usuario.FechaNacimiento.Year;
 
             if (usuario.FechaNacimiento.ToDateTime(TimeOnly.MinValue) > hoy.AddYears(-edad))
@@ -64,8 +64,6 @@ namespace SistemaFarmaciaG6.Controllers
             }
 
             ViewBag.Edad = edad;
-            ViewBag.Edad = edad;
-
             ViewBag.Usuario = usuario;
 
             return View();
@@ -91,9 +89,7 @@ namespace SistemaFarmaciaG6.Controllers
 
                 if (existeInforme)
                 {
-                    TempData["Error"] =
-                        $"Ya existe un informe para el año {anioActual}.";
-
+                    TempData["Error"] = $"Ya existe un informe para el año {anioActual}.";
                     return RedirectToAction(nameof(Create));
                 }
 
@@ -138,40 +134,34 @@ namespace SistemaFarmaciaG6.Controllers
                 }
 
                 informe.IdUsuario = idUsuario.Value;
-
                 informe.IdEstado = 1;
-
                 informe.Anio = anioActual;
-
                 informe.FechaCreacion = DateTime.Now;
-
                 informe.FechaEnvio = null;
-
                 informe.FechaAprobacion = null;
 
                 _context.InformeDocentes.Add(informe);
-
                 _context.SaveChanges();
 
-                TempData["LimpiarLocalStorage"] = true;
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "InformeDocente",
+                    "Crear",
+                    $"Se creó el informe docente #{informe.IdInformeDocente} del año {informe.Anio}."
+                );
 
-                TempData["Exito"] =
-                    "Informe guardado correctamente.";
+                TempData["LimpiarLocalStorage"] = true;
+                TempData["Exito"] = "Informe guardado correctamente.";
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                TempData["Error"] =
-                    ex.InnerException?.Message ?? ex.Message;
-
+                TempData["Error"] = ex.InnerException?.Message ?? ex.Message;
                 return RedirectToAction(nameof(Create));
             }
         }
-
-
-
-
 
         public IActionResult Details(int id)
         {
@@ -195,8 +185,6 @@ namespace SistemaFarmaciaG6.Controllers
 
             return View(informe);
         }
-
-
 
         [HttpGet]
         public IActionResult Edit(int id)
@@ -306,6 +294,14 @@ namespace SistemaFarmaciaG6.Controllers
 
                 _context.SaveChanges();
 
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "InformeDocente",
+                    "Editar",
+                    $"Se editó el informe docente #{informeBD.IdInformeDocente} del año {informeBD.Anio}."
+                );
+
                 TempData["Exito"] = "Informe actualizado correctamente.";
                 return RedirectToAction(nameof(Index));
             }
@@ -315,7 +311,6 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Edit), new { id = id });
             }
         }
-
 
         [HttpGet]
         public IActionResult Delete(int id)
@@ -338,19 +333,14 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
-            // Solo se permite eliminar borradores
             if (informe.IdEstado != 1)
             {
-                TempData["Error"] =
-                    "Solo se pueden eliminar informes en estado Borrador.";
-
+                TempData["Error"] = "Solo se pueden eliminar informes en estado Borrador.";
                 return RedirectToAction(nameof(Index));
             }
 
             return View(informe);
         }
-
-
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -373,32 +363,38 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
-            // Seguridad: solo borrar si está en borrador
             if (informe.IdEstado != 1)
             {
-                TempData["Error"] =
-                    "Solo se pueden eliminar informes en estado Borrador.";
-
+                TempData["Error"] = "Solo se pueden eliminar informes en estado Borrador.";
                 return RedirectToAction(nameof(Index));
             }
 
             try
             {
-                _context.InformeDocentes.Remove(informe);
+                int idInformeEliminado = informe.IdInformeDocente;
+                int anioInformeEliminado = informe.Anio;
 
+                _context.InformeDocentes.Remove(informe);
                 _context.SaveChanges();
 
-                TempData["Exito"] =
-                    "Informe eliminado correctamente.";
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "InformeDocente",
+                    "Eliminar",
+                    $"Se eliminó el informe docente #{idInformeEliminado} del año {anioInformeEliminado}."
+                );
+
+                TempData["Exito"] = "Informe eliminado correctamente.";
             }
             catch (Exception ex)
             {
-                TempData["Error"] =
-                    ex.InnerException?.Message ?? ex.Message;
+                TempData["Error"] = ex.InnerException?.Message ?? ex.Message;
             }
 
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet]
         public IActionResult Enviar(int id)
         {
@@ -422,16 +418,12 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (informe.IdEstado != 1)
             {
-                TempData["Error"] =
-                    "Solo se pueden enviar informes en estado Borrador.";
-
+                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador.";
                 return RedirectToAction(nameof(Index));
             }
 
             return View(informe);
         }
-
-
 
         [HttpPost, ActionName("Enviar")]
         [ValidateAntiForgeryToken]
@@ -456,9 +448,7 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (informe.IdEstado != 1)
             {
-                TempData["Error"] =
-                    "Solo se pueden enviar informes en estado Borrador.";
-
+                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -467,12 +457,17 @@ namespace SistemaFarmaciaG6.Controllers
 
             _context.SaveChanges();
 
-            TempData["Exito"] =
-                "Informe enviado correctamente para revisión.";
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "InformeDocente",
+                "Enviar",
+                $"Se envió el informe docente #{informe.IdInformeDocente} del año {informe.Anio} para revisión."
+            );
+
+            TempData["Exito"] = "Informe enviado correctamente para revisión.";
 
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
+using SistemaFarmaciaG6.Helpers;
 
 namespace SistemaFarmaciaG6.Controllers
 {
@@ -76,6 +77,9 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
+            string telefonoAnterior = usuarioBD.Telefono ?? "Sin teléfono";
+            DateOnly fechaAnterior = usuarioBD.FechaNacimiento;
+
             ModelState.Clear();
 
             if (usuario.FechaNacimiento == default)
@@ -83,6 +87,9 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (usuario.FechaNacimiento > DateOnly.FromDateTime(DateTime.Today))
                 ModelState.AddModelError("FechaNacimiento", "La fecha de nacimiento no puede ser futura.");
+
+            if (!string.IsNullOrWhiteSpace(usuario.Telefono) && usuario.Telefono.Length < 8)
+                ModelState.AddModelError("Telefono", "El teléfono debe tener al menos 8 dígitos.");
 
             if (!ModelState.IsValid)
             {
@@ -94,6 +101,14 @@ namespace SistemaFarmaciaG6.Controllers
             usuarioBD.Telefono = usuario.Telefono;
 
             _context.SaveChanges();
+
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "Usuarios",
+                "Editar Perfil",
+                $"El usuario {usuarioBD.Nombre} {usuarioBD.Apellido1} actualizó su perfil. Teléfono anterior: {telefonoAnterior}, teléfono actual: {usuarioBD.Telefono}. Fecha nacimiento anterior: {fechaAnterior}, fecha actual: {usuarioBD.FechaNacimiento}."
+            );
 
             TempData["Exito"] = "Perfil actualizado correctamente.";
             return RedirectToAction(nameof(Index));

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.Auditorium>
+
+@{
+    ViewData["Title"] = "Bitácora";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Bitácora del Sistema
+        </h2>
+
+    </div>
+
+    <table class="table table-hover shadow-sm categorias-table">
+
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Tabla</th>
+                <th>Acción</th>
+                <th>Descripción</th>
+                <th>IP</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+
+                    <td>
+                        @item.IdUsuarioNavigation.Nombre
+                        @item.IdUsuarioNavigation.Apellido1
+                    </td>
+
+                    <td>@item.TablaAfectada</td>
+
+                    <td>
+                        <span class="badge bg-primary">
+                            @item.Accion
+                        </span>
+                    </td>
+
+                    <td>@item.Descripcion</td>
+
+                    <td>@item.IpEquipo</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
