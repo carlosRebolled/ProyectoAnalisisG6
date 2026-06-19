@@ -1,0 +1,61 @@
+﻿@model SistemaFarmaciaG6.Models.InformeFinalFacultad
+
+@{
+    ViewData["Title"] = "Detalle Informe Final";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+        <h2 class="mb-3">Detalle del Informe Final de Facultad</h2>
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <p><strong>Año:</strong> @Model.Anio</p>
+
+            <p>
+                <strong>Generado por:</strong>
+                @Model.IdUsuarioGeneraNavigation.Nombre
+                @Model.IdUsuarioGeneraNavigation.Apellido1
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+                @Model.IdEstadoNavigation?.NombreEstado
+            </p>
+
+            <p>
+                <strong>Fecha generación:</strong>
+                @Model.FechaGeneracion.ToString("dd/MM/yyyy")
+            </p>
+
+            <p>
+                <strong>Fecha finalización:</strong>
+                @(Model.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No finalizado")
+            </p>
+
+            <hr />
+
+            <h5>Observaciones generales</h5>
+
+            @if (string.IsNullOrWhiteSpace(Model.Observaciones))
+            {
+                <p class="text-muted">Sin observaciones.</p>
+            }
+            else
+            {
+                <p>@Model.Observaciones</p>
+            }
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

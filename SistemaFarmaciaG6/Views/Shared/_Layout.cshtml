@@ -68,7 +68,13 @@
 
                         @if (rolUsuario == "Administrador")
                         {
-
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="InformeFinalFacultad"
+                                   asp-action="Index">
+                                    🏛️ Informe Final Facultad
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link"
                                    asp-controller="RevisionInformeDireccion"
@@ -208,7 +214,13 @@
 
                         @if (rolUsuario == "Decano")
                         {
-
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="InformeFinalFacultad"
+                                   asp-action="Index">
+                                    🏛️ Informe Final Facultad
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link"
                                    asp-controller="RevisionInformeDireccion"

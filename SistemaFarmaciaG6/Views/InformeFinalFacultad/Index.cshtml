@@ -1,0 +1,116 @@
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.InformeFinalFacultad>
+
+@{
+    ViewData["Title"] = "Informe Final Facultad";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">Informe Final de Facultad</h2>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">@TempData["Exito"]</div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <p>
+            <a asp-action="Create" class="btn btn-create">
+                ➕ Generar Informe Final
+            </a>
+        </p>
+
+    </div>
+
+    <table class="table table-hover shadow-sm categorias-table">
+
+        <thead>
+            <tr>
+                <th>Año</th>
+                <th>Generado por</th>
+                <th>Estado</th>
+                <th>Fecha Generación</th>
+                <th>Fecha Finalización</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Anio</td>
+
+                    <td>
+                        @item.IdUsuarioGeneraNavigation?.Nombre
+                        @item.IdUsuarioGeneraNavigation?.Apellido1
+                    </td>
+
+                    <td>
+                        @if (item.IdEstado == 1)
+                        {
+                            <span class="badge bg-secondary">Borrador</span>
+                        }
+                        else if (item.IdEstado == 5)
+                        {
+                            <span class="badge bg-primary">Finalizado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                @item.IdEstadoNavigation?.NombreEstado
+                            </span>
+                        }
+                    </td>
+
+                    <td>@item.FechaGeneracion.ToString("dd/MM/yyyy")</td>
+
+                    <td>
+                        @(item.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No finalizado")
+                    </td>
+
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@item.IdInformeFinal"
+                           class="btn btn-info btn-sm">
+                            Ver
+                        </a>
+
+                        @if (item.IdEstado == 1)
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@item.IdInformeFinal"
+                               class="btn btn-warning btn-sm">
+                                Editar
+                            </a>
+
+                            <form asp-action="Finalizar"
+                                  asp-route-id="@item.IdInformeFinal"
+                                  method="post"
+                                  style="display:inline;">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="btn btn-success btn-sm">
+                                    Finalizar
+                                </button>
+
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>

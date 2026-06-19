@@ -1,0 +1,35 @@
+﻿@model SistemaFarmaciaG6.Models.InformeFinalFacultad
+
+@{
+    ViewData["Title"] = "Crear Informe Final";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+        <h2 class="mb-3">Crear Informe Final de Facultad</h2>
+    </div>
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label class="form-label">Observaciones generales</label>
+            <textarea asp-for="Observaciones"
+                      class="form-control"
+                      rows="8"
+                      placeholder="Ingrese observaciones generales del informe final"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-create">
+            Guardar Informe
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Volver
+        </a>
+
+    </form>
+
+</div>
