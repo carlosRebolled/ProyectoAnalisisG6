@@ -1,39 +1,73 @@
 ﻿@model IEnumerable<SistemaFarmaciaG6.Models.Usuario>
 
-<h2>Gestión de Roles</h2>
-
-@if (TempData["Exito"] != null)
-{
-    <div class="alert alert-success">@TempData["Exito"]</div>
+@{
+    ViewData["Title"] = "Roles";
 }
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Usuario</th>
-            <th>Correo</th>
-            <th>Rol actual</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
+<div class="container-fluid">
 
-    <tbody>
-        @foreach (var usuario in Model)
+    <div class="categorias-section">
+
+        <h2 class="mb-3">Gestión de Roles</h2>
+
+        @if (TempData["Exito"] != null)
         {
-            <tr>
-                <td>@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2</td>
-                <td>@usuario.Correo</td>
-                <td>
-                    @(usuario.UsuarioRols.FirstOrDefault()?.IdRolNavigation?.NombreRol ?? "Sin rol")
-                </td>
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@usuario.IdUsuario"
-                       class="btn btn-warning btn-sm">
-                        Cambiar Rol
-                    </a>
-                </td>
-            </tr>
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
         }
-    </tbody>
-</table>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+    </div>
+
+    <table class="table table-hover shadow-sm categorias-table">
+
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Rol Actual</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var usuario in Model)
+            {
+                <tr>
+
+                    <td>
+                        @usuario.Nombre @usuario.Apellido1 @usuario.Apellido2
+                    </td>
+
+                    <td>
+                        @usuario.Correo
+                    </td>
+
+                    <td>
+                        @(usuario.UsuarioRols.FirstOrDefault()?.IdRolNavigation?.NombreRol ?? "Sin rol")
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@usuario.IdUsuario"
+                           class="btn btn-primary btn-sm">
+                            Cambiar Rol
+                        </a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>

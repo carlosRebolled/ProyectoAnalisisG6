@@ -155,33 +155,30 @@ namespace SistemaFarmaciaG6.Controllers
 
             var categoria = _context.Categorias.Find(id);
 
-            if (categoria != null)
-            {
-                _context.Categorias.Remove(categoria);
-                _context.SaveChanges();
-
-                TempData["Exito"] = "Categoría eliminada correctamente.";
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        // DETALLES (GET)
-        public IActionResult Details(int id)
-        {
-            if (!EsAdministrador())
-            {
-                return RedirigirNoAutorizado();
-            }
-
-            var categoria = _context.Categorias.Find(id);
-
             if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            // Verificar si existen usuarios con esta categoría
+            bool tieneUsuarios = _context.Usuarios
+                                         .Any(u => u.IdCategoria == id);
+
+            if (tieneUsuarios)
+            {
+                TempData["Error"] =
+                    "No se puede eliminar la categoría porque existen usuarios asociados a ella.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.Categorias.Remove(categoria);
+            _context.SaveChanges();
+
+            TempData["Exito"] =
+                "Categoría eliminada correctamente.";
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

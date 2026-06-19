@@ -32,6 +32,12 @@ namespace SistemaFarmaciaG6.Controllers
                 return View();
             }
 
+            if (usuario.Estado != "Activo")
+            {
+                ViewBag.Error = "Su cuenta se encuentra inactiva. Contacte al administrador.";
+                return View();
+            }
+
             var usuarioRol = _context.UsuarioRols
                 .FirstOrDefault(ur => ur.IdUsuario == usuario.IdUsuario);
 

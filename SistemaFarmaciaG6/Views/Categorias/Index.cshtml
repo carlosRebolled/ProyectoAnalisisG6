@@ -1,39 +1,106 @@
 ﻿@model IEnumerable<SistemaFarmaciaG6.Models.Categoria>
+
 @{
     ViewData["Title"] = "Categorias";
 }
 
 <div class="container-fluid">
-    <div class ="categorias-section">
-    <h2 class="mb-3">Listado de Categorías</h2>
-   
-    <p>
-        <a asp-action="Create" class="btn btn-create">➕ Crear Nueva Categoría</a>
-    </p>
+
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Listado de Categorías
+        </h2>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <p>
+            <a asp-action="Create" class="btn btn-create">
+                ➕ Crear Nueva Categoría
+            </a>
+        </p>
+
     </div>
+
     <table class="table table-hover shadow-sm categorias-table">
+
         <thead>
             <tr>
-                <th>ID Categoría</th> 
-                <th>Categoria</th>
+                <th>ID Categoría</th>
+                <th>Categoría</th>
                 <th>Estado</th>
                 <th></th>
             </tr>
         </thead>
+
         <tbody>
+
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.IdCategoria</td>
-                    <td>@item.NombreCategoria</td>
-                    <td>@item.Estado</td>
+
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdCategoria" class="btn btn-primary btn-sm">Editar</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdCategoria" class="btn btn-danger btn-sm">Eliminar</a>
-                        <a asp-action="Details" asp-route-id="@item.IdCategoria" class="btn btn-details btn-sm">Detalles</a>
+                        @item.IdCategoria
                     </td>
+
+                    <td>
+                        @item.NombreCategoria
+                    </td>
+
+                    <td>
+                        @if (item.Estado == "Activo")
+                        {
+                            <span class="badge bg-success">
+                                Activo
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">
+                                Inactivo
+                            </span>
+                        }
+                    </td>
+
+                    <td>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@item.IdCategoria"
+                           class="btn btn-primary btn-sm">
+                            Editar
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@item.IdCategoria"
+                           class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+
+                        <a asp-action="Details"
+                           asp-route-id="@item.IdCategoria"
+                           class="btn btn-details btn-sm">
+                            Detalles
+                        </a>
+
+                    </td>
+
                 </tr>
             }
+
         </tbody>
+
     </table>
+
 </div>

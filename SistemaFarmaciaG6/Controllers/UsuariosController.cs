@@ -35,7 +35,7 @@ namespace SistemaFarmaciaG6.Controllers
             ViewBag.TiposNombramiento = new SelectList(_context.TiposNombramientos.ToList(), "IdTipoNombramiento", "NombreNombramiento");
         }
 
-        public IActionResult Index(string estado)
+        public IActionResult Index(string estado, string nombre)
         {
             if (!EsAdministrador())
             {
@@ -45,6 +45,7 @@ namespace SistemaFarmaciaG6.Controllers
             var usuarios = _context.Usuarios
                 .Include(u => u.IdDepartamentoNavigation)
                 .Include(u => u.IdGeneroNavigation)
+                .Include(u => u.IdCategoriaNavigation)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(estado))
@@ -52,7 +53,18 @@ namespace SistemaFarmaciaG6.Controllers
                 usuarios = usuarios.Where(u => u.Estado == estado);
             }
 
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                usuarios = usuarios.Where(u =>
+                    u.Nombre.Contains(nombre) ||
+                    u.Apellido1.Contains(nombre) ||
+                    (u.Apellido2 != null && u.Apellido2.Contains(nombre)) ||
+                    u.Correo.Contains(nombre) ||
+                    u.Cedula.Contains(nombre));
+            }
+
             ViewBag.EstadoSeleccionado = estado;
+            ViewBag.NombreBusqueda = nombre;
 
             return View(usuarios.ToList());
         }
@@ -157,11 +169,7 @@ namespace SistemaFarmaciaG6.Controllers
             }
             catch (Exception ex)
             {
-                var mensaje = ex.InnerException != null
-                    ? ex.InnerException.Message
-                    : ex.Message;
-
-                TempData["Error"] = "Error al crear usuario: " + mensaje;
+                TempData["Error"] = "Error al crear usuario: " + (ex.InnerException?.Message ?? ex.Message);
                 CargarCombos();
                 return View(usuario);
             }
@@ -278,7 +286,6 @@ namespace SistemaFarmaciaG6.Controllers
                 _context.SaveChanges();
 
                 TempData["Exito"] = "Usuario actualizado correctamente.";
-
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

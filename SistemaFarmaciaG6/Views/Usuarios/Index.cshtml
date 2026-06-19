@@ -4,147 +4,178 @@
     ViewData["Title"] = "Gestión de Usuarios";
 }
 
-<h2>Gestión de Usuarios</h2>
+<div class="container-fluid">
 
-@if (TempData["Exito"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Exito"]
+    <div class="categorias-section">
+
+        <h2 class="mb-3">
+            Gestión de Usuarios
+        </h2>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <p>
+            <a asp-action="Create" class="btn btn-create">
+                ➕ Crear Usuario
+            </a>
+        </p>
+
     </div>
-}
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-
-<p>
-    <a asp-action="Create" class="btn btn-success">
-        Crear Usuario
-    </a>
-</p>
-
-<form method="get" asp-action="Index" class="mb-4">
-
-    <div class="row">
+    <div class="row mb-4">
 
         <div class="col-md-4">
+
+            <label class="form-label">
+                Buscar por nombre, cédula o correo
+            </label>
+
+            <input type="text"
+                   id="buscarUsuario"
+                   class="form-control"
+                   placeholder="Escriba para buscar..." />
+
+        </div>
+
+        <div class="col-md-4">
+
             <label class="form-label">
                 Filtrar por Estado
             </label>
 
-            <select name="estado" class="form-select">
-
-                @if (string.IsNullOrEmpty(ViewBag.EstadoSeleccionado))
-                {
-                    <option value="" selected>Todos</option>
-                }
-                else
-                {
-                    <option value="">Todos</option>
-                }
-
-                @if (ViewBag.EstadoSeleccionado == "Activo")
-                {
-                    <option value="Activo" selected>Activos</option>
-                }
-                else
-                {
-                    <option value="Activo">Activos</option>
-                }
-
-                @if (ViewBag.EstadoSeleccionado == "Inactivo")
-                {
-                    <option value="Inactivo" selected>Inactivos</option>
-                }
-                else
-                {
-                    <option value="Inactivo">Inactivos</option>
-                }
-
+            <select id="filtroEstado" class="form-select">
+                <option value="">Todos</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
             </select>
-        </div>
 
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">
-                Filtrar
-            </button>
         </div>
 
     </div>
 
-</form>
+    <table class="table table-hover shadow-sm categorias-table">
 
-<table class="table table-bordered table-striped">
-
-    <thead>
-        <tr>
-            <th>Cédula</th>
-            <th>Nombre Completo</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Departamento</th>
-            <th>Estado</th>
-            <th width="120">Acciones</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        @foreach (var item in Model)
-        {
+        <thead>
             <tr>
-
-                <td>
-                    @item.Cedula
-                </td>
-
-                <td>
-                    @item.Nombre
-                    @item.Apellido1
-                    @item.Apellido2
-                </td>
-
-                <td>
-                    @item.Correo
-                </td>
-
-                <td>
-                    @item.Telefono
-                </td>
-
-                <td>
-                    @(item.IdDepartamentoNavigation?.NombreDepartamento)
-                </td>
-
-                <td>
-                    @if (item.Estado == "Activo")
-                    {
-                        <span class="badge bg-success">
-                            Activo
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger">
-                            Inactivo
-                        </span>
-                    }
-                </td>
-
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@item.IdUsuario"
-                       class="btn btn-warning btn-sm">
-                        Editar
-                    </a>
-                </td>
-
+                <th>Cédula</th>
+                <th>Nombre Completo</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Departamento</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th></th>
             </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr class="fila-usuario">
+
+                    <td>@item.Cedula</td>
+
+                    <td>
+                        @item.Nombre
+                        @item.Apellido1
+                        @item.Apellido2
+                    </td>
+
+                    <td>@item.Correo</td>
+
+                    <td>@item.Telefono</td>
+
+                    <td>
+                        @(item.IdDepartamentoNavigation?.NombreDepartamento)
+                    </td>
+
+                    <td>
+                        @(item.IdCategoriaNavigation?.NombreCategoria)
+                    </td>
+
+                    <td class="estado-usuario">
+
+                        @if (item.Estado == "Activo")
+                        {
+                            <span class="badge bg-success">
+                                Activo
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">
+                                Inactivo
+                            </span>
+                        }
+
+                    </td>
+
+                    <td>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@item.IdUsuario"
+                           class="btn btn-primary btn-sm">
+                            Editar
+                        </a>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        document.getElementById("buscarUsuario").addEventListener("keyup", filtrarUsuarios);
+        document.getElementById("filtroEstado").addEventListener("change", filtrarUsuarios);
+
+        function filtrarUsuarios()
+        {
+            let texto = document.getElementById("buscarUsuario").value.toLowerCase();
+            let estado = document.getElementById("filtroEstado").value.toLowerCase();
+
+            let filas = document.querySelectorAll(".fila-usuario");
+
+            filas.forEach(function(fila){
+
+                let contenido = fila.innerText.toLowerCase();
+                let estadoFila = fila.querySelector(".estado-usuario").innerText.toLowerCase();
+
+                let coincideTexto = contenido.includes(texto);
+
+        let coincideEstado =
+            estado === "" ||
+            estadoFila === estado;
+
+                fila.style.display =
+                    coincideTexto && coincideEstado
+                    ? ""
+                    : "none";
+
+            });
+
         }
 
-    </tbody>
+    </script>
 
-</table>
+}

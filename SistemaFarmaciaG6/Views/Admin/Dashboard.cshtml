@@ -1,0 +1,164 @@
+﻿@{
+    ViewData["Title"] = "Dashboard Administrador";
+}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold mb-4">
+        Dashboard Administrador
+    </h2>
+
+    <h4>Usuarios</h4>
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <h6>Total Usuarios</h6>
+                    <h2>@ViewBag.TotalUsuarios</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <h6>Usuarios Activos</h6>
+                    <h2>@ViewBag.UsuariosActivos</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-danger">
+                <div class="card-body">
+                    <h6>Usuarios Inactivos</h6>
+                    <h2>@ViewBag.UsuariosInactivos</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h4>Usuarios por Rol</h4>
+
+    <div class="row mb-4">
+
+        <div class="col-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Docentes</h6>
+                    <h3>@ViewBag.TotalDocentes</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Directores</h6>
+                    <h3>@ViewBag.TotalDirectores</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Decanos</h6>
+                    <h3>@ViewBag.TotalDecanos</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Admin</h6>
+                    <h3>@ViewBag.TotalAdministradores</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Jefatura</h6>
+                    <h3>@ViewBag.TotalJefatura</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Visualizador</h6>
+                    <h3>@ViewBag.TotalVisualizadores</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h4>Informes Docentes</h4>
+
+    <div class="row mb-4">
+
+        <div class="col-md-2">
+            <div class="card shadow-sm border-secondary">
+                <div class="card-body text-center">
+                    <h6>Total</h6>
+                    <h3>@ViewBag.TotalInformes</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm border-secondary">
+                <div class="card-body text-center">
+                    <h6>Borrador</h6>
+                    <h3>@ViewBag.InformesBorrador</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm border-warning">
+                <div class="card-body text-center">
+                    <h6>Pendientes</h6>
+                    <h3>@ViewBag.InformesPendientes</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm border-danger">
+                <div class="card-body text-center">
+                    <h6>Devueltos</h6>
+                    <h3>@ViewBag.InformesDevueltos</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm border-success">
+                <div class="card-body text-center">
+                    <h6>Aprobados</h6>
+                    <h3>@ViewBag.InformesAprobados</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body text-center">
+                    <h6>Finalizados</h6>
+                    <h3>@ViewBag.InformesFinalizados</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
