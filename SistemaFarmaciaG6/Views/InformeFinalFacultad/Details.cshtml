@@ -10,7 +10,7 @@
         <h2 class="mb-3">Detalle del Informe Final de Facultad</h2>
     </div>
 
-    <div class="card shadow-sm">
+    <div class="card shadow-sm mb-4">
 
         <div class="card-body">
 
@@ -20,11 +20,26 @@
                 <strong>Generado por:</strong>
                 @Model.IdUsuarioGeneraNavigation.Nombre
                 @Model.IdUsuarioGeneraNavigation.Apellido1
+                @Model.IdUsuarioGeneraNavigation.Apellido2
             </p>
 
             <p>
                 <strong>Estado:</strong>
-                @Model.IdEstadoNavigation?.NombreEstado
+
+                @if (Model.IdEstado == 1)
+                {
+                    <span class="badge bg-secondary">Borrador</span>
+                }
+                else if (Model.IdEstado == 5)
+                {
+                    <span class="badge bg-primary">Finalizado</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">
+                        @Model.IdEstadoNavigation?.NombreEstado
+                    </span>
+                }
             </p>
 
             <p>
@@ -37,54 +52,79 @@
                 @(Model.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No finalizado")
             </p>
 
-            <hr />
+        </div>
 
-            <h5>Observaciones generales</h5>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+            Observaciones generales
+        </div>
+
+        <div class="card-body">
 
             @if (string.IsNullOrWhiteSpace(Model.Observaciones))
             {
-                <p class="text-muted">Sin observaciones.</p>
+                <p class="text-muted mb-0">Sin observaciones.</p>
             }
             else
             {
-                <p>@Model.Observaciones</p>
+                <p class="mb-0">@Model.Observaciones</p>
             }
-
-            <hr />
-
-            <h5>Detalle del Informe Final</h5>
-
-            <table class="table table-hover shadow-sm categorias-table">
-
-                <thead>
-                    <tr>
-                        <th>Tipo Actividad</th>
-                        <th>Cantidad</th>
-                        <th>Detalle</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var item in Model.DetalleInformeFinals)
-                    {
-                        <tr>
-                            <td>@item.TipoActividad</td>
-                            <td>@item.Cantidad</td>
-                            <td>@item.DetalleActividad</td>
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
-
-            <a asp-action="Index" class="btn btn-secondary">
-                Volver
-            </a>
 
         </div>
 
     </div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+            Detalle del Informe Final
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.DetalleInformeFinals == null || !Model.DetalleInformeFinals.Any())
+            {
+                <div class="alert alert-warning mb-0">
+                    No hay informes de dirección aprobados asociados a este informe final.
+                </div>
+            }
+            else
+            {
+                <table class="table table-hover shadow-sm categorias-table">
+
+                    <thead>
+                        <tr>
+                            <th>Tipo Actividad</th>
+                            <th>Cantidad</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model.DetalleInformeFinals)
+                        {
+                            <tr>
+                                <td>@item.TipoActividad</td>
+                                <td>@item.Cantidad</td>
+                                <td>@item.DetalleActividad</td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            }
+
+        </div>
+
+    </div>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Volver
+    </a>
 
 </div>

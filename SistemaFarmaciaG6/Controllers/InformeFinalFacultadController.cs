@@ -28,7 +28,11 @@ namespace SistemaFarmaciaG6.Controllers
         private bool PuedeGestionar()
         {
             var rol = RolSesion();
-            return rol == "Decano" || rol == "Administrador";
+
+            return rol == "Decano" ||
+                   rol == "Administrador" ||
+                   rol == "Jefatura" ||
+                   rol == "Visualizador";
         }
 
         private bool EsAdministrador()
