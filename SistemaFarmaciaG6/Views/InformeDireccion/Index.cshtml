@@ -1,8 +1,8 @@
-﻿
-@model IEnumerable<SistemaFarmaciaG6.Models.InformeDireccion>
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.InformeDireccion>
 
 @{
     ViewData["Title"] = "Informe de Dirección";
+    var rolUsuario = Context.Session.GetString("Rol") ?? "";
 }
 
 <div class="container-fluid">
@@ -27,12 +27,15 @@
             </div>
         }
 
-        <p>
-            <a asp-action="Create"
-               class="btn btn-create">
-                ➕ Generar Informe Dirección
-            </a>
-        </p>
+        @if (rolUsuario == "Director" || rolUsuario == "Administrador")
+        {
+            <p>
+                <a asp-action="Create"
+                   class="btn btn-create">
+                    ➕ Generar Informe Dirección
+                </a>
+            </p>
+        }
 
     </div>
 
@@ -45,6 +48,7 @@
                 <th>Estado</th>
                 <th>Fecha Creación</th>
                 <th>Fecha Envío</th>
+                <th>Fecha Aprobación</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -62,10 +66,10 @@
                     <td>
                         @item.IdUsuarioNavigation?.Nombre
                         @item.IdUsuarioNavigation?.Apellido1
+                        @item.IdUsuarioNavigation?.Apellido2
                     </td>
 
                     <td>
-
                         @if (item.IdEstado == 1)
                         {
                             <span class="badge bg-secondary">
@@ -102,7 +106,6 @@
                                 @item.IdEstadoNavigation?.NombreEstado
                             </span>
                         }
-
                     </td>
 
                     <td>
@@ -111,6 +114,10 @@
 
                     <td>
                         @(item.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
+                    </td>
+
+                    <td>
+                        @(item.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No aprobado")
                     </td>
 
                     <td>
@@ -153,6 +160,24 @@
                             </a>
                         }
 
+                        @if (rolUsuario == "Administrador" &&
+                                            (item.IdEstado == 2 || item.IdEstado == 4 || item.IdEstado == 5))
+                        {
+                            <form asp-action="Reabrir"
+                                  asp-route-id="@item.IdInformeDireccion"
+                                  method="post"
+                                  style="display:inline;">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm">
+                                    Reabrir
+                                </button>
+
+                            </form>
+                        }
+
                     </td>
 
                 </tr>
@@ -163,4 +188,3 @@
     </table>
 
 </div>
-

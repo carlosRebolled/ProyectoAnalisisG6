@@ -2,26 +2,34 @@
 
 @{
     ViewData["Title"] = "Informe Final Facultad";
+    var rolUsuario = Context.Session.GetString("Rol") ?? "";
 }
 
 <div class="container-fluid">
 
     <div class="categorias-section">
 
-        <h2 class="mb-3">Informe Final de Facultad</h2>
+        <h2 class="mb-3">
+            Informe Final de Facultad
+        </h2>
 
         @if (TempData["Exito"] != null)
         {
-            <div class="alert alert-success">@TempData["Exito"]</div>
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
         }
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">@TempData["Error"]</div>
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
         }
 
         <p>
-            <a asp-action="Create" class="btn btn-create">
+            <a asp-action="Create"
+               class="btn btn-create">
                 ➕ Generar Informe Final
             </a>
         </p>
@@ -46,21 +54,30 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Anio</td>
+
+                    <td>
+                        @item.Anio
+                    </td>
 
                     <td>
                         @item.IdUsuarioGeneraNavigation?.Nombre
                         @item.IdUsuarioGeneraNavigation?.Apellido1
+                        @item.IdUsuarioGeneraNavigation?.Apellido2
                     </td>
 
                     <td>
+
                         @if (item.IdEstado == 1)
                         {
-                            <span class="badge bg-secondary">Borrador</span>
+                            <span class="badge bg-secondary">
+                                Borrador
+                            </span>
                         }
                         else if (item.IdEstado == 5)
                         {
-                            <span class="badge bg-primary">Finalizado</span>
+                            <span class="badge bg-primary">
+                                Finalizado
+                            </span>
                         }
                         else
                         {
@@ -68,15 +85,19 @@
                                 @item.IdEstadoNavigation?.NombreEstado
                             </span>
                         }
+
                     </td>
 
-                    <td>@item.FechaGeneracion.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @item.FechaGeneracion.ToString("dd/MM/yyyy")
+                    </td>
 
                     <td>
                         @(item.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No finalizado")
                     </td>
 
                     <td>
+
                         <a asp-action="Details"
                            asp-route-id="@item.IdInformeFinal"
                            class="btn btn-info btn-sm">
@@ -105,7 +126,26 @@
 
                             </form>
                         }
+
+                        @if (rolUsuario == "Administrador" && item.IdEstado == 5)
+                        {
+                            <form asp-action="Reabrir"
+                                  asp-route-id="@item.IdInformeFinal"
+                                  method="post"
+                                  style="display:inline;">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm">
+                                    Reabrir
+                                </button>
+
+                            </form>
+                        }
+
                     </td>
+
                 </tr>
             }
 

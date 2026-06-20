@@ -1,7 +1,8 @@
 ﻿@model List<SistemaFarmaciaG6.Models.InformeDocente>
 
 @{
-    ViewData["Title"] = "Mis Informes";
+    ViewData["Title"] = "Informes Docentes";
+    var rolUsuario = Context.Session.GetString("Rol") ?? "";
     var anioActual = DateTime.Now.Year;
     var informeActual = Model.FirstOrDefault(x => x.Anio == anioActual);
 }
@@ -10,16 +11,20 @@
 
     <div class="categorias-section">
 
-        <h2 class="mb-3">
-            Mi Informe Anual de Labores
-        </h2>
+        @if (rolUsuario == "Docente")
+        {
+            <h2 class="mb-3">Mi Informe Anual de Labores</h2>
 
-        <p>
-            <a asp-action="Create"
-               class="btn btn-create">
-                ➕ Crear Nuevo Informe
-            </a>
-        </p>
+            <p>
+                <a asp-action="Create" class="btn btn-create">
+                    ➕ Crear Nuevo Informe
+                </a>
+            </p>
+        }
+        else
+        {
+            <h2 class="mb-3">Consulta de Informes Docentes</h2>
+        }
 
         @if (TempData["Exito"] != null)
         {
@@ -37,197 +42,295 @@
 
     </div>
 
-    @if (informeActual == null)
+    @if (rolUsuario == "Docente")
     {
-        <div class="card shadow-sm border-success mt-4">
+        @if (informeActual == null)
+        {
+            <div class="card shadow-sm border-success mt-4">
 
-            <div class="card-header bg-success text-white">
-                Informe anual @anioActual
-            </div>
+                <div class="card-header bg-success text-white">
+                    Informe anual @anioActual
+                </div>
 
-            <div class="card-body">
+                <div class="card-body">
 
-                <h4>
-                    Aún no ha creado su informe de labores para el año @anioActual.
-                </h4>
+                    <h4>
+                        Aún no ha creado su informe de labores para el año @anioActual.
+                    </h4>
 
-                <p class="text-muted">
-                    Debe generar un único informe anual donde registre sus actividades académicas,
-                    administrativas, de investigación, acción social y demás labores realizadas durante el año.
-                </p>
-
-            </div>
-
-        </div>
-    }
-    else
-    {
-        <div class="card shadow-sm mt-4">
-
-            <div class="card-header d-flex justify-content-between align-items-center">
-
-                <h4 class="mb-0">
-                    Informe de Labores @informeActual.Anio
-                </h4>
-
-                @if (informeActual.IdEstado == 1)
-                {
-                    <span class="badge bg-secondary">
-                        Borrador
-                    </span>
-                }
-                else if (informeActual.IdEstado == 2)
-                {
-                    <span class="badge bg-warning text-dark">
-                        Pendiente de revisión
-                    </span>
-                }
-                else if (informeActual.IdEstado == 3)
-                {
-                    <span class="badge bg-danger">
-                        Devuelto
-                    </span>
-                }
-                else if (informeActual.IdEstado == 4)
-                {
-                    <span class="badge bg-success">
-                        Aprobado
-                    </span>
-                }
-                else if (informeActual.IdEstado == 5)
-                {
-                    <span class="badge bg-primary">
-                        Finalizado
-                    </span>
-                }
-                else
-                {
-                    <span class="badge bg-secondary">
-                        @informeActual.IdEstadoNavigation?.NombreEstado
-                    </span>
-                }
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row">
-
-                    <div class="col-md-4 mb-3">
-                        <strong>Fecha de creación:</strong>
-                        <br />
-                        @informeActual.FechaCreacion.ToString("dd/MM/yyyy")
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <strong>Fecha de envío:</strong>
-                        <br />
-                        @(informeActual.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <strong>Fecha de aprobación:</strong>
-                        <br />
-                        @(informeActual.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No aprobado")
-                    </div>
+                    <p class="text-muted">
+                        Debe generar un único informe anual donde registre sus actividades académicas,
+                        administrativas, de investigación, acción social y demás labores realizadas durante el año.
+                    </p>
 
                 </div>
 
-                <hr />
+            </div>
+        }
+        else
+        {
+            <div class="card shadow-sm mt-4">
 
-                <p class="text-muted">
-                    Este informe corresponde al registro anual de labores del docente.
-                    Puede editarlo mientras se encuentre en estado Borrador o Devuelto.
-                </p>
+                <div class="card-header d-flex justify-content-between align-items-center">
 
-                <a asp-action="Details"
-                   asp-route-id="@informeActual.IdInformeDocente"
-                   class="btn btn-info">
-                    Ver Detalle
-                </a>
+                    <h4 class="mb-0">
+                        Informe de Labores @informeActual.Anio
+                    </h4>
 
-                @if (informeActual.IdEstado == 1 || informeActual.IdEstado == 3)
-                {
-                    <a asp-action="Edit"
+                    @if (informeActual.IdEstado == 1)
+                    {
+                        <span class="badge bg-secondary">Borrador</span>
+                    }
+                    else if (informeActual.IdEstado == 2)
+                    {
+                        <span class="badge bg-warning text-dark">Pendiente de revisión</span>
+                    }
+                    else if (informeActual.IdEstado == 3)
+                    {
+                        <span class="badge bg-danger">Devuelto</span>
+                    }
+                    else if (informeActual.IdEstado == 4)
+                    {
+                        <span class="badge bg-success">Aprobado</span>
+                    }
+                    else if (informeActual.IdEstado == 5)
+                    {
+                        <span class="badge bg-primary">Finalizado</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">
+                            @informeActual.IdEstadoNavigation?.NombreEstado
+                        </span>
+                    }
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+                            <strong>Fecha de creación:</strong>
+                            <br />
+                            @informeActual.FechaCreacion.ToString("dd/MM/yyyy")
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <strong>Fecha de envío:</strong>
+                            <br />
+                            @(informeActual.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <strong>Fecha de aprobación:</strong>
+                            <br />
+                            @(informeActual.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No aprobado")
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <p class="text-muted">
+                        Este informe corresponde al registro anual de labores del docente.
+                        Puede editarlo mientras se encuentre en estado Borrador o Devuelto.
+                    </p>
+
+                    <a asp-action="Details"
                        asp-route-id="@informeActual.IdInformeDocente"
-                       class="btn btn-warning">
-                        Editar
+                       class="btn btn-info">
+                        Ver Detalle
                     </a>
 
-                    <a asp-action="Enviar"
-                       asp-route-id="@informeActual.IdInformeDocente"
-                       class="btn btn-success">
-                        Enviar
-                    </a>
-                }
+                    @if (informeActual.IdEstado == 1 || informeActual.IdEstado == 3)
+                    {
+                        <a asp-action="Edit"
+                           asp-route-id="@informeActual.IdInformeDocente"
+                           class="btn btn-warning">
+                            Editar
+                        </a>
 
-                @if (informeActual.IdEstado == 1)
-                {
-                    <a asp-action="Delete"
-                       asp-route-id="@informeActual.IdInformeDocente"
-                       class="btn btn-danger">
-                        Eliminar
-                    </a>
-                }
+                        <a asp-action="Enviar"
+                           asp-route-id="@informeActual.IdInformeDocente"
+                           class="btn btn-success">
+                            Enviar
+                        </a>
+                    }
+
+                    @if (informeActual.IdEstado == 1 || informeActual.IdEstado == 3)
+                    {
+                        <a asp-action="Delete"
+                           asp-route-id="@informeActual.IdInformeDocente"
+                           class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    }
+
+                </div>
 
             </div>
+        }
 
-        </div>
-    }
+        @if (Model.Any(x => x.Anio != anioActual))
+        {
+            <div class="card shadow-sm mt-5">
 
-    @if (Model.Any(x => x.Anio != anioActual))
-    {
-        <div class="card shadow-sm mt-5">
+                <div class="card-header">
+                    Historial de Informes Anteriores
+                </div>
 
-            <div class="card-header">
-                Historial de Informes Anteriores
-            </div>
+                <div class="card-body">
 
-            <div class="card-body">
+                    <table class="table table-hover">
 
-                <table class="table table-hover">
-
-                    <thead>
-                        <tr>
-                            <th>Año</th>
-                            <th>Estado</th>
-                            <th>Fecha creación</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        @foreach (var item in Model.Where(x => x.Anio != anioActual))
-                        {
+                        <thead>
                             <tr>
-                                <td>@item.Anio</td>
-
-                                <td>
-                                    @item.IdEstadoNavigation?.NombreEstado
-                                </td>
-
-                                <td>
-                                    @item.FechaCreacion.ToString("dd/MM/yyyy")
-                                </td>
-
-                                <td>
-                                    <a asp-action="Details"
-                                       asp-route-id="@item.IdInformeDocente"
-                                       class="btn btn-info btn-sm">
-                                        Ver
-                                    </a>
-                                </td>
+                                <th>Año</th>
+                                <th>Estado</th>
+                                <th>Fecha creación</th>
+                                <th></th>
                             </tr>
-                        }
+                        </thead>
 
-                    </tbody>
+                        <tbody>
 
-                </table>
+                            @foreach (var item in Model.Where(x => x.Anio != anioActual))
+                            {
+                                <tr>
+                                    <td>@item.Anio</td>
+
+                                    <td>
+                                        @item.IdEstadoNavigation?.NombreEstado
+                                    </td>
+
+                                    <td>
+                                        @item.FechaCreacion.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.IdInformeDocente"
+                                           class="btn btn-info btn-sm">
+                                            Ver
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
+        }
+    }
+    else
+    {
+        <table class="table table-hover shadow-sm categorias-table mt-4">
 
-        </div>
+            <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Docente</th>
+                    <th>Departamento</th>
+                    <th>Estado</th>
+                    <th>Fecha creación</th>
+                    <th>Fecha envío</th>
+                    <th>Fecha aprobación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Anio</td>
+
+                        <td>
+                            @item.IdUsuarioNavigation?.Nombre
+                            @item.IdUsuarioNavigation?.Apellido1
+                            @item.IdUsuarioNavigation?.Apellido2
+                        </td>
+
+                        <td>
+                            @item.IdUsuarioNavigation?.IdDepartamentoNavigation?.NombreDepartamento
+                        </td>
+
+                        <td>
+                            @if (item.IdEstado == 1)
+                            {
+                                <span class="badge bg-secondary">Borrador</span>
+                            }
+                            else if (item.IdEstado == 2)
+                            {
+                                <span class="badge bg-warning text-dark">Pendiente</span>
+                            }
+                            else if (item.IdEstado == 3)
+                            {
+                                <span class="badge bg-danger">Devuelto</span>
+                            }
+                            else if (item.IdEstado == 4)
+                            {
+                                <span class="badge bg-success">Aprobado</span>
+                            }
+                            else if (item.IdEstado == 5)
+                            {
+                                <span class="badge bg-primary">Finalizado</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    @item.IdEstadoNavigation?.NombreEstado
+                                </span>
+                            }
+                        </td>
+
+                        <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
+
+                        <td>
+                            @(item.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
+                        </td>
+
+                        <td>
+                            @(item.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No aprobado")
+                        </td>
+
+                        <td>
+                            <a asp-action="Details"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-info btn-sm">
+                                Ver
+                            </a>
+
+                            @if (rolUsuario == "Administrador" &&
+                                                (item.IdEstado == 2 || item.IdEstado == 4 || item.IdEstado == 5))
+                            {
+                                <form asp-action="Reabrir"
+                                      asp-route-id="@item.IdInformeDocente"
+                                      method="post"
+                                      style="display:inline;">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Reabrir
+                                    </button>
+
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
     }
 
 </div>

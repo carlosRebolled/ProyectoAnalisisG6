@@ -1,5 +1,4 @@
-﻿```cshtml
-@model SistemaFarmaciaG6.Models.InformeDireccion
+﻿@model SistemaFarmaciaG6.Models.InformeDireccion
 
 @{
     ViewData["Title"] = "Editar Informe de Dirección";
@@ -13,6 +12,13 @@
             Editar Informe de Dirección
         </h2>
 
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Exito"]
+            </div>
+        }
+
         @if (TempData["Error"] != null)
         {
             <div class="alert alert-danger">
@@ -22,12 +28,18 @@
 
     </div>
 
-    <form asp-action="Edit" method="post">
+    <form asp-action="Edit"
+          asp-route-id="@Model.IdInformeDireccion"
+          method="post">
 
         @Html.AntiForgeryToken()
 
-        <input type="hidden"
-               asp-for="IdInformeDireccion" />
+        <input type="hidden" asp-for="IdInformeDireccion" />
+        <input type="hidden" asp-for="IdUsuario" />
+        <input type="hidden" asp-for="IdEstado" />
+        <input type="hidden" asp-for="FechaCreacion" />
+        <input type="hidden" asp-for="FechaEnvio" />
+        <input type="hidden" asp-for="FechaAprobacion" />
 
         <div class="card shadow-sm">
 
@@ -53,8 +65,8 @@
 
                     <textarea asp-for="ObservacionesDirector"
                               class="form-control"
-                              rows="8"
-                              placeholder="Ingrese observaciones generales del informe"></textarea>
+                              rows="10"
+                              placeholder="Ingrese las observaciones generales del informe"></textarea>
 
                 </div>
 
@@ -77,4 +89,3 @@
     </form>
 
 </div>
-```

@@ -21,25 +21,52 @@ namespace SistemaFarmaciaG6.Controllers
             return rol == "Director" || rol == "Administrador";
         }
 
+        private bool EsAdministrador()
+        {
+            return HttpContext.Session.GetString("Rol") == "Administrador";
+        }
+
+        private int? IdUsuarioSesion()
+        {
+            return HttpContext.Session.GetInt32("IdUsuario");
+        }
+
         public IActionResult Index()
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informes = _context.InformeDireccions
                 .Include(i => i.IdEstadoNavigation)
                 .Include(i => i.IdUsuarioNavigation)
-                .OrderByDescending(i => i.Anio)
-                .ToList();
+                .AsQueryable();
 
-            return View(informes);
+            if (!EsAdministrador())
+            {
+                informes = informes.Where(i => i.IdUsuario == idUsuario);
+            }
+
+            return View(informes
+                .OrderByDescending(i => i.Anio)
+                .ToList());
         }
 
         [HttpGet]
         public IActionResult Create()
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             return View();
         }
@@ -49,12 +76,16 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Create(InformeDireccion informe)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
-            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            int? idUsuario = IdUsuarioSesion();
 
             if (idUsuario == null)
+            {
                 return RedirectToAction("Login", "Account");
+            }
 
             int anioActual = DateTime.Now.Year;
 
@@ -93,7 +124,16 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Details(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informe = _context.InformeDireccions
                 .Include(i => i.IdEstadoNavigation)
@@ -101,7 +141,15 @@ namespace SistemaFarmaciaG6.Controllers
                 .FirstOrDefault(i => i.IdInformeDireccion == id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
+
+            if (!EsAdministrador() && informe.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede ver informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
 
             var observaciones = _context.Observaciones
                 .Where(o => o.IdInformeDireccion == id)
@@ -118,12 +166,29 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Enviar(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informe = _context.InformeDireccions.Find(id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
+
+            if (!EsAdministrador() && informe.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede enviar informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
@@ -152,12 +217,29 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Edit(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informe = _context.InformeDireccions.Find(id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
+
+            if (!EsAdministrador() && informe.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede editar informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
@@ -173,12 +255,29 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Edit(int id, InformeDireccion informe)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informeBD = _context.InformeDireccions.Find(id);
 
             if (informeBD == null)
+            {
                 return NotFound();
+            }
+
+            if (!EsAdministrador() && informeBD.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede editar informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (informeBD.IdEstado != 1 && informeBD.IdEstado != 3)
             {
@@ -206,14 +305,31 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Delete(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informe = _context.InformeDireccions
                 .Include(i => i.IdEstadoNavigation)
                 .FirstOrDefault(i => i.IdInformeDireccion == id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
+
+            if (!EsAdministrador() && informe.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede eliminar informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (informe.IdEstado != 1)
             {
@@ -229,12 +345,29 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var informe = _context.InformeDireccions.Find(id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
+
+            if (!EsAdministrador() && informe.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede eliminar informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (informe.IdEstado != 1)
             {
@@ -257,6 +390,48 @@ namespace SistemaFarmaciaG6.Controllers
             );
 
             TempData["Exito"] = "Informe eliminado correctamente.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Reabrir(int id)
+        {
+            if (!EsAdministrador())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var informe = _context.InformeDireccions.Find(id);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            if (informe.IdEstado != 2 &&
+                informe.IdEstado != 4 &&
+                informe.IdEstado != 5)
+            {
+                TempData["Error"] = "Solo se pueden reabrir informes enviados, aprobados o finalizados.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            informe.IdEstado = 1;
+            informe.FechaEnvio = null;
+            informe.FechaAprobacion = null;
+
+            _context.SaveChanges();
+
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "InformeDireccion",
+                "Reabrir",
+                $"El administrador reabrió el informe de dirección #{informe.IdInformeDireccion} del año {informe.Anio}."
+            );
+
+            TempData["Exito"] = "Informe de dirección reabierto correctamente.";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -50,9 +50,7 @@
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target=".navbar-collapse">
-
                     <span class="navbar-toggler-icon"></span>
-
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -68,37 +66,6 @@
 
                         @if (rolUsuario == "Administrador")
                         {
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="InformeFinalFacultad"
-                                   asp-action="Index">
-                                    🏛️ Informe Final Facultad
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="RevisionInformeDireccion"
-                                   asp-action="Index">
-                                    📋 Revisión Informes Dirección
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="InformeDireccion"
-                                   asp-action="Index">
-                                    Informe Dirección
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="RevisionInformes"
-                                   asp-action="Index">
-                                    <i class="bi bi-check2-square"></i>
-                                    Revisión Informes
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">
                                     <i class="bi bi-speedometer2"></i>
@@ -135,9 +102,23 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDepartamental" asp-action="Index">
-                                    <i class="bi bi-folder2-open"></i>
-                                    Informes Departamentales
+                                <a class="nav-link" asp-controller="RevisionInformes" asp-action="Index">
+                                    <i class="bi bi-check2-square"></i>
+                                    Revisión Docentes
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="InformeDireccion" asp-action="Index">
+                                    <i class="bi bi-building"></i>
+                                    Informe Dirección
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="RevisionInformeDireccion" asp-action="Index">
+                                    <i class="bi bi-clipboard-check"></i>
+                                    Revisión Dirección
                                 </a>
                             </li>
 
@@ -148,28 +129,27 @@
                                 </a>
                             </li>
 
-
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Auditoria" asp-action="Index">
                                     <i class="bi bi-clock-history"></i>
                                     Bitácora
                                 </a>
                             </li>
-
                         }
 
                         @if (rolUsuario == "Docente")
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Docente" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i> Dashboard
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
                                     <i class="bi bi-file-earmark-text"></i>
-                                    Mis Informes
+                                    Mi Informe
                                 </a>
                             </li>
                         }
@@ -177,37 +157,23 @@
                         @if (rolUsuario == "Director")
                         {
                             <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="InformeDireccion"
-                                   asp-action="Index">
+                                <a class="nav-link" asp-controller="Director" asp-action="Dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="RevisionInformes" asp-action="Index">
+                                    <i class="bi bi-check2-square"></i>
+                                    Revisión Docentes
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="InformeDireccion" asp-action="Index">
+                                    <i class="bi bi-building"></i>
                                     Informe Dirección
-                                </a>
-                            </li>
-              
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Director" asp-action="Dashboard">
-                                        <i class="bi bi-speedometer2"></i> Dashboard
-                                    </a>
-                                </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
-                                    <i class="bi bi-search"></i>
-                                    Revisar Informes
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Observaciones" asp-action="Index">
-                                    <i class="bi bi-chat-left-text"></i>
-                                    Observaciones
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDepartamental" asp-action="Index">
-                                    <i class="bi bi-folder2-open"></i>
-                                    Informe Departamental
                                 </a>
                             </li>
                         }
@@ -215,38 +181,16 @@
                         @if (rolUsuario == "Decano")
                         {
                             <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="InformeFinalFacultad"
-                                   asp-action="Index">
-                                    🏛️ Informe Final Facultad
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="RevisionInformeDireccion"
-                                   asp-action="Index">
-                                    📋 Revisión Informes Dirección
-                                </a>
-                            </li>
-                          
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Decano" asp-action="Dashboard">
-                                        <i class="bi bi-speedometer2"></i> Dashboard
-                                    </a>
-                                </li>
-                            
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
-                                    <i class="bi bi-file-earmark-text"></i>
-                                    Consultar Informes
+                                <a class="nav-link" asp-controller="Decano" asp-action="Dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDepartamental" asp-action="Index">
-                                    <i class="bi bi-folder2-open"></i>
-                                    Informes Departamentales
+                                <a class="nav-link" asp-controller="RevisionInformeDireccion" asp-action="Index">
+                                    <i class="bi bi-clipboard-check"></i>
+                                    Revisión Dirección
                                 </a>
                             </li>
 
@@ -259,63 +203,34 @@
                         }
 
                         @if (rolUsuario == "Jefatura")
-                        
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Jefatura" asp-action="Dashboard">
-                                        <i class="bi bi-speedometer2"></i> Dashboard
-                                    </a>
-                                </li>
-                            
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
-                                    <i class="bi bi-file-earmark-text"></i>
-                                    Consultar Informes
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDepartamental" asp-action="Index">
-                                    <i class="bi bi-folder2-open"></i>
-                                    Informes Departamentales
+                                <a class="nav-link" asp-controller="Jefatura" asp-action="Dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="InformeFinalFacultad" asp-action="Index">
                                     <i class="bi bi-file-earmark-check"></i>
-                                    Informe Final
+                                    Consultar Informe Final
                                 </a>
                             </li>
                         }
 
                         @if (rolUsuario == "Visualizador")
                         {
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Visualizador" asp-action="Dashboard">
-                                        <i class="bi bi-speedometer2"></i> Dashboard
-                                    </a>
-                                </li>
-                            
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
-                                    <i class="bi bi-eye"></i>
-                                    Consultar Informes
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDepartamental" asp-action="Index">
-                                    <i class="bi bi-folder2-open"></i>
-                                    Consultar Departamentos
+                                <a class="nav-link" asp-controller="Visualizador" asp-action="Dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="InformeFinalFacultad" asp-action="Index">
-                                    <i class="bi bi-file-earmark-check"></i>
+                                    <i class="bi bi-eye"></i>
                                     Consultar Informe Final
                                 </a>
                             </li>

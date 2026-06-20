@@ -15,80 +15,71 @@ namespace SistemaFarmaciaG6.Controllers
             _context = context;
         }
 
-        private bool PuedeRevisarInformes()
+        private bool PuedeRevisar()
         {
             var rol = HttpContext.Session.GetString("Rol");
             return rol == "Director" || rol == "Administrador";
         }
 
-        private IActionResult RedirigirNoAutorizado()
+        private int? ObtenerDepartamentoDirector()
         {
-            return RedirectToAction("Index", "Home");
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+                return null;
+
+            var usuario = _context.Usuarios.Find(idUsuario);
+
+            return usuario?.IdDepartamento;
         }
 
         public IActionResult Index()
         {
-            if (!PuedeRevisarInformes())
-            {
-                return RedirigirNoAutorizado();
-            }
+            if (!PuedeRevisar())
+                return RedirectToAction("Index", "Home");
 
-            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
-
-            if (idUsuario == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            var director = _context.Usuarios.Find(idUsuario);
-
-            if (director == null)
-            {
-                return NotFound();
-            }
+            var rol = HttpContext.Session.GetString("Rol");
+            var idDepartamento = ObtenerDepartamentoDirector();
 
             var informes = _context.InformeDocentes
                 .Include(i => i.IdUsuarioNavigation)
                 .Include(i => i.IdEstadoNavigation)
-                .Where(i => i.IdUsuarioNavigation.IdDepartamento == director.IdDepartamento)
-                .Where(i => i.IdEstado == 2 || i.IdEstado == 3 || i.IdEstado == 4)
-                .OrderByDescending(i => i.FechaEnvio)
-                .ToList();
+                .AsQueryable();
 
-            return View(informes);
+            if (rol == "Director")
+            {
+                informes = informes.Where(i =>
+                    i.IdUsuarioNavigation.IdDepartamento == idDepartamento);
+            }
+
+            informes = informes.Where(i =>
+                i.IdEstado == 2 ||
+                i.IdEstado == 3 ||
+                i.IdEstado == 4);
+
+            return View(informes.OrderByDescending(i => i.FechaEnvio).ToList());
         }
 
         public IActionResult Details(int id)
         {
-            if (!PuedeRevisarInformes())
-            {
-                return RedirigirNoAutorizado();
-            }
+            if (!PuedeRevisar())
+                return RedirectToAction("Index", "Home");
 
-            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
-
-            if (idUsuario == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            var director = _context.Usuarios.Find(idUsuario);
-
-            if (director == null)
-            {
-                return NotFound();
-            }
+            var rol = HttpContext.Session.GetString("Rol");
+            var idDepartamento = ObtenerDepartamentoDirector();
 
             var informe = _context.InformeDocentes
                 .Include(i => i.IdUsuarioNavigation)
                 .Include(i => i.IdEstadoNavigation)
-                .FirstOrDefault(i =>
-                    i.IdInformeDocente == id &&
-                    i.IdUsuarioNavigation.IdDepartamento == director.IdDepartamento);
+                .FirstOrDefault(i => i.IdInformeDocente == id);
 
             if (informe == null)
-            {
                 return NotFound();
+
+            if (rol == "Director" &&
+                informe.IdUsuarioNavigation.IdDepartamento != idDepartamento)
+            {
+                return RedirectToAction("Index", "Home");
             }
 
             return View(informe);
@@ -98,16 +89,24 @@ namespace SistemaFarmaciaG6.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Aprobar(int id)
         {
-            if (!PuedeRevisarInformes())
-            {
-                return RedirigirNoAutorizado();
-            }
+            if (!PuedeRevisar())
+                return RedirectToAction("Index", "Home");
 
-            var informe = _context.InformeDocentes.Find(id);
+            var rol = HttpContext.Session.GetString("Rol");
+            var idDepartamento = ObtenerDepartamentoDirector();
+
+            var informe = _context.InformeDocentes
+                .Include(i => i.IdUsuarioNavigation)
+                .FirstOrDefault(i => i.IdInformeDocente == id);
 
             if (informe == null)
-            {
                 return NotFound();
+
+            if (rol == "Director" &&
+                informe.IdUsuarioNavigation.IdDepartamento != idDepartamento)
+            {
+                TempData["Error"] = "No puede aprobar informes de otro departamento.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (informe.IdEstado != 2)
@@ -126,11 +125,10 @@ namespace SistemaFarmaciaG6.Controllers
                 HttpContext,
                 "InformeDocente",
                 "Aprobar",
-                $"El director aprobó el informe docente #{informe.IdInformeDocente} del año {informe.Anio}."
+                $"Se aprobó el informe docente #{informe.IdInformeDocente} del año {informe.Anio}."
             );
 
             TempData["Exito"] = "Informe aprobado correctamente.";
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -138,16 +136,24 @@ namespace SistemaFarmaciaG6.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Devolver(int id, string observacion)
         {
-            if (!PuedeRevisarInformes())
-            {
-                return RedirigirNoAutorizado();
-            }
+            if (!PuedeRevisar())
+                return RedirectToAction("Index", "Home");
 
-            var informe = _context.InformeDocentes.Find(id);
+            var rol = HttpContext.Session.GetString("Rol");
+            var idDepartamento = ObtenerDepartamentoDirector();
+
+            var informe = _context.InformeDocentes
+                .Include(i => i.IdUsuarioNavigation)
+                .FirstOrDefault(i => i.IdInformeDocente == id);
 
             if (informe == null)
-            {
                 return NotFound();
+
+            if (rol == "Director" &&
+                informe.IdUsuarioNavigation.IdDepartamento != idDepartamento)
+            {
+                TempData["Error"] = "No puede devolver informes de otro departamento.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (informe.IdEstado != 2)
@@ -158,14 +164,12 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (string.IsNullOrWhiteSpace(observacion))
             {
-                TempData["Error"] = "Debe escribir una observación para devolver el informe.";
-                return RedirectToAction(nameof(Details), new { id = id });
+                TempData["Error"] = "Debe escribir una observación.";
+                return RedirectToAction(nameof(Details), new { id });
             }
 
-            // Cambiar estado a Devuelto
             informe.IdEstado = 3;
 
-            // Crear observación
             var nuevaObservacion = new Observacione
             {
                 IdInformeDocente = id,
@@ -176,7 +180,6 @@ namespace SistemaFarmaciaG6.Controllers
             };
 
             _context.Observaciones.Add(nuevaObservacion);
-
             _context.SaveChanges();
 
             AuditoriaHelper.Registrar(
@@ -184,12 +187,11 @@ namespace SistemaFarmaciaG6.Controllers
                 HttpContext,
                 "InformeDocente",
                 "Devolver",
-                $"El director devolvió el informe docente #{informe.IdInformeDocente} con observación."
+                $"Se devolvió el informe docente #{informe.IdInformeDocente}."
             );
 
             TempData["Exito"] = "Informe devuelto correctamente.";
-
             return RedirectToAction(nameof(Index));
         }
     }
-    }
+}

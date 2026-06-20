@@ -15,16 +15,33 @@ namespace SistemaFarmaciaG6.Controllers
             _context = context;
         }
 
+        private string RolSesion()
+        {
+            return HttpContext.Session.GetString("Rol") ?? "";
+        }
+
+        private int? IdUsuarioSesion()
+        {
+            return HttpContext.Session.GetInt32("IdUsuario");
+        }
+
         private bool PuedeGestionar()
         {
-            var rol = HttpContext.Session.GetString("Rol");
+            var rol = RolSesion();
             return rol == "Decano" || rol == "Administrador";
+        }
+
+        private bool EsAdministrador()
+        {
+            return RolSesion() == "Administrador";
         }
 
         public IActionResult Index()
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             var informes = _context.InformeFinalFacultads
                 .Include(i => i.IdEstadoNavigation)
@@ -39,7 +56,9 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Create()
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             return View();
         }
@@ -49,12 +68,16 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Create(InformeFinalFacultad informe)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
-            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            int? idUsuario = IdUsuarioSesion();
 
             if (idUsuario == null)
+            {
                 return RedirectToAction("Login", "Account");
+            }
 
             int anioActual = DateTime.Now.Year;
 
@@ -76,6 +99,27 @@ namespace SistemaFarmaciaG6.Controllers
             _context.InformeFinalFacultads.Add(informe);
             _context.SaveChanges();
 
+            var informesDireccion = _context.InformeDireccions
+                .Include(i => i.IdUsuarioNavigation)
+                .Where(i => i.Anio == anioActual && i.IdEstado == 4)
+                .ToList();
+
+            foreach (var item in informesDireccion)
+            {
+                var detalle = new DetalleInformeFinal
+                {
+                    IdInformeFinal = informe.IdInformeFinal,
+                    TipoActividad = "Informe Dirección",
+                    Cantidad = 1,
+                    DetalleActividad =
+                        $"Informe Dirección #{item.IdInformeDireccion} generado por {item.IdUsuarioNavigation.Nombre} {item.IdUsuarioNavigation.Apellido1}"
+                };
+
+                _context.DetalleInformeFinals.Add(detalle);
+            }
+
+            _context.SaveChanges();
+
             AuditoriaHelper.Registrar(
                 _context,
                 HttpContext,
@@ -91,15 +135,20 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Details(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             var informe = _context.InformeFinalFacultads
                 .Include(i => i.IdEstadoNavigation)
                 .Include(i => i.IdUsuarioGeneraNavigation)
+                .Include(i => i.DetalleInformeFinals)
                 .FirstOrDefault(i => i.IdInformeFinal == id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
 
             return View(informe);
         }
@@ -108,12 +157,16 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Edit(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             var informe = _context.InformeFinalFacultads.Find(id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
 
             if (informe.IdEstado != 1)
             {
@@ -129,12 +182,16 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Edit(int id, InformeFinalFacultad informe)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             var informeBD = _context.InformeFinalFacultads.Find(id);
 
             if (informeBD == null)
+            {
                 return NotFound();
+            }
 
             if (informeBD.IdEstado != 1)
             {
@@ -163,12 +220,16 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Finalizar(int id)
         {
             if (!PuedeGestionar())
+            {
                 return RedirectToAction("Index", "Home");
+            }
 
             var informe = _context.InformeFinalFacultads.Find(id);
 
             if (informe == null)
+            {
                 return NotFound();
+            }
 
             if (informe.IdEstado != 1)
             {
@@ -190,6 +251,45 @@ namespace SistemaFarmaciaG6.Controllers
             );
 
             TempData["Exito"] = "Informe final finalizado correctamente.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Reabrir(int id)
+        {
+            if (!EsAdministrador())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var informe = _context.InformeFinalFacultads.Find(id);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            if (informe.IdEstado != 5)
+            {
+                TempData["Error"] = "Solo se pueden reabrir informes finalizados.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            informe.IdEstado = 1;
+            informe.FechaAprobacion = null;
+
+            _context.SaveChanges();
+
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "InformeFinalFacultad",
+                "Reabrir",
+                $"El administrador reabrió el informe final de Facultad #{informe.IdInformeFinal} del año {informe.Anio}."
+            );
+
+            TempData["Exito"] = "Informe final reabierto correctamente.";
             return RedirectToAction(nameof(Index));
         }
     }
