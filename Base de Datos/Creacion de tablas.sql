@@ -1,5 +1,12 @@
+IF DB_ID('DB_FacultadFarmacia') IS NULL
+BEGIN
+    CREATE DATABASE DB_FacultadFarmacia;
+END;
+GO
+
 USE DB_FacultadFarmacia;
 GO
+
 CREATE TABLE Roles (
     id_rol INT PRIMARY KEY IDENTITY(1,1),
     nombre_rol VARCHAR(50) NOT NULL UNIQUE,
@@ -193,13 +200,13 @@ CREATE TABLE SesionesDepartamento (
         REFERENCES InformeDireccion(id_informe_direccion)
 );
 GO
+
 CREATE TABLE CursosDireccion (
     id_curso_direccion INT PRIMARY KEY IDENTITY(1,1),
 
     id_informe_direccion INT NOT NULL,
 
-    sigla_curso VARCHAR(50) NOT NULL,
-    nombre_curso VARCHAR(255) NOT NULL,
+    id_curso INT NOT NULL,
 
     coordinacion_cantidad INT DEFAULT 0,
     coordinacion_detalle VARCHAR(MAX),
@@ -226,9 +233,14 @@ CREATE TABLE CursosDireccion (
 
     CONSTRAINT FK_CursosDireccion_InformeDireccion
         FOREIGN KEY (id_informe_direccion)
-        REFERENCES InformeDireccion(id_informe_direccion)
+        REFERENCES InformeDireccion(id_informe_direccion),
+
+    CONSTRAINT FK_CursosDireccion_Cursos
+        FOREIGN KEY (id_curso)
+        REFERENCES Cursos(id_curso)
 );
 GO
+
 CREATE TABLE InformeDepartamental (
     id_informe_departamental INT PRIMARY KEY IDENTITY(1,1),
 
@@ -368,5 +380,16 @@ CREATE TABLE Auditoria (
     CONSTRAINT FK_Auditoria_Usuarios
         FOREIGN KEY (id_usuario)
         REFERENCES Usuarios(id_usuario)
+);
+GO
+
+CREATE TABLE Cursos (
+    id_curso INT PRIMARY KEY IDENTITY(1,1),
+
+    sigla_curso VARCHAR(50) NOT NULL UNIQUE,
+
+    nombre_curso VARCHAR(255) NOT NULL,
+
+    estado VARCHAR(20) NOT NULL DEFAULT 'Activo'
 );
 GO

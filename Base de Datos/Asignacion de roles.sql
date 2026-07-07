@@ -1,26 +1,24 @@
-INSERT INTO dbo.UsuarioRol
-(
-    id_usuario,
-    id_rol
-)
-VALUES
-(3,4); -- Kevin -- Administrador
+USE DB_FacultadFarmacia;
 GO
 
-INSERT INTO dbo.UsuarioRol
-(
-    id_usuario,
-    id_rol
-)
+INSERT INTO dbo.UsuarioRol (id_usuario, id_rol)
 VALUES
-(2,1), -- Felipe -- Docente
-(3,2); -- Nahomy -- Director
+(1, 4), -- Kevin Administrador
+(2, 1), -- Fernando Docente
+(3, 2), -- Nahomy Director
+(5, 2), -- Cristina Director
+(6, 2), -- Milania Director
+(7, 1), -- Josue Docente
+(8, 1), -- Tatiana Docente
+(9, 1); -- Marta Docente
 GO
 
+SELECT * FROM dbo.UsuarioRol;
 
-select * from dbo.Roles
+SELECT * FROM dbo.Roles;
 
-select * from dbo.UsuarioRol
+DELETE FROM dbo.UsuarioRol;
+GO
 
-SELECT id_usuario, nombre, correo
-FROM dbo.Usuarios;
+DBCC CHECKIDENT ('dbo.UsuarioRol', RESEED, 0);
+GO

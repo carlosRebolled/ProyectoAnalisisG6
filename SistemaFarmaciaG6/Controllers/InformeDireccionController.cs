@@ -68,6 +68,31 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var usuario = _context.Usuarios
+                .Include(u => u.IdDepartamentoNavigation)
+                .FirstOrDefault(u => u.IdUsuario == idUsuario);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.NombreDirector = $"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}";
+            ViewBag.Correo = usuario.Correo;
+            ViewBag.Departamento = usuario.IdDepartamentoNavigation.NombreDepartamento;
+            ViewBag.Anio = DateTime.Now.Year;
+
+            ViewBag.Cursos = _context.Cursos
+                .OrderBy(c => c.SiglaCurso)
+                .ToList();
+
             return View();
         }
 

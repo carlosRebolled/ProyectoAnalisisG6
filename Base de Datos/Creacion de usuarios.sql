@@ -57,11 +57,11 @@ INSERT INTO dbo.Usuarios
 VALUES
 (
     '102200200',
-    'Felipe',
-    'Alpizar',
-    'Rodriguez',
+    'Fernando',
+    'Morales',
+    'Cespedes',
     '1990-01-22',
-    'felipe.alpizar@ucr.ac.cr',
+    'Fernando.morales@ucr.ac.cr',
     '123456',
     '88769905',
     1,
@@ -109,19 +109,190 @@ VALUES
 )
 go
 
-select * from dbo.Usuarios
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '202615546',
+    'Cristina',
+    'Herrera',
+    'Arias',
+    '1985-9-22',
+    'cristina.herrera@ucr.ac.cr',
+    '123456',
+    '84568895',
+    2,
+    2,
+    5,
+    1,
+    'Activo',
+    GETDATE()
+)
+go
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '602400154',
+    'Milania',
+    'Rocha',
+    'Palma',
+    '1986-2-22',
+    'milania.rocha@ucr.ac.cr',
+    '123456',
+    '88556621',
+    2,
+    3,
+    4,
+    1,
+    'Activo',
+    GETDATE()
+)
+go
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '100650022',
+    'Josue',
+    'Orozco',
+    'Aguilar',
+    '1996-1-26',
+    'josue.orozco@ucr.ac.cr',
+    '123456',
+    '64521111',
+    1,
+    2,
+    3,
+    2,
+    'Activo',
+    GETDATE()
+)
+go
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '302220111',
+    'Tatiana',
+    'Cruz',
+    'Gonzalez',
+    '1992-9-11',
+    'tatiana.cruz@ucr.ac.cr',
+    '123456',
+    '66592211',
+    2,
+    3,
+    1,
+    2,
+    'Activo',
+    GETDATE()
+)
+go
+
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '600550014',
+    'Marta',
+    'Porras',
+    'Navarro',
+    '1982-9-15',
+    'marta.porras@ucr.ac.cr',
+    '123456',
+    '64555522',
+    2,
+    1,
+    1,
+    2,
+    'Activo',
+    GETDATE()
+)
+go
 
 
-
+select * from dbo.CursosDireccion
 
 DELETE FROM dbo.UsuarioRol;
 GO
 
-INSERT INTO dbo.UsuarioRol (id_usuario, id_rol)
-VALUES
-(1, 4), -- Kevin Administrador
-(2, 1), -- Felipe Docente
-(3, 2); -- Nahomy Director
-GO
-
-SELECT * FROM dbo.UsuarioRol;
+SELECT * FROM dbo.TiposNombramiento;
