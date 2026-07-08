@@ -14,13 +14,381 @@
 
         @Html.AntiForgeryToken()
 
-        <div class="mb-3">
-            <label class="form-label">Observaciones del Director</label>
-            <textarea asp-for="ObservacionesDirector"
-                      class="form-control"
-                      rows="6"
-                      placeholder="Ingrese observaciones generales del informe de dirección"></textarea>
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+                Datos Generales del Departamento
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="fw-bold">
+                            Departamento
+                        </label>
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.Departamento" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="fw-bold">
+                            Director
+                        </label>
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.NombreDirector" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="fw-bold">
+                            Correo
+                        </label>
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.Correo" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="fw-bold">
+                            Año
+                        </label>
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.Anio" />
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                Gestión del Departamento
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+
+                        <label class="fw-bold">
+                            Número de reunión
+                        </label>
+
+                        <input type="text"
+                               id="NumeroSesion"
+                               name="NumeroSesion"
+                               class="form-control"
+                               placeholder="Ej. 01-2026" />
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+
+                        <label class="fw-bold">
+                            Fecha
+                        </label>
+
+                        <input type="date"
+                               id="FechaSesion"
+                               name="FechaSesion"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <label class="fw-bold">
+                            Temas tratados
+                        </label>
+
+                        <textarea id="PuntosVistos"
+                                  name="PuntosVistos"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Detalle de los temas tratados durante la reunión"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    Actividades de los Cursos
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="card border mb-4">
+
+                    <div class="card-header">
+                        Curso
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row mb-4">
+
+                            <div class="col-md-12">
+
+                                <label class="fw-bold">
+                                    Nombre del curso
+                                </label>
+
+                                <select class="form-select"
+                                        name="IdCurso">
+
+                                    <option value="">
+                                        Seleccione un curso
+                                    </option>
+
+                                    @foreach (var curso in ViewBag.Cursos)
+                                    {
+                                        <option value="@curso.IdCurso">
+                                            @curso.SiglaCurso - @curso.NombreCurso
+                                        </option>
+                                    }
+
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <label class="fw-bold">
+                                Coordinación
+                            </label>
+                            <div class="col-md-2">
+
+                                
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="CoordinacionCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="CoordinacionDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="fw-bold">
+                                Colaboradores
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ColaboradoresCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ColaboradoresDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Invitados
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="InvitadosCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="InvitadosDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Experiencias prácticas
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ExperienciasPracticasCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ExperienciasPracticasDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Actividades de docencia integradas en proyectos de Investigación y Acción Social
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ActividadesDocenciaIntegradasCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ActividadesDocenciaIntegradasDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Actividades donde se participa en el análisis y estudio de problemas del contexto
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ActividadesAnalisisContextoCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ActividadesAnalisisContextoDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Tecnicas didácticas
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="TecnicasDidacticasCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="TecnicasDidacticasDetalle"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Asistentes del Curso
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <input type="number"
+                                       min="0"
+                                       class="form-control"
+                                       name="AsistentesCurso" />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header">
+                Observaciones del Director
+            </div>
+            <div class="card-body">
+                <textarea asp-for="ObservacionesDirector"
+                          class="form-control"
+                          rows="6"></textarea>
+            </div>
+        </div>
+
+        <div class="text-center">
 
         <button type="submit" class="btn btn-create">
             Guardar Informe
@@ -30,6 +398,6 @@
             Volver
         </a>
 
+        </div>
     </form>
-
 </div>

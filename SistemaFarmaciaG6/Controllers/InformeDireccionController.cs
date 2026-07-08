@@ -98,7 +98,27 @@ namespace SistemaFarmaciaG6.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(InformeDireccion informe)
+        public IActionResult Create(
+
+    InformeDireccion informe,
+
+    string NumeroSesion,
+    DateOnly FechaSesion,
+    string PuntosVistos,
+
+    int Curso,
+
+    int CoordinacionCantidad,
+    int ColaboradoresCantidad,
+    int InvitadosCantidad,
+    int ExperienciasPracticasCantidad,
+
+    string ActividadesDocenciaIntegradasDetalle,
+    string ActividadesAnalisisContextoDetalle,
+    string TecnicasDidacticasDetalle,
+
+    int AsistentesCurso
+)
         {
             if (!PuedeGestionar())
             {
@@ -132,6 +152,54 @@ namespace SistemaFarmaciaG6.Controllers
             informe.FechaAprobacion = null;
 
             _context.InformeDireccions.Add(informe);
+            _context.SaveChanges();
+
+            SesionesDepartamento sesion = new SesionesDepartamento
+            {
+                IdInformeDireccion = informe.IdInformeDireccion,
+
+                NumeroSesion = NumeroSesion,
+
+                FechaSesion = FechaSesion,
+
+                PuntosVistos = PuntosVistos
+            };
+
+            _context.SesionesDepartamentos.Add(sesion);
+
+            Curso? curso = _context.Cursos.FirstOrDefault(c => c.IdCurso == Curso);
+
+            if (curso != null)
+            {
+                CursosDireccion cursoDireccion = new CursosDireccion
+                {
+                    IdInformeDireccion = informe.IdInformeDireccion,
+
+                    IdCurso = curso.IdCurso,
+
+                    CoordinacionCantidad = CoordinacionCantidad,
+
+                    ColaboradoresCantidad = ColaboradoresCantidad,
+
+                    InvitadosCantidad = InvitadosCantidad,
+
+                    ExperienciasPracticasCantidad = ExperienciasPracticasCantidad,
+
+                    ActividadesDocenciaIntegradasDetalle =
+                        ActividadesDocenciaIntegradasDetalle,
+
+                    ActividadesAnalisisContextoDetalle =
+                        ActividadesAnalisisContextoDetalle,
+
+                    TecnicasDidacticasDetalle =
+                        TecnicasDidacticasDetalle,
+
+                    AsistentesCurso = AsistentesCurso
+                };
+
+                _context.CursosDireccions.Add(cursoDireccion);
+            }
+
             _context.SaveChanges();
 
             AuditoriaHelper.Registrar(

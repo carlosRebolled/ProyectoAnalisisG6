@@ -20,6 +20,8 @@ public partial class DbFacultadFarmaciaContext : DbContext
 
     public virtual DbSet<Categoria> Categorias { get; set; }
 
+    public virtual DbSet<Curso> Cursos { get; set; }
+
     public virtual DbSet<CursosDireccion> CursosDireccions { get; set; }
 
     public virtual DbSet<Departamento> Departamentos { get; set; }
@@ -54,9 +56,9 @@ public partial class DbFacultadFarmaciaContext : DbContext
 
     public virtual DbSet<UsuarioRol> UsuarioRols { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=(local);Database=DB_FacultadFarmacia;Integrated Security=true;Encrypt=False;TrustServerCertificate=True");
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Server=(local);Database=DB_FacultadFarmacia;Integrated Security=true;Encrypt=False;TrustServerCertificate=True");
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -68,6 +70,32 @@ public partial class DbFacultadFarmaciaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Curso>(entity =>
+        {
+            entity.HasKey(e => e.IdCurso);
+
+            entity.ToTable("Cursos");
+
+            entity.Property(e => e.IdCurso)
+                .HasColumnName("id_curso");
+
+            entity.Property(e => e.SiglaCurso)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("sigla_curso");
+
+            entity.Property(e => e.NombreCurso)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("nombre_curso");
+
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasDefaultValue("Activo")
+                .HasColumnName("estado");
+        });
+
         modelBuilder.Entity<Auditorium>(entity =>
         {
             entity.HasKey(e => e.IdAuditoria).HasName("PK__Auditori__9644A3CE73AC203B");
@@ -125,6 +153,7 @@ public partial class DbFacultadFarmaciaContext : DbContext
             entity.ToTable("CursosDireccion");
 
             entity.Property(e => e.IdCursoDireccion).HasColumnName("id_curso_direccion");
+            entity.Property(e => e.IdCurso).HasColumnName("id_curso");
             entity.Property(e => e.ActividadesAnalisisContextoCantidad)
                 .HasDefaultValue(0)
                 .HasColumnName("actividades_analisis_contexto_cantidad");
@@ -165,14 +194,6 @@ public partial class DbFacultadFarmaciaContext : DbContext
             entity.Property(e => e.InvitadosDetalle)
                 .IsUnicode(false)
                 .HasColumnName("invitados_detalle");
-            entity.Property(e => e.NombreCurso)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("nombre_curso");
-            entity.Property(e => e.SiglaCurso)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("sigla_curso");
             entity.Property(e => e.TecnicasDidacticasCantidad)
                 .HasDefaultValue(0)
                 .HasColumnName("tecnicas_didacticas_cantidad");
@@ -184,6 +205,11 @@ public partial class DbFacultadFarmaciaContext : DbContext
                 .HasForeignKey(d => d.IdInformeDireccion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CursosDireccion_InformeDireccion");
+            entity.HasOne(d => d.IdCursoNavigation)
+                .WithMany(p => p.CursosDireccions)
+                .HasForeignKey(d => d.IdCurso)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CursosDireccion_Cursos");
         });
 
         modelBuilder.Entity<Departamento>(entity =>

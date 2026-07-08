@@ -9,9 +9,7 @@ public partial class CursosDireccion
 
     public int IdInformeDireccion { get; set; }
 
-    public string SiglaCurso { get; set; } = null!;
-
-    public string NombreCurso { get; set; } = null!;
+    public int IdCurso { get; set; }
 
     public int? CoordinacionCantidad { get; set; }
 
@@ -42,6 +40,8 @@ public partial class CursosDireccion
     public string? TecnicasDidacticasDetalle { get; set; }
 
     public int? AsistentesCurso { get; set; }
+
+    public virtual Curso IdCursoNavigation { get; set; } = null!;
 
     public virtual InformeDireccion IdInformeDireccionNavigation { get; set; } = null!;
 }
