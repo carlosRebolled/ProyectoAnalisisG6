@@ -92,14 +92,27 @@
 
         </div>
 
-        <div class="card shadow-sm mb-4">
+        <hr />
+
+        <h4 class="mt-4 mb-3">
+            2. Reuniones del Departamento
+        </h4>
+
+        <div id="contenedorReuniones">
 
             <div class="card shadow-sm mb-4">
 
-                <div class="card-header bg-secondary text-white">
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+
                     <h5 class="mb-0">
-                        2. Reuniones del Departamento
+                        Reunión #1
                     </h5>
+
+                    <button type="button"
+                            class="btn btn-danger btn-sm btnEliminarReunion">
+                        Eliminar
+                    </button>
+
                 </div>
 
                 <div class="card-body">
@@ -114,7 +127,7 @@
 
                             <input type="text"
                                    class="form-control"
-                                   name="NumeroSesion" />
+                                   name="NumeroSesion[]" />
 
                         </div>
 
@@ -126,7 +139,7 @@
 
                             <input type="date"
                                    class="form-control"
-                                   name="FechaSesion" />
+                                   name="FechaSesion[]" />
 
                         </div>
 
@@ -140,7 +153,7 @@
 
                         <textarea class="form-control"
                                   rows="4"
-                                  name="PuntosVistos"></textarea>
+                                  name="PuntosVistos[]"></textarea>
 
                     </div>
 
@@ -149,12 +162,24 @@
             </div>
 
         </div>
+
+        <div class="text-end mb-4">
+
+            <button type="button"
+                    id="btnAgregarReunion"
+                    class="btn btn-success">
+
+                + Agregar otra reunión
+
+            </button>
+
+        </div>
         
         <hr />
 
         <h4 class="mt-4 mb-3">
 
-            Cursos del Departamento
+            3. Cursos del Departamento
 
         </h4>
 
@@ -177,279 +202,241 @@
 
                 <div class="card-body">
 
-                    
-                    <div class="card shadow-sm mb-4">
+                    <div class="row mb-4">
 
-                        <div class="card-header bg-secondary text-white">
-                            <h5 class="mb-0">
-                                Actividades de los Cursos
-                            </h5>
+                        <div class="col-md-12">
+
+                            <label class="fw-bold">
+                                Nombre del curso
+                            </label>
+
+                            <select class="form-select"
+                                    name="IdCurso[]">
+
+                                <option value="">
+                                    Seleccione un curso
+                                </option>
+
+                                @foreach (var curso in ViewBag.Cursos)
+                                {
+                                    <option value="@curso.IdCurso">
+                                        @curso.SiglaCurso - @curso.NombreCurso
+                                    </option>
+                                }
+
+                            </select>
+
                         </div>
 
-                        <div class="card-body">
+                    </div>
 
-                            <div class="card border mb-4">
-
-                                <div class="card-header">
-                                    Curso
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="row mb-4">
-
-                                        <div class="col-md-12">
-
-                                            <label class="fw-bold">
-                                                Nombre del curso
-                                            </label>
-
-                                            <select class="form-select"
-                                                    name="IdCurso[]">
-
-                                                <option value="">
-                                                    Seleccione un curso
-                                                </option>
-
-                                                @foreach (var curso in ViewBag.Cursos)
-                                                {
-                                                    <option value="@curso.IdCurso">
-                                                        @curso.SiglaCurso - @curso.NombreCurso
-                                                    </option>
-                                                }
-
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="fw-bold">
-                                            Coordinación
-                                        </label>
-                                        <div class="col-md-2">
+                    <div class="row mb-3">
+                        <label class="fw-bold">
+                            Coordinación
+                        </label>
+                        <div class="col-md-2">
 
                                 
 
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="CoordinacionCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="CoordinacionDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label class="fw-bold">
-                                            Colaboradores
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="ColaboradoresCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="ColaboradoresDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-
-                                        <label class="fw-bold">
-                                            Invitados
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="InvitadosCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="InvitadosDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-
-                                        <label class="fw-bold">
-                                            Experiencias prácticas
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="ExperienciasPracticasCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="ExperienciasPracticasDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-
-                                        <label class="fw-bold">
-                                            Actividades de docencia integradas en proyectos de Investigación y Acción Social
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="ActividadesDocenciaIntegradasCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="ActividadesDocenciaIntegradasDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-
-                                        <label class="fw-bold">
-                                            Actividades donde se participa en el análisis y estudio de problemas del contexto
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="ActividadesAnalisisContextoCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="ActividadesAnalisisContextoDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-
-                                        <label class="fw-bold">
-                                            Tecnicas didácticas
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <label>Cantidad</label>
-
-                                            <input type="number"
-                                                   class="form-control"
-                                                   name="TecnicasDidacticasCantidad[]" />
-
-                                        </div>
-
-                                        <div class="col-md-10">
-
-                                            <label>Detalle</label>
-
-                                            <textarea class="form-control"
-                                                      rows="2"
-                                                      name="TecnicasDidacticasDetalle[]"></textarea>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mb-3">
-
-                                        <label class="fw-bold">
-                                            Asistentes del Curso
-                                        </label>
-
-                                        <div class="col-md-2">
-
-                                            <input type="number"
-                                                   min="0"
-                                                   class="form-control"
-                                                   name="AsistentesCurso[]" />
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="CoordinacionCantidad[]" />
 
                         </div>
 
-                        <div class="text-end mb-4">
+                        <div class="col-md-10">
 
-                            <button type="button"
-                                    id="btnAgregarCurso"
-                                    class="btn btn-success">
+                            <label>Detalle</label>
 
-                                + Agregar otro curso
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="CoordinacionDetalle[]"></textarea>
 
-                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="fw-bold">
+                            Colaboradores
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="ColaboradoresCantidad[]" />
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <label>Detalle</label>
+
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="ColaboradoresDetalle[]"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="fw-bold">
+                            Invitados
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="InvitadosCantidad[]" />
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <label>Detalle</label>
+
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="InvitadosDetalle[]"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="fw-bold">
+                            Experiencias prácticas
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="ExperienciasPracticasCantidad[]" />
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <label>Detalle</label>
+
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="ExperienciasPracticasDetalle[]"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="fw-bold">
+                            Actividades de docencia integradas en proyectos de Investigación y Acción Social
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="ActividadesDocenciaIntegradasCantidad[]" />
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <label>Detalle</label>
+
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="ActividadesDocenciaIntegradasDetalle[]"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="fw-bold">
+                            Actividades donde se participa en el análisis y estudio de problemas del contexto
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="ActividadesAnalisisContextoCantidad[]" />
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <label>Detalle</label>
+
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="ActividadesAnalisisContextoDetalle[]"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="fw-bold">
+                            Tecnicas didácticas
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <label>Cantidad</label>
+
+                            <input type="number"
+                                   class="form-control"
+                                   name="TecnicasDidacticasCantidad[]" />
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <label>Detalle</label>
+
+                            <textarea class="form-control"
+                                      rows="2"
+                                      name="TecnicasDidacticasDetalle[]"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="fw-bold">
+                            Asistentes del Curso
+                        </label>
+
+                        <div class="col-md-2">
+
+                            <input type="number"
+                                   min="0"
+                                   class="form-control"
+                                   name="AsistentesCurso[]" />
 
                         </div>
 
@@ -458,6 +445,18 @@
                 </div>
 
             </div>
+
+        </div>
+
+        <div class="text-end mb-4">
+
+            <button type="button"
+                    id="btnAgregarCurso"
+                    class="btn btn-success">
+
+                + Agregar otro curso
+
+            </button>
 
         </div>
 
@@ -490,19 +489,42 @@
 
     document.addEventListener("DOMContentLoaded", function () {
 
-        const boton = document.getElementById("btnAgregarCurso");
-
-        const contenedor = document.getElementById("contenedorCursos");
-
+        const btnAgregarCurso = document.getElementById("btnAgregarCurso");
+        const contenedorCursos = document.getElementById("contenedorCursos");
         const cursoBase = document.querySelector("#contenedorCursos .card");
 
-        boton.addEventListener("click", function () {
+        btnAgregarCurso.addEventListener("click", function () {
 
             let copia = cursoBase.cloneNode(true);
-            
-            let numero = contenedor.children.length + 1;
-            
-            copia.querySelector(".card-header h5").innerText = "Curso #" + numero;
+
+            copia.querySelectorAll("input").forEach(x => {
+
+                if (x.type == "number")
+                    x.value = "";
+                else if (x.type != "hidden")
+                    x.value = "";
+            });
+
+            copia.querySelectorAll("textarea")
+                .forEach(x => x.value = "");
+
+            copia.querySelectorAll("select")
+                .forEach(x => x.selectedIndex = 0);
+
+            contenedorCursos.appendChild(copia);
+
+            asignarEventosEliminarCursos();
+            actualizarNumeracionCursos();
+
+        });
+
+        const btnAgregarReunion = document.getElementById("btnAgregarReunion");
+        const contenedorReuniones = document.getElementById("contenedorReuniones");
+        const reunionBase = document.querySelector("#contenedorReuniones .card");
+
+        btnAgregarReunion.addEventListener("click", function () {
+
+            let copia = reunionBase.cloneNode(true);
 
             copia.querySelectorAll("input").forEach(x => {
 
@@ -514,12 +536,231 @@
             copia.querySelectorAll("textarea")
                 .forEach(x => x.value = "");
 
-            copia.querySelectorAll("select")
-                .forEach(x => x.selectedIndex = 0);
+            contenedorReuniones.appendChild(copia);
 
-            contenedor.appendChild(copia);
+            asignarEventosEliminarReuniones();
+            actualizarNumeracionReuniones();
 
         });
+
+        asignarEventosEliminarCursos();
+        actualizarNumeracionCursos();
+
+        asignarEventosEliminarReuniones();
+        actualizarNumeracionReuniones();
+
+    });
+
+    function actualizarNumeracionCursos() {
+
+        document.querySelectorAll("#contenedorCursos .card")
+            .forEach((card, index) => {
+
+                card.querySelector("h5").innerText =
+                    "Curso #" + (index + 1);
+
+            });
+    }
+
+    function asignarEventosEliminarCursos() {
+
+        document.querySelectorAll(".btnEliminarCurso")
+            .forEach(btn => {
+
+                btn.onclick = function () {
+
+                    let tarjetas =
+                        document.querySelectorAll("#contenedorCursos .card");
+
+                    if (tarjetas.length == 1) {
+
+                        alert("Debe existir al menos un curso.");
+                        return;
+
+                    }
+
+                    this.closest(".card").remove();
+
+                    actualizarNumeracionCursos();
+
+                };
+            });
+    }
+
+    function validarCursosDuplicados() {
+
+        let cursos = [];
+        let valido = true;
+
+        document.querySelectorAll("select[name='IdCurso[]']")
+            .forEach(select => {
+
+                if (select.value == "")
+                    return;
+
+                if (cursos.includes(select.value)) {
+
+                    alert("No puede seleccionar el mismo curso más de una vez.");
+
+                    select.value = "";
+
+                    valido = false;
+
+                }
+
+                cursos.push(select.value);
+
+            });
+
+        return valido;
+
+    }
+
+    function actualizarNumeracionReuniones() {
+
+        document.querySelectorAll("#contenedorReuniones .card")
+            .forEach((card, index) => {
+
+                card.querySelector("h5").innerText =
+                    "Reunión #" + (index + 1);
+
+            });
+
+    }
+
+    function asignarEventosEliminarReuniones() {
+
+        document.querySelectorAll(".btnEliminarReunion")
+            .forEach(btn => {
+
+                btn.onclick = function () {
+
+                    let reuniones =
+                        document.querySelectorAll("#contenedorReuniones .card");
+
+                    if (reuniones.length == 1) {
+
+                        alert("Debe existir al menos una reunión.");
+                        return;
+
+                    }
+
+                    this.closest(".card").remove();
+
+                    actualizarNumeracionReuniones();
+
+                };
+
+            });
+
+    }
+
+    function validarSesionesDuplicadas() {
+
+        let sesiones = [];
+        let valido = true;
+
+        document.querySelectorAll("input[name='NumeroSesion[]']")
+            .forEach(input => {
+
+                let valor = input.value.trim();
+
+                if (valor == "")
+                    return;
+
+                if (sesiones.includes(valor)) {
+
+                    alert("Existe un número de sesión repetido.");
+
+                    input.value = "";
+
+                    valido = false;
+
+                }
+
+                sesiones.push(valor);
+
+            });
+
+        return valido;
+
+    }
+
+    document.addEventListener("change", function (e) {
+
+        if (e.target.name == "IdCurso[]") {
+
+            validarCursosDuplicados();
+
+        }
+
+        if (e.target.name == "NumeroSesion[]") {
+
+            validarSesionesDuplicadas();
+
+        }
+
+    });
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+
+        let correcto = true;
+
+        document.querySelectorAll("select[name='IdCurso[]']")
+            .forEach(select => {
+
+                if (select.value == "")
+                    correcto = false;
+
+            });
+
+        document.querySelectorAll("input[name='NumeroSesion[]']")
+            .forEach(x => {
+
+                if (x.value.trim() == "")
+                    correcto = false;
+
+            });
+
+        document.querySelectorAll("input[name='FechaSesion[]']")
+            .forEach(x => {
+
+                if (x.value == "")
+                    correcto = false;
+
+            });
+
+        document.querySelectorAll("textarea[name='PuntosVistos[]']")
+            .forEach(x => {
+
+                if (x.value.trim() == "")
+                    correcto = false;
+
+            });
+
+        if (!correcto) {
+
+            alert("Debe completar toda la información requerida.");
+
+            e.preventDefault();
+
+            return;
+
+        }
+
+        if (!validarCursosDuplicados()) {
+
+            e.preventDefault();
+            return;
+
+        }
+
+        if (!validarSesionesDuplicadas()) {
+
+            e.preventDefault();
+            return;
+
+        }
 
     });
 

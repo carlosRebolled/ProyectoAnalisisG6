@@ -289,6 +289,41 @@ VALUES
 )
 go
 
+INSERT INTO dbo.Usuarios
+(
+    cedula,
+    nombre,
+    apellido1,
+    apellido2,
+    fecha_nacimiento,
+    correo,
+    contrasena,
+    telefono,
+    id_genero,
+    id_departamento,
+    id_categoria,
+    id_tipo_nombramiento,
+    estado,
+    fecha_registro
+)
+VALUES
+(
+    '106650333',
+    'Luis',
+    'Hernandez',
+    'Soto',
+    '1988-12-02',
+    'luis.hernandez@ucr.ac.cr',
+    '123456',
+    '88005000',
+    1,
+    3,
+    5,
+    1,
+    'Activo',
+    GETDATE()
+)
+go
 
 select * from dbo.Usuarios;
 

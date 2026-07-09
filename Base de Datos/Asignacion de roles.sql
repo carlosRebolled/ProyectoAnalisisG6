@@ -13,7 +13,14 @@ VALUES
 (10, 1); -- Marta Docente
 GO
 
+INSERT INTO dbo.UsuarioRol (id_usuario, id_rol)
+VALUES
+(10, 3); -- Luis Decano
+GO
+
 SELECT * FROM dbo.UsuarioRol;
+
+SELECT * FROM dbo.Roles;
 
 SELECT * FROM dbo.Usuarios;
 

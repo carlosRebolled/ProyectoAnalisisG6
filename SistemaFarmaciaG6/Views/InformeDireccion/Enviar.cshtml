@@ -1,25 +1,25 @@
 ﻿@model SistemaFarmaciaG6.Models.InformeDireccion
 
 @{
-    ViewData["Title"] = "Confirmar eliminación";
+    ViewData["Title"] = "Confirmar envío";
 }
 
 <div class="container mt-4">
 
-    <div class="card shadow-sm border-danger">
+    <div class="card shadow border-success">
 
-        <div class="card-header bg-danger text-white">
-            Confirmar eliminación
+        <div class="card-header bg-success text-white">
+            Confirmar envío
         </div>
 
         <div class="card-body">
 
-            <h4 class="text-danger">
-                ¿Está seguro que desea eliminar este informe?
+            <h4 class="text-success">
+                ¿Desea enviar este informe?
             </h4>
 
             <p>
-                Esta acción no se puede deshacer.
+                Una vez enviado, no podrá editarlo nuevamente hasta que sea devuelto.
             </p>
 
             <hr />
@@ -30,7 +30,7 @@
             </p>
 
             <p>
-                <strong>Estado:</strong>
+                <strong>Estado actual:</strong>
                 @Model.IdEstadoNavigation?.NombreEstado
             </p>
 
@@ -47,15 +47,7 @@
                 </p>
             }
 
-            @if (Model.FechaAprobacion != null)
-            {
-                <p>
-                    <strong>Fecha de aprobación:</strong>
-                    @Model.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm")
-                </p>
-            }
-
-            <form asp-action="Delete" method="post">
+            <form asp-action="Enviar" method="post">
 
                 @Html.AntiForgeryToken()
 
@@ -64,8 +56,8 @@
                        value="@Model.IdInformeDireccion" />
 
                 <button type="submit"
-                        class="btn btn-danger">
-                    Sí, eliminar
+                        class="btn btn-success">
+                    Sí, enviar
                 </button>
 
                 <a asp-action="Index"

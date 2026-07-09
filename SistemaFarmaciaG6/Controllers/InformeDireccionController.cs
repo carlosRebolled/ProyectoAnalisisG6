@@ -101,9 +101,9 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Create(
             InformeDireccion informe,
             
-            string NumeroSesion,
-            DateTime FechaSesion,
-            string PuntosVistos,
+            string[] NumeroSesion,
+            DateTime[] FechaSesion,
+            string[] PuntosVistos,
             int[] IdCurso,
             int?[] CoordinacionCantidad,
             string?[] CoordinacionDetalle,
@@ -160,18 +160,31 @@ namespace SistemaFarmaciaG6.Controllers
                 _context.InformeDireccions.Add(informe);
                 _context.SaveChanges();
 
-                var sesion = new SesionesDepartamento
+                if (NumeroSesion.Length != FechaSesion.Length ||
+                    NumeroSesion.Length != PuntosVistos.Length)
                 {
-                    IdInformeDireccion = informe.IdInformeDireccion,
+                    TempData["Error"] = "Existe un problema con la información de las reuniones.";
 
-                    NumeroSesion = NumeroSesion,
+                    return RedirectToAction(nameof(Create));
+                }
 
-                    FechaSesion = DateOnly.FromDateTime(FechaSesion),
+                for (int i = 0; i < NumeroSesion.Length; i++)
+                {
+                    var sesion = new SesionesDepartamento
+                    {
+                        IdInformeDireccion = informe.IdInformeDireccion,
 
-                    PuntosVistos = PuntosVistos
-                };
+                        NumeroSesion = NumeroSesion[i],
 
-                _context.SesionesDepartamentos.Add(sesion);
+                        FechaSesion = DateOnly.FromDateTime(FechaSesion[i]),
+
+                        PuntosVistos = PuntosVistos[i]
+                    };
+
+                    _context.SesionesDepartamentos.Add(sesion);
+                }
+
+                _context.SaveChanges();
 
                 if (IdCurso == null || IdCurso.Length == 0)
                 {
@@ -293,9 +306,48 @@ namespace SistemaFarmaciaG6.Controllers
             return View(informe);
         }
 
+        [HttpGet]
+        public IActionResult Enviar(int id)
+        {
+            if (!PuedeGestionar())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            int? idUsuario = IdUsuarioSesion();
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var informe = _context.InformeDireccions
+                .Include(i => i.IdEstadoNavigation)
+                .FirstOrDefault(i => i.IdInformeDireccion == id);
+
+            if (informe == null)
+            {
+                return NotFound();
+            }
+
+            if (!EsAdministrador() && informe.IdUsuario != idUsuario)
+            {
+                TempData["Error"] = "No puede enviar informes de otro director.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (informe.IdEstado != 1 && informe.IdEstado != 3)
+            {
+                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(informe);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Enviar(int id)
+        public IActionResult ConfirmaciónEnvio(int id)
         {
             if (!PuedeGestionar())
             {

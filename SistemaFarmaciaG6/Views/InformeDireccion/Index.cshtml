@@ -136,19 +136,11 @@
                                 Editar
                             </a>
 
-                            <form asp-action="Enviar"
-                                  asp-route-id="@item.IdInformeDireccion"
-                                  method="post"
-                                  style="display:inline;">
-
-                                @Html.AntiForgeryToken()
-
-                                <button type="submit"
-                                        class="btn btn-success btn-sm">
-                                    Enviar
-                                </button>
-
-                            </form>
+                            <a asp-action="Enviar"
+                               asp-route-id="@item.IdInformeDireccion"
+                               class="btn btn-success btn-sm">
+                                Enviar
+                            </a>
                         }
 
                         @if (item.IdEstado == 1)
