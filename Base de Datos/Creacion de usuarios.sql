@@ -290,9 +290,9 @@ VALUES
 go
 
 
-select * from dbo.CursosDireccion
+select * from dbo.Usuarios;
 
-DELETE FROM dbo.UsuarioRol;
+DELETE FROM dbo.Usuarios;
 GO
 
 SELECT * FROM dbo.TiposNombramiento;

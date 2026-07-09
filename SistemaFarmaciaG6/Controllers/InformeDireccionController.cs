@@ -99,26 +99,28 @@ namespace SistemaFarmaciaG6.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(
-
-    InformeDireccion informe,
-
-    string NumeroSesion,
-    DateOnly FechaSesion,
-    string PuntosVistos,
-
-    int Curso,
-
-    int CoordinacionCantidad,
-    int ColaboradoresCantidad,
-    int InvitadosCantidad,
-    int ExperienciasPracticasCantidad,
-
-    string ActividadesDocenciaIntegradasDetalle,
-    string ActividadesAnalisisContextoDetalle,
-    string TecnicasDidacticasDetalle,
-
-    int AsistentesCurso
-)
+            InformeDireccion informe,
+            
+            string NumeroSesion,
+            DateTime FechaSesion,
+            string PuntosVistos,
+            int[] IdCurso,
+            int?[] CoordinacionCantidad,
+            string?[] CoordinacionDetalle,
+            int?[] ColaboradoresCantidad,
+            string?[] ColaboradoresDetalle,
+            int?[] InvitadosCantidad,
+            string?[] InvitadosDetalle,
+            int?[] ExperienciasPracticasCantidad,
+            string?[] ExperienciasPracticasDetalle,
+            int?[] ActividadesDocenciaIntegradasCantidad,
+            string?[] ActividadesDocenciaIntegradasDetalle,
+            int?[] ActividadesAnalisisContextoCantidad,
+            string?[] ActividadesAnalisisContextoDetalle,
+            int?[] TecnicasDidacticasCantidad,
+            string?[] TecnicasDidacticasDetalle,
+            int?[] AsistentesCurso
+            )
         {
             if (!PuedeGestionar())
             {
@@ -132,88 +134,125 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            int anioActual = DateTime.Now.Year;
-
-            bool existe = _context.InformeDireccions.Any(i =>
-                i.IdUsuario == idUsuario &&
-                i.Anio == anioActual);
-
-            if (existe)
+            try
             {
-                TempData["Error"] = $"Ya existe un informe de dirección para el año {anioActual}.";
-                return RedirectToAction(nameof(Index));
-            }
+                int anioActual = DateTime.Now.Year;
 
-            informe.IdUsuario = idUsuario.Value;
-            informe.IdEstado = 1;
-            informe.Anio = anioActual;
-            informe.FechaCreacion = DateTime.Now;
-            informe.FechaEnvio = null;
-            informe.FechaAprobacion = null;
+                bool existe = _context.InformeDireccions.Any(i =>
+                    i.IdUsuario == idUsuario &&
+                    i.Anio == anioActual);
 
-            _context.InformeDireccions.Add(informe);
-            _context.SaveChanges();
+                if (existe)
+                {
+                    TempData["Error"] =
+                        $"Ya existe un informe de dirección para el año {anioActual}.";
 
-            SesionesDepartamento sesion = new SesionesDepartamento
-            {
-                IdInformeDireccion = informe.IdInformeDireccion,
+                    return RedirectToAction(nameof(Index));
+                }
 
-                NumeroSesion = NumeroSesion,
+                informe.IdUsuario = idUsuario.Value;
+                informe.IdEstado = 1;
+                informe.Anio = anioActual;
+                informe.FechaCreacion = DateTime.Now;
+                informe.FechaEnvio = null;
+                informe.FechaAprobacion = null;
 
-                FechaSesion = FechaSesion,
+                _context.InformeDireccions.Add(informe);
+                _context.SaveChanges();
 
-                PuntosVistos = PuntosVistos
-            };
-
-            _context.SesionesDepartamentos.Add(sesion);
-
-            Curso? curso = _context.Cursos.FirstOrDefault(c => c.IdCurso == Curso);
-
-            if (curso != null)
-            {
-                CursosDireccion cursoDireccion = new CursosDireccion
+                var sesion = new SesionesDepartamento
                 {
                     IdInformeDireccion = informe.IdInformeDireccion,
 
-                    IdCurso = curso.IdCurso,
+                    NumeroSesion = NumeroSesion,
 
-                    CoordinacionCantidad = CoordinacionCantidad,
+                    FechaSesion = DateOnly.FromDateTime(FechaSesion),
 
-                    ColaboradoresCantidad = ColaboradoresCantidad,
-
-                    InvitadosCantidad = InvitadosCantidad,
-
-                    ExperienciasPracticasCantidad = ExperienciasPracticasCantidad,
-
-                    ActividadesDocenciaIntegradasDetalle =
-                        ActividadesDocenciaIntegradasDetalle,
-
-                    ActividadesAnalisisContextoDetalle =
-                        ActividadesAnalisisContextoDetalle,
-
-                    TecnicasDidacticasDetalle =
-                        TecnicasDidacticasDetalle,
-
-                    AsistentesCurso = AsistentesCurso
+                    PuntosVistos = PuntosVistos
                 };
 
-                _context.CursosDireccions.Add(cursoDireccion);
+                _context.SesionesDepartamentos.Add(sesion);
+
+                if (IdCurso == null || IdCurso.Length == 0)
+                {
+                    TempData["Error"] = "Debe agregar al menos un curso.";
+
+                    return RedirectToAction(nameof(Create));
+                }
+
+                for (int i = 0; i < IdCurso.Length; i++)
+                {
+                    if (IdCurso[i] == 0)
+                    {
+                        continue;
+                    }
+
+                    var curso = new CursosDireccion
+                    {
+                        IdInformeDireccion = informe.IdInformeDireccion,
+
+                        IdCurso = IdCurso[i],
+
+                        CoordinacionCantidad = CoordinacionCantidad[i],
+                        CoordinacionDetalle = CoordinacionDetalle[i],
+
+                        ColaboradoresCantidad = ColaboradoresCantidad[i],
+                        ColaboradoresDetalle = ColaboradoresDetalle[i],
+
+                        InvitadosCantidad = InvitadosCantidad[i],
+                        InvitadosDetalle = InvitadosDetalle[i],
+
+                        ExperienciasPracticasCantidad = ExperienciasPracticasCantidad[i],
+                        ExperienciasPracticasDetalle = ExperienciasPracticasDetalle[i],
+
+                        ActividadesDocenciaIntegradasCantidad =
+                            ActividadesDocenciaIntegradasCantidad[i],
+
+                        ActividadesDocenciaIntegradasDetalle =
+                            ActividadesDocenciaIntegradasDetalle[i],
+
+                        ActividadesAnalisisContextoCantidad =
+                            ActividadesAnalisisContextoCantidad[i],
+
+                        ActividadesAnalisisContextoDetalle =
+                            ActividadesAnalisisContextoDetalle[i],
+
+                        TecnicasDidacticasCantidad =
+                            TecnicasDidacticasCantidad[i],
+
+                        TecnicasDidacticasDetalle =
+                            TecnicasDidacticasDetalle[i],
+
+                        AsistentesCurso =
+                            AsistentesCurso[i]
+                    };
+
+                    _context.CursosDireccions.Add(curso);
+                }
+
+                _context.SaveChanges();
+
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "InformeDireccion",
+                    "Crear",
+                    $"Se creó el informe de dirección #{informe.IdInformeDireccion} del año {informe.Anio}."
+                );
+
+                TempData["Exito"] =
+                    "Informe de dirección creado correctamente.";
+
+                return RedirectToAction(nameof(Index));
             }
+            catch (Exception ex)
+            {
+                TempData["Error"] =
+                    ex.InnerException?.Message ?? ex.Message;
 
-            _context.SaveChanges();
-
-            AuditoriaHelper.Registrar(
-                _context,
-                HttpContext,
-                "InformeDireccion",
-                "Crear",
-                $"Se creó el informe de dirección #{informe.IdInformeDireccion} del año {informe.Anio}."
-            );
-
-            TempData["Exito"] = "Informe de dirección creado correctamente.";
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
+            }
         }
-
         public IActionResult Details(int id)
         {
             if (!PuedeGestionar())
