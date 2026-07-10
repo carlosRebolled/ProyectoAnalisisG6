@@ -4,35 +4,27 @@
     ViewData["Title"] = "Editar Informe de Dirección";
 }
 
-<div class="container-fluid">
+<div class="container mt-4">
 
-    <div class="categorias-section">
+    <h2 class="mb-4">
+        Editar Informe de Dirección
+    </h2>
 
-        <h2 class="mb-3">
-            Editar Informe de Dirección
-        </h2>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
 
-        @if (TempData["Exito"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["Exito"]
-            </div>
-        }
+    @if (TempData["Exito"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Exito"]
+        </div>
+    }
 
-        @if (TempData["Error"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["Error"]
-            </div>
-        }
-
-    </div>
-
-    <form asp-action="Edit"
-          asp-route-id="@Model.IdInformeDireccion"
-          method="post">
-
-        @Html.AntiForgeryToken()
+    <form asp-action="Edit" asp-route-id="@Model.IdInformeDireccion" method="post">
 
         <input type="hidden" asp-for="IdInformeDireccion" />
         <input type="hidden" asp-for="IdUsuario" />
@@ -41,51 +33,735 @@
         <input type="hidden" asp-for="FechaEnvio" />
         <input type="hidden" asp-for="FechaAprobacion" />
 
-        <div class="card shadow-sm">
+        @Html.AntiForgeryToken()
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-secondary text-white">
+                1. Información general
+            </div>
 
             <div class="card-body">
 
-                <div class="mb-3">
+                <div class="row">
 
-                    <label class="form-label">
-                        Año
-                    </label>
+                    <div class="col-md-6 mb-3">
 
-                    <input asp-for="Anio"
-                           class="form-control"
-                           readonly />
+                        <label class="fw-bold">
+                            Departamento
+                        </label>
+
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.Departamento" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="fw-bold">
+                            Año
+                        </label>
+
+                        <input asp-for="Anio"
+                               class="form-control"
+                               readonly />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="fw-bold">
+                            Director
+                        </label>
+
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.NombreDirector" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="fw-bold">
+                            Correo
+                        </label>
+
+                        <input class="form-control"
+                               readonly
+                               value="@ViewBag.Correo" />
+
+                    </div>
 
                 </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Observaciones del Director
-                    </label>
-
-                    <textarea asp-for="ObservacionesDirector"
-                              class="form-control"
-                              rows="10"
-                              placeholder="Ingrese las observaciones generales del informe"></textarea>
-
-                </div>
-
-                <hr />
-
-                <button type="submit"
-                        class="btn btn-primary">
-                    Guardar Cambios
-                </button>
-
-                <a asp-action="Index"
-                   class="btn btn-secondary">
-                    Volver
-                </a>
 
             </div>
 
         </div>
 
-    </form>
+        <hr />
 
+        <h4 class="mt-4 mb-3">
+            2. Reuniones del Departamento
+        </h4>
+
+        <div id="contenedorReuniones">
+
+            @foreach (var reunion in Model.SesionesDepartamentos)
+            {
+                <div class="card mb-3">
+
+                    <div class="card-body">
+
+                        <label class="fw-bold">
+                            Número de sesión
+                        </label>
+
+                        <input type="text"
+                               name="NumeroSesion[]"
+                               value="@reunion.NumeroSesion"
+                               class="form-control" />
+
+                        <label class="fw-bold">
+                            Fecha de sesión
+                        </label>
+
+                        <input type="date"
+                               name="FechaSesion[]"
+                               value="@reunion.FechaSesion.ToString("yyyy-MM-dd")"
+                               class="form-control" />
+
+                        <label class="fw-bold">
+                            Puntos vistos en la Sesión
+                        </label>
+
+                        <textarea name="PuntosVistos[]"
+                                  class="form-control">@reunion.PuntosVistos</textarea>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <div class="text-end mb-4">
+
+            <button type="button"
+                    id="btnAgregarReunion"
+                    class="btn btn-success">
+
+                + Agregar otra reunión
+
+            </button>
+
+        </div>
+
+        <hr />
+
+        <h4 class="mt-4 mb-3">
+
+            3. Cursos del Departamento
+
+        </h4>
+
+        <div id="contenedorCursos">
+
+            @foreach (var curso in Model.CursosDireccions)
+            {
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+
+                        <h5 class="mb-0">
+                            Curso #1
+                        </h5>
+
+                        <button type="button"
+                                class="btn btn-danger btn-sm btnEliminarCurso">
+                            Eliminar
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row mb-4">
+
+                            <div class="col-md-12">
+
+                                <label class="fw-bold">
+                                    Nombre del curso
+                                </label>
+
+                                <select class="form-select"
+                                        name="IdCurso[]">
+
+                                    <option value="">
+                                        Seleccione un curso
+                                    </option>
+
+                                    @foreach (var item in ViewBag.Cursos)
+                                    {
+                                        if (item.IdCurso == curso.IdCurso)
+                                        {
+                                            <option value="@item.IdCurso" selected>
+                                                @item.SiglaCurso - @item.NombreCurso
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.IdCurso">
+                                                @item.SiglaCurso - @item.NombreCurso
+                                            </option>
+                                        }
+                                    }
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="fw-bold">
+                                Coordinación
+                            </label>
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="CoordinacionCantidad[]"
+                                       value="@curso.CoordinacionCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="CoordinacionDetalle[]">@curso.CoordinacionDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="fw-bold">
+                                Colaboradores
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ColaboradoresCantidad[]"
+                                       value="@curso.ColaboradoresCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ColaboradoresDetalle[]">@curso.ColaboradoresDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Invitados
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="InvitadosCantidad[]"
+                                       value="@curso.InvitadosCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="InvitadosDetalle[]">@curso.InvitadosDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Experiencias prácticas
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ExperienciasPracticasCantidad[]"
+                                       value="@curso.ExperienciasPracticasCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ExperienciasPracticasDetalle[]">@curso.ExperienciasPracticasDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Actividades de docencia integradas en proyectos de Investigación y Acción Social
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ActividadesDocenciaIntegradasCantidad[]"
+                                       value="@curso.ActividadesDocenciaIntegradasCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ActividadesDocenciaIntegradasDetalle[]">@curso.ActividadesDocenciaIntegradasDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Actividades donde se participa en el análisis y estudio de problemas del contexto
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="ActividadesAnalisisContextoCantidad[]"
+                                       value="@curso.ActividadesAnalisisContextoCantidad" />
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="ActividadesAnalisisContextoDetalle[]">@curso.ActividadesAnalisisContextoDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Tecnicas didácticas
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <label>Cantidad</label>
+
+                                <input type="number"
+                                       class="form-control"
+                                       name="TecnicasDidacticasCantidad[]"
+                                       value="@curso.TecnicasDidacticasCantidad"/>
+
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <label>Detalle</label>
+
+                                <textarea class="form-control"
+                                          rows="2"
+                                          name="TecnicasDidacticasDetalle[]">@curso.TecnicasDidacticasDetalle</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label class="fw-bold">
+                                Asistentes del Curso
+                            </label>
+
+                            <div class="col-md-2">
+
+                                <input type="number"
+                                       min="0"
+                                       class="form-control"
+                                       name="AsistentesCurso[]"
+                                       value="@curso.AsistentesCurso"/>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        </div>
+
+        <div class="text-end mb-4">
+
+            <button type="button"
+                    id="btnAgregarCurso"
+                    class="btn btn-success">
+
+                + Agregar otro curso
+
+            </button>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header">
+                Observaciones del Director
+            </div>
+            <div class="card-body">
+                <textarea asp-for="ObservacionesDirector"
+                          class="form-control"
+                          rows="6"></textarea>
+            </div>
+        </div>
+
+        <div class="text-center">
+
+            <button type="submit" class="btn btn-create">
+                Guardar Informe
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver
+            </a>
+
+        </div>
+    </form>
 </div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const btnAgregarCurso = document.getElementById("btnAgregarCurso");
+        const contenedorCursos = document.getElementById("contenedorCursos");
+        const cursoBase = document.querySelector("#contenedorCursos .card");
+
+        btnAgregarCurso.addEventListener("click", function () {
+
+            let copia = cursoBase.cloneNode(true);
+
+            copia.querySelectorAll("input").forEach(x => {
+
+                if (x.type == "number")
+                    x.value = "";
+                else if (x.type != "hidden")
+                    x.value = "";
+            });
+
+            copia.querySelectorAll("textarea")
+                .forEach(x => x.value = "");
+
+            copia.querySelectorAll("select")
+                .forEach(x => x.selectedIndex = 0);
+
+            contenedorCursos.appendChild(copia);
+
+            asignarEventosEliminarCursos();
+            actualizarNumeracionCursos();
+
+        });
+
+        const btnAgregarReunion = document.getElementById("btnAgregarReunion");
+        const contenedorReuniones = document.getElementById("contenedorReuniones");
+        const reunionBase = document.querySelector("#contenedorReuniones .card");
+
+        btnAgregarReunion.addEventListener("click", function () {
+
+            let copia = reunionBase.cloneNode(true);
+
+            copia.querySelectorAll("input").forEach(x => {
+
+                if (x.type != "hidden")
+                    x.value = "";
+
+            });
+
+            copia.querySelectorAll("textarea")
+                .forEach(x => x.value = "");
+
+            contenedorReuniones.appendChild(copia);
+
+            asignarEventosEliminarReuniones();
+            actualizarNumeracionReuniones();
+
+        });
+
+        asignarEventosEliminarCursos();
+        actualizarNumeracionCursos();
+
+        asignarEventosEliminarReuniones();
+        actualizarNumeracionReuniones();
+
+    });
+
+    function actualizarNumeracionCursos() {
+
+        document.querySelectorAll("#contenedorCursos .card")
+            .forEach((card, index) => {
+
+                card.querySelector("h5").innerText =
+                    "Curso #" + (index + 1);
+
+            });
+    }
+
+    function asignarEventosEliminarCursos() {
+
+        document.querySelectorAll(".btnEliminarCurso")
+            .forEach(btn => {
+
+                btn.onclick = function () {
+
+                    let tarjetas =
+                        document.querySelectorAll("#contenedorCursos .card");
+
+                    if (tarjetas.length == 1) {
+
+                        alert("Debe existir al menos un curso.");
+                        return;
+
+                    }
+
+                    this.closest(".card").remove();
+
+                    actualizarNumeracionCursos();
+
+                };
+            });
+    }
+
+    function validarCursosDuplicados() {
+
+        let cursos = [];
+        let valido = true;
+
+        document.querySelectorAll("select[name='IdCurso[]']")
+            .forEach(select => {
+
+                if (select.value == "")
+                    return;
+
+                if (cursos.includes(select.value)) {
+
+                    alert("No puede seleccionar el mismo curso más de una vez.");
+
+                    select.value = "";
+
+                    valido = false;
+
+                }
+
+                cursos.push(select.value);
+
+            });
+
+        return valido;
+
+    }
+
+    function actualizarNumeracionReuniones() {
+
+        document.querySelectorAll("#contenedorReuniones .card")
+            .forEach((card, index) => {
+
+                card.querySelector("h5").innerText =
+                    "Reunión #" + (index + 1);
+
+            });
+
+    }
+
+    function asignarEventosEliminarReuniones() {
+
+        document.querySelectorAll(".btnEliminarReunion")
+            .forEach(btn => {
+
+                btn.onclick = function () {
+
+                    let reuniones =
+                        document.querySelectorAll("#contenedorReuniones .card");
+
+                    if (reuniones.length == 1) {
+
+                        alert("Debe existir al menos una reunión.");
+                        return;
+
+                    }
+
+                    this.closest(".card").remove();
+
+                    actualizarNumeracionReuniones();
+
+                };
+
+            });
+
+    }
+
+    function validarSesionesDuplicadas() {
+
+        let sesiones = [];
+        let valido = true;
+
+        document.querySelectorAll("input[name='NumeroSesion[]']")
+            .forEach(input => {
+
+                let valor = input.value.trim();
+
+                if (valor == "")
+                    return;
+
+                if (sesiones.includes(valor)) {
+
+                    alert("Existe un número de sesión repetido.");
+
+                    input.value = "";
+
+                    valido = false;
+
+                }
+
+                sesiones.push(valor);
+
+            });
+
+        return valido;
+
+    }
+
+    document.addEventListener("change", function (e) {
+
+        if (e.target.name == "IdCurso[]") {
+
+            validarCursosDuplicados();
+
+        }
+
+        if (e.target.name == "NumeroSesion[]") {
+
+            validarSesionesDuplicadas();
+
+        }
+
+    });
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+
+        let correcto = true;
+
+        document.querySelectorAll("select[name='IdCurso[]']")
+            .forEach(select => {
+
+                if (select.value == "")
+                    correcto = false;
+
+            });
+
+        document.querySelectorAll("input[name='NumeroSesion[]']")
+            .forEach(x => {
+
+                if (x.value.trim() == "")
+                    correcto = false;
+
+            });
+
+        document.querySelectorAll("input[name='FechaSesion[]']")
+            .forEach(x => {
+
+                if (x.value == "")
+                    correcto = false;
+
+            });
+
+        document.querySelectorAll("textarea[name='PuntosVistos[]']")
+            .forEach(x => {
+
+                if (x.value.trim() == "")
+                    correcto = false;
+
+            });
+
+        if (!correcto) {
+
+            alert("Debe completar toda la información requerida.");
+
+            e.preventDefault();
+
+            return;
+
+        }
+
+        if (!validarCursosDuplicados()) {
+
+            e.preventDefault();
+            return;
+
+        }
+
+        if (!validarSesionesDuplicadas()) {
+
+            e.preventDefault();
+            return;
+
+        }
+
+    });
+
+</script>

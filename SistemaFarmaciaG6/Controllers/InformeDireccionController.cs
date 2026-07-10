@@ -100,7 +100,7 @@ namespace SistemaFarmaciaG6.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(
             InformeDireccion informe,
-            
+
             string[] NumeroSesion,
             DateTime[] FechaSesion,
             string[] PuntosVistos,
@@ -283,6 +283,10 @@ namespace SistemaFarmaciaG6.Controllers
             var informe = _context.InformeDireccions
                 .Include(i => i.IdEstadoNavigation)
                 .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdDepartamentoNavigation)
+                .Include(i => i.CursosDireccions)
+                    .ThenInclude(c => c.IdCursoNavigation)
+                .Include(i => i.SesionesDepartamentos)
                 .FirstOrDefault(i => i.IdInformeDireccion == id);
 
             if (informe == null)
@@ -345,9 +349,9 @@ namespace SistemaFarmaciaG6.Controllers
             return View(informe);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Enviar")]
         [ValidateAntiForgeryToken]
-        public IActionResult ConfirmaciónEnvio(int id)
+        public IActionResult EnviarConfirmado(int id)
         {
             if (!PuedeGestionar())
             {
@@ -412,7 +416,19 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var informe = _context.InformeDireccions.Find(id);
+            var informe = _context.InformeDireccions
+
+                .Include(i => i.IdEstadoNavigation)
+
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdDepartamentoNavigation)
+
+                .Include(i => i.CursosDireccions)
+                    .ThenInclude(c => c.IdCursoNavigation)
+
+                .Include(i => i.SesionesDepartamentos)
+
+                .FirstOrDefault(i => i.IdInformeDireccion == id);
 
             if (informe == null)
             {
@@ -431,12 +447,58 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.NombreDirector =
+                $"{informe.IdUsuarioNavigation.Nombre} {informe.IdUsuarioNavigation.Apellido1} {informe.IdUsuarioNavigation.Apellido2}";
+
+            ViewBag.Correo =
+                informe.IdUsuarioNavigation.Correo;
+
+            ViewBag.Departamento =
+                informe.IdUsuarioNavigation.IdDepartamentoNavigation?.NombreDepartamento;
+
+            ViewBag.Anio = informe.Anio;
+
+            ViewBag.Cursos = _context.Cursos
+                .OrderBy(c => c.SiglaCurso)
+                .ToList();
+
             return View(informe);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, InformeDireccion informe)
+        public IActionResult Edit(
+            int id,
+            InformeDireccion informe,
+            
+            string[] NumeroSesion,
+            DateTime[] FechaSesion,
+            string[] PuntosVistos,
+            
+            int[] IdCurso,
+            
+            int?[] CoordinacionCantidad,
+            string?[] CoordinacionDetalle,
+            
+            int?[] ColaboradoresCantidad,
+            string?[] ColaboradoresDetalle,
+
+            int?[] InvitadosCantidad,
+            string?[] InvitadosDetalle,
+
+            int?[] ExperienciasPracticasCantidad,
+            string?[] ExperienciasPracticasDetalle,
+            
+            int?[] ActividadesDocenciaIntegradasCantidad,
+            string?[] ActividadesDocenciaIntegradasDetalle,
+
+            int?[] ActividadesAnalisisContextoCantidad,
+            string?[] ActividadesAnalisisContextoDetalle,
+
+            int?[] TecnicasDidacticasCantidad,
+            string?[] TecnicasDidacticasDetalle,
+            int?[] AsistentesCurso
+            )
         {
             if (!PuedeGestionar())
             {
@@ -450,7 +512,8 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var informeBD = _context.InformeDireccions.Find(id);
+            var informeBD = _context.InformeDireccions
+                .FirstOrDefault(i => i.IdInformeDireccion == id);
 
             if (informeBD == null)
             {
@@ -469,20 +532,107 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            informeBD.ObservacionesDirector = informe.ObservacionesDirector;
+            try
+            {
 
-            _context.SaveChanges();
+                informeBD.ObservacionesDirector = informe.ObservacionesDirector;
 
-            AuditoriaHelper.Registrar(
-                _context,
-                HttpContext,
-                "InformeDireccion",
-                "Editar",
-                $"Se editó el informe de dirección #{informeBD.IdInformeDireccion} del año {informeBD.Anio}."
-            );
+                var reuniones = _context.SesionesDepartamentos
+                    .Where(r => r.IdInformeDireccion == id)
+                    .ToList();
 
-            TempData["Exito"] = "Informe actualizado correctamente.";
-            return RedirectToAction(nameof(Index));
+                _context.SesionesDepartamentos.RemoveRange(reuniones);
+
+                for (int i = 0; i < NumeroSesion.Length; i++)
+                {
+                    var reunion = new SesionesDepartamento
+                    {
+                        IdInformeDireccion = id,
+
+                        NumeroSesion = NumeroSesion[i],
+
+                        FechaSesion = DateOnly.FromDateTime(FechaSesion[i]),
+
+                        PuntosVistos = PuntosVistos[i]
+                    };
+
+                    _context.SesionesDepartamentos.Add(reunion);
+                }
+
+                var cursos = _context.CursosDireccions
+                    .Where(c => c.IdInformeDireccion == id)
+                    .ToList();
+
+                _context.CursosDireccions.RemoveRange(cursos);
+
+                for (int i = 0; i < IdCurso.Length; i++)
+                {
+                    if (IdCurso[i] == 0)
+                        continue;
+
+                    var curso = new CursosDireccion
+                    {
+                        IdInformeDireccion = id,
+
+                        IdCurso = IdCurso[i],
+
+                        CoordinacionCantidad = CoordinacionCantidad[i],
+                        CoordinacionDetalle = CoordinacionDetalle[i],
+
+                        ColaboradoresCantidad = ColaboradoresCantidad[i],
+                        ColaboradoresDetalle = ColaboradoresDetalle[i],
+
+                        InvitadosCantidad = InvitadosCantidad[i],
+                        InvitadosDetalle = InvitadosDetalle[i],
+
+                        ExperienciasPracticasCantidad = ExperienciasPracticasCantidad[i],
+                        ExperienciasPracticasDetalle = ExperienciasPracticasDetalle[i],
+
+                        ActividadesDocenciaIntegradasCantidad =
+                            ActividadesDocenciaIntegradasCantidad[i],
+
+                        ActividadesDocenciaIntegradasDetalle =
+                            ActividadesDocenciaIntegradasDetalle[i],
+
+                        ActividadesAnalisisContextoCantidad =
+                            ActividadesAnalisisContextoCantidad[i],
+
+                        ActividadesAnalisisContextoDetalle =
+                            ActividadesAnalisisContextoDetalle[i],
+
+                        TecnicasDidacticasCantidad =
+                            TecnicasDidacticasCantidad[i],
+
+                        TecnicasDidacticasDetalle =
+                            TecnicasDidacticasDetalle[i],
+
+                        AsistentesCurso =
+                            AsistentesCurso[i]
+                    };
+
+                    _context.CursosDireccions.Add(curso);
+                }
+
+                _context.SaveChanges();
+
+                AuditoriaHelper.Registrar(
+                    _context,
+                    HttpContext,
+                    "InformeDireccion",
+                    "Editar",
+                    $"Se editó el informe de dirección #{informeBD.IdInformeDireccion} del año {informeBD.Anio}."
+                );
+
+                TempData["Exito"] = "Informe actualizado correctamente.";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.InnerException?.Message ?? ex.Message;
+
+                return RedirectToAction(nameof(Edit), new { id });
+            }
         }
 
         [HttpGet]
