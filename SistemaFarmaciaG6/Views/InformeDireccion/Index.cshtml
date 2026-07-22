@@ -1,182 +1,681 @@
 ﻿@model IEnumerable<SistemaFarmaciaG6.Models.InformeDireccion>
 
 @{
-    ViewData["Title"] = "Informe de Dirección";
+    ViewData["Title"] = "Informes de Dirección";
+
     var rolUsuario = Context.Session.GetString("Rol") ?? "";
+
+    var aniosDisponibles = Model
+        .Select(i => i.Anio)
+        .Distinct()
+        .OrderByDescending(a => a)
+        .ToList();
+
+    var directoresDisponibles = Model
+        .Where(i => i.IdUsuarioNavigation != null)
+        .Select(i => new
+        {
+            Id = i.IdUsuario,
+            Nombre = $"{i.IdUsuarioNavigation.Nombre} {i.IdUsuarioNavigation.Apellido1} {i.IdUsuarioNavigation.Apellido2}".Trim()
+        })
+        .GroupBy(i => i.Id)
+        .Select(g => g.First())
+        .OrderBy(i => i.Nombre)
+        .ToList();
+
+    var totalInformes = Model.Count();
 }
 
 <div class="container-fluid">
 
-    <div class="categorias-section">
+    <div class="categorias-section informes-direccion-header">
 
-        <h2 class="mb-3">
-            Informes de Dirección
-        </h2>
+        <div class="informes-direccion-header-content">
+
+            <div>
+
+                <h2 class="mb-2">
+                    Informes de Dirección
+                </h2>
+
+                <p class="mb-0 informes-direccion-subtitulo">
+                    Consulte y gestione los informes anuales elaborados por las direcciones.
+                </p>
+
+            </div>
+
+            @if (rolUsuario == "Director" || rolUsuario == "Administrador")
+            {
+                <a asp-action="Create"
+                   class="btn btn-create informe-direccion-create-button">
+
+                    <i class="bi bi-file-earmark-plus me-2"></i>
+                    Generar Informe
+
+                </a>
+            }
+
+        </div>
 
         @if (TempData["Exito"] != null)
         {
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-3 mb-0">
+
+                <i class="bi bi-check-circle me-2"></i>
                 @TempData["Exito"]
+
             </div>
         }
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">
-                @TempData["Error"]
-            </div>
-        }
+            <div class="alert alert-danger mt-3 mb-0">
 
-        @if (rolUsuario == "Director" || rolUsuario == "Administrador")
-        {
-            <p>
-                <a asp-action="Create"
-                   class="btn btn-create">
-                    ➕ Generar Informe Dirección
-                </a>
-            </p>
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                @TempData["Error"]
+
+            </div>
         }
 
     </div>
 
-    <table class="table table-hover shadow-sm categorias-table">
+    <div class="card shadow-sm filtros-informes-direccion-card mb-4">
 
-        <thead>
-            <tr>
-                <th>Año</th>
-                <th>Director</th>
-                <th>Estado</th>
-                <th>Fecha Creación</th>
-                <th>Fecha Envío</th>
-                <th>Fecha Aprobación</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+        <div class="card-body">
 
-        <tbody>
+            <div class="row g-3">
 
-            @foreach (var item in Model)
-            {
-                <tr>
+                <div class="col-lg-4 col-md-12">
 
-                    <td>
-                        @item.Anio
-                    </td>
+                    <label for="buscarInformeDireccion"
+                           class="form-label">
 
-                    <td>
-                        @item.IdUsuarioNavigation?.Nombre
-                        @item.IdUsuarioNavigation?.Apellido1
-                        @item.IdUsuarioNavigation?.Apellido2
-                    </td>
+                        Buscar
 
-                    <td>
-                        @if (item.IdEstado == 1)
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input type="text"
+                               id="buscarInformeDireccion"
+                               class="form-control"
+                               placeholder="Director, estado o año..." />
+
+                    </div>
+
+                </div>
+
+                @if (rolUsuario == "Administrador")
+                {
+                    <div class="col-lg-3 col-md-4">
+
+                        <label for="filtroDirector"
+                               class="form-label">
+
+                            Director
+
+                        </label>
+
+                        <select id="filtroDirector"
+                                class="form-select">
+
+                            <option value="">
+                                Todos los directores
+                            </option>
+
+                            @foreach (var director in directoresDisponibles)
+                            {
+                                <option value="@director.Nombre">
+                                    @director.Nombre
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+                }
+
+                <div class="col-lg-2 col-md-4">
+
+                    <label for="filtroEstadoInforme"
+                           class="form-label">
+
+                        Estado
+
+                    </label>
+
+                    <select id="filtroEstadoInforme"
+                            class="form-select">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="Borrador">
+                            Borrador
+                        </option>
+
+                        <option value="Pendiente">
+                            Pendiente
+                        </option>
+
+                        <option value="Devuelto">
+                            Devuelto
+                        </option>
+
+                        <option value="Aprobado">
+                            Aprobado
+                        </option>
+
+                        <option value="Finalizado">
+                            Finalizado
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+
+                    <label for="filtroAnioInforme"
+                           class="form-label">
+
+                        Año
+
+                    </label>
+
+                    <select id="filtroAnioInforme"
+                            class="form-select">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        @foreach (var anio in aniosDisponibles)
                         {
-                            <span class="badge bg-secondary">
-                                Borrador
-                            </span>
-                        }
-                        else if (item.IdEstado == 2)
-                        {
-                            <span class="badge bg-warning text-dark">
-                                Pendiente
-                            </span>
-                        }
-                        else if (item.IdEstado == 3)
-                        {
-                            <span class="badge bg-danger">
-                                Devuelto
-                            </span>
-                        }
-                        else if (item.IdEstado == 4)
-                        {
-                            <span class="badge bg-success">
-                                Aprobado
-                            </span>
-                        }
-                        else if (item.IdEstado == 5)
-                        {
-                            <span class="badge bg-primary">
-                                Finalizado
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">
-                                @item.IdEstadoNavigation?.NombreEstado
-                            </span>
-                        }
-                    </td>
-
-                    <td>
-                        @item.FechaCreacion.ToString("dd/MM/yyyy")
-                    </td>
-
-                    <td>
-                        @(item.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "No enviado")
-                    </td>
-
-                    <td>
-                        @(item.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No aprobado")
-                    </td>
-
-                    <td>
-
-                        <a asp-action="Details"
-                           asp-route-id="@item.IdInformeDireccion"
-                           class="btn btn-info btn-sm">
-                            Ver
-                        </a>
-
-                        @if (item.IdEstado == 1 || item.IdEstado == 3)
-                        {
-                            <a asp-action="Edit"
-                               asp-route-id="@item.IdInformeDireccion"
-                               class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
-
-                            <a asp-action="Enviar"
-                               asp-route-id="@item.IdInformeDireccion"
-                               class="btn btn-success btn-sm">
-                                Enviar
-                            </a>
-                        }
-
-                        @if (item.IdEstado == 1)
-                        {
-                            <a asp-action="Delete"
-                               asp-route-id="@item.IdInformeDireccion"
-                               class="btn btn-danger btn-sm">
-                                Eliminar
-                            </a>
-                        }
-
-                        @if (rolUsuario == "Administrador" &&
-                                            (item.IdEstado == 2 || item.IdEstado == 4 || item.IdEstado == 5))
-                        {
-                            <form asp-action="Reabrir"
-                                  asp-route-id="@item.IdInformeDireccion"
-                                  method="post"
-                                  style="display:inline;">
-
-                                @Html.AntiForgeryToken()
-
-                                <button type="submit"
-                                        class="btn btn-danger btn-sm">
-                                    Reabrir
-                                </button>
-
-                            </form>
+                            <option value="@anio">
+                                @anio
+                            </option>
                         }
 
-                    </td>
+                    </select>
 
-                </tr>
-            }
+                </div>
 
-        </tbody>
+                <div class="col-lg-1 col-md-12 d-flex align-items-end">
 
-    </table>
+                    <button type="button"
+                            id="limpiarFiltrosInforme"
+                            class="btn btn-secondary w-100"
+                            title="Limpiar filtros">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+
+        <div class="informes-direccion-contador">
+
+            <i class="bi bi-files me-1"></i>
+
+            Informes encontrados:
+
+            <strong id="contadorInformesDireccion">
+                @totalInformes
+            </strong>
+
+        </div>
+
+        <div class="text-muted small">
+            Puede combinar los filtros disponibles.
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm informes-direccion-table-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0 categorias-table informes-direccion-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Año</th>
+                        <th>Director</th>
+                        <th>Estado</th>
+                        <th>Fecha de creación</th>
+                        <th>Fecha de envío</th>
+                        <th>Fecha de aprobación</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        string nombreDirector =
+                        $"{item.IdUsuarioNavigation?.Nombre} {item.IdUsuarioNavigation?.Apellido1} {item.IdUsuarioNavigation?.Apellido2}".Trim();
+
+                        string nombreEstado = item.IdEstado switch
+                        {
+                            1 => "Borrador",
+                            2 => "Pendiente",
+                            3 => "Devuelto",
+                            4 => "Aprobado",
+                            5 => "Finalizado",
+                            _ => item.IdEstadoNavigation?.NombreEstado ?? "Desconocido"
+                        };
+
+                        string claseEstado = item.IdEstado switch
+                        {
+                            1 => "bg-secondary",
+                            2 => "bg-warning text-dark",
+                            3 => "bg-danger",
+                            4 => "bg-success",
+                            5 => "bg-primary",
+                            _ => "bg-dark"
+                        };
+
+                        string iconoEstado = item.IdEstado switch
+                        {
+                            1 => "bi-pencil",
+                            2 => "bi-hourglass-split",
+                            3 => "bi-arrow-return-left",
+                            4 => "bi-check-circle",
+                            5 => "bi-file-earmark-check",
+                            _ => "bi-question-circle"
+                        };
+
+                        <tr class="fila-informe-direccion"
+                            data-director="@nombreDirector"
+                            data-estado="@nombreEstado"
+                            data-anio="@item.Anio">
+
+                            <td>
+
+                                <span class="informe-anio">
+                                    @item.Anio
+                                </span>
+
+                            </td>
+
+                            <td class="director-informe">
+
+                                <div class="director-info">
+
+                                    <span class="director-avatar">
+
+                                        @{
+                                            string inicial =
+                                            !string.IsNullOrWhiteSpace(item.IdUsuarioNavigation?.Nombre)
+                                            ? item.IdUsuarioNavigation.Nombre.Substring(0, 1).ToUpper()
+                                            : "D";
+                                        }
+
+                                        @inicial
+
+                                    </span>
+
+                                    <div>
+
+                                        <div class="fw-semibold">
+                                            @nombreDirector
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Informe #@item.IdInformeDireccion
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="estado-informe-direccion">
+
+                                <span class="badge @claseEstado informe-direccion-estado-badge">
+
+                                    <i class="bi @iconoEstado me-1"></i>
+                                    @nombreEstado
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-nowrap">
+
+                                <div>
+                                    @item.FechaCreacion.ToString("dd/MM/yyyy")
+                                </div>
+
+                                <small class="text-muted">
+                                    @item.FechaCreacion.ToString("HH:mm")
+                                </small>
+
+                            </td>
+
+                            <td class="text-nowrap">
+
+                                @if (item.FechaEnvio.HasValue)
+                                {
+                                    <div>
+                                        @item.FechaEnvio.Value.ToString("dd/MM/yyyy")
+                                    </div>
+
+                                    <small class="text-muted">
+                                        @item.FechaEnvio.Value.ToString("HH:mm")
+                                    </small>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">
+                                        No enviado
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td class="text-nowrap">
+
+                                @if (item.FechaAprobacion.HasValue)
+                                {
+                                    <div>
+                                        @item.FechaAprobacion.Value.ToString("dd/MM/yyyy")
+                                    </div>
+
+                                    <small class="text-muted">
+                                        @item.FechaAprobacion.Value.ToString("HH:mm")
+                                    </small>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">
+                                        No aprobado
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <div class="d-inline-flex flex-wrap justify-content-center gap-1">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.IdInformeDireccion"
+                                       class="btn btn-info btn-sm">
+
+                                        <i class="bi bi-eye me-1"></i>
+                                        Ver
+
+                                    </a>
+
+                                    @if (item.IdEstado == 1 || item.IdEstado == 3)
+                                    {
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.IdInformeDireccion"
+                                           class="btn btn-warning btn-sm">
+
+                                            <i class="bi bi-pencil-square me-1"></i>
+                                            Editar
+
+                                        </a>
+
+                                        <form asp-action="Enviar"
+                                              asp-route-id="@item.IdInformeDireccion"
+                                              method="post"
+                                              class="d-inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="btn btn-success btn-sm"
+                                                    onclick="return confirm('¿Desea enviar este informe para revisión?');">
+
+                                                <i class="bi bi-send me-1"></i>
+                                                Enviar
+
+                                            </button>
+
+                                        </form>
+                                    }
+
+                                    @if (item.IdEstado == 1)
+                                    {
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.IdInformeDireccion"
+                                           class="btn btn-danger btn-sm">
+
+                                            <i class="bi bi-trash me-1"></i>
+                                            Eliminar
+
+                                        </a>
+                                    }
+
+                                    @if (rolUsuario == "Administrador" &&
+                                                                    (item.IdEstado == 2 ||
+                                                                    item.IdEstado == 4 ||
+                                                                    item.IdEstado == 5))
+                                    {
+                                        <form asp-action="Reabrir"
+                                              asp-route-id="@item.IdInformeDireccion"
+                                              method="post"
+                                              class="d-inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="btn btn-outline-danger btn-sm"
+                                                    onclick="return confirm('¿Está seguro de reabrir este informe? Volverá al estado Borrador.');">
+
+                                                <i class="bi bi-unlock me-1"></i>
+                                                Reabrir
+
+                                            </button>
+
+                                        </form>
+                                    }
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div id="sinResultadosInformesDireccion"
+         class="alert alert-warning text-center mt-3 d-none">
+
+        <i class="bi bi-search me-2"></i>
+
+        No se encontraron informes de dirección que coincidan con los filtros seleccionados.
+
+    </div>
 
 </div>
+
+@section Scripts {
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const buscador =
+                document.getElementById("buscarInformeDireccion");
+
+            const filtroDirector =
+                document.getElementById("filtroDirector");
+
+            const filtroEstado =
+                document.getElementById("filtroEstadoInforme");
+
+            const filtroAnio =
+                document.getElementById("filtroAnioInforme");
+
+            const limpiarFiltros =
+                document.getElementById("limpiarFiltrosInforme");
+
+            const contador =
+                document.getElementById("contadorInformesDireccion");
+
+            const sinResultados =
+                document.getElementById("sinResultadosInformesDireccion");
+
+            function normalizarTexto(texto) {
+
+                return (texto || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
+
+            }
+
+            function filtrarInformes() {
+
+                const texto =
+                    normalizarTexto(buscador.value);
+
+                const director =
+                    filtroDirector
+                        ? normalizarTexto(filtroDirector.value)
+                        : "";
+
+                const estado =
+                    normalizarTexto(filtroEstado.value);
+
+                const anio =
+                    normalizarTexto(filtroAnio.value);
+
+                const filas =
+                    document.querySelectorAll(".fila-informe-direccion");
+
+                let visibles = 0;
+
+                filas.forEach(function (fila) {
+
+                    const contenido =
+                        normalizarTexto(fila.innerText);
+
+                    const directorFila =
+                        normalizarTexto(fila.dataset.director);
+
+                    const estadoFila =
+                        normalizarTexto(fila.dataset.estado);
+
+                    const anioFila =
+                        normalizarTexto(fila.dataset.anio);
+
+                    const coincideTexto =
+                        texto === "" ||
+                        contenido.includes(texto);
+
+                    const coincideDirector =
+                        director === "" ||
+                        directorFila === director;
+
+                    const coincideEstado =
+                        estado === "" ||
+                        estadoFila === estado;
+
+                    const coincideAnio =
+                        anio === "" ||
+                        anioFila === anio;
+
+                    const mostrar =
+                        coincideTexto &&
+                        coincideDirector &&
+                        coincideEstado &&
+                        coincideAnio;
+
+                    fila.style.display =
+                        mostrar ? "" : "none";
+
+                    if (mostrar) {
+                        visibles++;
+                    }
+
+                });
+
+                contador.textContent = visibles;
+
+                sinResultados.classList.toggle(
+                    "d-none",
+                    visibles > 0
+                );
+
+            }
+
+            buscador.addEventListener(
+                "input",
+                filtrarInformes
+            );
+
+            if (filtroDirector) {
+
+                filtroDirector.addEventListener(
+                    "change",
+                    filtrarInformes
+                );
+
+            }
+
+            filtroEstado.addEventListener(
+                "change",
+                filtrarInformes
+            );
+
+            filtroAnio.addEventListener(
+                "change",
+                filtrarInformes
+            );
+
+            limpiarFiltros.addEventListener(
+                "click",
+                function () {
+
+                    buscador.value = "";
+
+                    if (filtroDirector) {
+                        filtroDirector.value = "";
+                    }
+
+                    filtroEstado.value = "";
+                    filtroAnio.value = "";
+
+                    buscador.focus();
+
+                    filtrarInformes();
+
+                }
+            );
+
+        });
+
+    </script>
+
+}

@@ -1,124 +1,279 @@
 ﻿@model IEnumerable<SistemaFarmaciaG6.Models.Categoria>
 
 @{
-    ViewData["Title"] = "Categorias";
+    ViewData["Title"] = "Gestión de Categorías";
+    var totalCategorias = Model.Count();
 }
 
 <div class="container-fluid">
 
-    <div class="categorias-section">
+    <div class="categorias-section categorias-header">
 
-        <h2 class="mb-3">
-            Listado de Categorías
-        </h2>
+        <div class="categorias-header-content">
+
+            <div>
+
+                <h2 class="mb-2">
+                    Gestión de Categorías
+                </h2>
+
+                <p class="mb-0 categorias-subtitulo">
+                    Administre las categorías disponibles para clasificar a los usuarios del sistema.
+                </p>
+
+            </div>
+
+            <a asp-action="Create"
+               class="btn btn-create categorias-create-button">
+
+                <i class="bi bi-plus-circle me-2"></i>
+                Crear Nueva Categoría
+
+            </a>
+
+        </div>
 
         @if (TempData["Exito"] != null)
         {
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-3 mb-0">
+
+                <i class="bi bi-check-circle me-2"></i>
                 @TempData["Exito"]
+
             </div>
         }
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">
+            <div class="alert alert-danger mt-3 mb-0">
+
+                <i class="bi bi-exclamation-triangle me-2"></i>
                 @TempData["Error"]
+
             </div>
         }
 
-        <p>
-            <a asp-action="Create" class="btn btn-create">
-                ➕ Crear Nueva Categoría
-            </a>
-        </p>
-
     </div>
 
-    <div class="row mb-4">
+    <div class="card shadow-sm filtros-categorias-card mb-4">
 
-        <div class="col-md-4">
+        <div class="card-body">
 
-            <label class="form-label">
-                Buscar categoría
-            </label>
+            <div class="row g-3">
 
-            <input type="text"
-                   id="buscarCategoria"
-                   class="form-control"
-                   placeholder="Escriba el nombre de la categoría..." />
+                <div class="col-lg-7 col-md-12">
+
+                    <label for="buscarCategoria"
+                           class="form-label">
+
+                        Buscar categoría
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input type="text"
+                               id="buscarCategoria"
+                               class="form-control"
+                               placeholder="Escriba el nombre de la categoría..." />
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 col-md-9">
+
+                    <label for="filtroEstadoCategoria"
+                           class="form-label">
+
+                        Filtrar por estado
+
+                    </label>
+
+                    <select id="filtroEstadoCategoria"
+                            class="form-select">
+
+                        <option value="">
+                            Todos los estados
+                        </option>
+
+                        <option value="Activo">
+                            Activo
+                        </option>
+
+                        <option value="Inactivo">
+                            Inactivo
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-1 col-md-3 d-flex align-items-end">
+
+                    <button type="button"
+                            id="limpiarFiltrosCategoria"
+                            class="btn btn-secondary w-100"
+                            title="Limpiar filtros">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
-    <table class="table table-hover shadow-sm categorias-table">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
-        <thead>
-            <tr>
-                <th>ID Categoría</th>
-                <th>Categoría</th>
-                <th>Estado</th>
-                <th></th>
-            </tr>
-        </thead>
+        <div class="categorias-contador">
 
-        <tbody>
+            <i class="bi bi-tags me-1"></i>
 
-            @foreach (var item in Model)
-            {
-                <tr class="fila-categoria">
+            Categorías encontradas:
 
-                    <td>
-                        @item.IdCategoria
-                    </td>
+            <strong id="contadorCategorias">
+                @totalCategorias
+            </strong>
 
-                    <td class="nombre-categoria">
-                        @item.NombreCategoria
-                    </td>
+        </div>
 
-                    <td>
-                        @if (item.Estado == "Activo")
-                        {
-                            <span class="badge bg-success">
-                                Activo
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-danger">
-                                Inactivo
-                            </span>
-                        }
-                    </td>
+        <div class="text-muted small">
+            Puede combinar la búsqueda con el filtro de estado.
+        </div>
 
-                    <td>
+    </div>
 
-                        <a asp-action="Edit"
-                           asp-route-id="@item.IdCategoria"
-                           class="btn btn-primary btn-sm">
-                            Editar
-                        </a>
+    <div class="card shadow-sm categorias-table-card">
 
-                        <a asp-action="Delete"
-                           asp-route-id="@item.IdCategoria"
-                           class="btn btn-danger btn-sm">
-                            Eliminar
-                        </a>
+        <div class="table-responsive">
 
-                        <a asp-action="Details"
-                           asp-route-id="@item.IdCategoria"
-                           class="btn btn-details btn-sm">
-                            Detalles
-                        </a>
+            <table class="table table-hover align-middle mb-0 categorias-table">
 
-                    </td>
+                <thead>
 
-                </tr>
-            }
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
 
-        </tbody>
+                </thead>
 
-    </table>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="fila-categoria">
+
+                            <td class="fw-semibold">
+                                #@item.IdCategoria
+                            </td>
+
+                            <td class="nombre-categoria">
+
+                                <div class="categoria-info">
+
+                                    <span class="categoria-icono">
+
+                                        <i class="bi bi-tag"></i>
+
+                                    </span>
+
+                                    <span class="fw-semibold">
+                                        @item.NombreCategoria
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+                            <td class="estado-categoria">
+
+                                @if (item.Estado == "Activo")
+                                {
+                                    <span class="badge bg-success categoria-estado-badge">
+
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Activo
+
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger categoria-estado-badge">
+
+                                        <i class="bi bi-x-circle me-1"></i>
+                                        Inactivo
+
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <div class="d-inline-flex flex-wrap justify-content-center gap-1">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.IdCategoria"
+                                       class="btn btn-info btn-sm">
+
+                                        <i class="bi bi-eye me-1"></i>
+                                        Detalles
+
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.IdCategoria"
+                                       class="btn btn-warning btn-sm">
+
+                                        <i class="bi bi-pencil-square me-1"></i>
+                                        Editar
+
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.IdCategoria"
+                                       class="btn btn-danger btn-sm">
+
+                                        <i class="bi bi-trash me-1"></i>
+                                        Eliminar
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div id="sinResultadosCategorias"
+         class="alert alert-warning text-center mt-3 d-none">
+
+        <i class="bi bi-search me-2"></i>
+
+        No se encontraron categorías que coincidan con los filtros seleccionados.
+
+    </div>
 
 </div>
 
@@ -126,25 +281,111 @@
 
     <script>
 
-        document.getElementById("buscarCategoria")
-        .addEventListener("keyup", function () {
+        document.addEventListener("DOMContentLoaded", function () {
 
-            let texto = this.value.toLowerCase();
+            const buscarCategoria =
+                document.getElementById("buscarCategoria");
 
-            let filas = document.querySelectorAll(".fila-categoria");
+            const filtroEstado =
+                document.getElementById("filtroEstadoCategoria");
 
-            filas.forEach(function (fila) {
+            const limpiarFiltros =
+                document.getElementById("limpiarFiltrosCategoria");
 
-                let nombreCategoria = fila.querySelector(".nombre-categoria")
-                                          .innerText
-                                          .toLowerCase();
+            const contadorCategorias =
+                document.getElementById("contadorCategorias");
 
-                fila.style.display =
-                    nombreCategoria.includes(texto)
-                    ? ""
-                    : "none";
+            const sinResultados =
+                document.getElementById("sinResultadosCategorias");
 
-            });
+            function normalizarTexto(texto) {
+
+                return (texto || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
+
+            }
+
+            function filtrarCategorias() {
+
+                const texto =
+                    normalizarTexto(buscarCategoria.value);
+
+                const estado =
+                    normalizarTexto(filtroEstado.value);
+
+                const filas =
+                    document.querySelectorAll(".fila-categoria");
+
+                let visibles = 0;
+
+                filas.forEach(function (fila) {
+
+                    const nombreCategoria =
+                        normalizarTexto(
+                            fila.querySelector(".nombre-categoria")?.innerText
+                        );
+
+                    const estadoCategoria =
+                        normalizarTexto(
+                            fila.querySelector(".estado-categoria")?.innerText
+                        );
+
+                    const coincideNombre =
+                        texto === "" ||
+                        nombreCategoria.includes(texto);
+
+                    const coincideEstado =
+                        estado === "" ||
+                        estadoCategoria.includes(estado);
+
+                    const mostrar =
+                        coincideNombre &&
+                        coincideEstado;
+
+                    fila.style.display =
+                        mostrar ? "" : "none";
+
+                    if (mostrar) {
+                        visibles++;
+                    }
+
+                });
+
+                contadorCategorias.textContent = visibles;
+
+                sinResultados.classList.toggle(
+                    "d-none",
+                    visibles > 0
+                );
+
+            }
+
+            buscarCategoria.addEventListener(
+                "input",
+                filtrarCategorias
+            );
+
+            filtroEstado.addEventListener(
+                "change",
+                filtrarCategorias
+            );
+
+            limpiarFiltros.addEventListener(
+                "click",
+                function () {
+
+                    buscarCategoria.value = "";
+                    filtroEstado.value = "";
+
+                    buscarCategoria.focus();
+
+                    filtrarCategorias();
+
+                }
+            );
 
         });
 

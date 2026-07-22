@@ -2,167 +2,329 @@
 
 @{
     ViewData["Title"] = "Gestión de Usuarios";
+
+    var categorias = Model
+        .Select(x => x.IdCategoriaNavigation?.NombreCategoria)
+        .Where(x => !string.IsNullOrWhiteSpace(x))
+        .Distinct()
+        .OrderBy(x => x)
+        .ToList();
+
+    var totalUsuarios = Model.Count();
 }
 
 <div class="container-fluid">
 
-    <div class="categorias-section">
+    <div class="categorias-section usuarios-header">
 
-        <h2 class="mb-3">
-            Gestión de Usuarios
-        </h2>
+        <div class="usuarios-header-content">
+
+            <div>
+                <h2 class="mb-2">
+                    Gestión de Usuarios
+                </h2>
+
+                <p class="mb-0 usuarios-subtitulo">
+                    Administre, consulte y filtre las cuentas registradas en el sistema.
+                </p>
+            </div>
+
+            <a asp-action="Create"
+               class="btn btn-create usuarios-create-button">
+
+                <i class="bi bi-person-plus me-2"></i>
+                Crear Usuario
+
+            </a>
+
+        </div>
 
         @if (TempData["Exito"] != null)
         {
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-3 mb-0">
+                <i class="bi bi-check-circle me-2"></i>
                 @TempData["Exito"]
             </div>
         }
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">
+            <div class="alert alert-danger mt-3 mb-0">
+                <i class="bi bi-exclamation-triangle me-2"></i>
                 @TempData["Error"]
             </div>
         }
 
-        <p>
-            <a asp-action="Create" class="btn btn-create">
-                ➕ Crear Usuario
-            </a>
-        </p>
+    </div>
+
+    <div class="card shadow-sm filtros-usuarios-card mb-4">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-lg-5 col-md-12">
+
+                    <label for="buscarUsuario"
+                           class="form-label">
+
+                        Buscar usuario
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input type="text"
+                               id="buscarUsuario"
+                               class="form-control"
+                               placeholder="Nombre, cédula, correo, teléfono o departamento..." />
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label for="filtroEstado"
+                           class="form-label">
+
+                        Estado
+
+                    </label>
+
+                    <select id="filtroEstado"
+                            class="form-select">
+
+                        <option value="">
+                            Todos los estados
+                        </option>
+
+                        <option value="Activo">
+                            Activo
+                        </option>
+
+                        <option value="Inactivo">
+                            Inactivo
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label for="filtroCategoria"
+                           class="form-label">
+
+                        Categoría
+
+                    </label>
+
+                    <select id="filtroCategoria"
+                            class="form-select">
+
+                        <option value="">
+                            Todas las categorías
+                        </option>
+
+                        @foreach (var categoria in categorias)
+                        {
+                            <option value="@categoria">
+                                @categoria
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-1 col-md-12 d-flex align-items-end">
+
+                    <button type="button"
+                            id="limpiarFiltros"
+                            class="btn btn-secondary w-100"
+                            title="Limpiar filtros">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="row mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
-        <div class="col-md-4">
+        <div class="usuarios-contador">
 
-            <label class="form-label">
-                Buscar por nombre, cédula o correo
-            </label>
+            <i class="bi bi-people me-1"></i>
 
-            <input type="text"
-                   id="buscarUsuario"
-                   class="form-control"
-                   placeholder="Escriba para buscar..." />
+            Registros encontrados:
 
-        </div>
-
-        <div class="col-md-4">
-
-            <label class="form-label">
-                Filtrar por Estado
-            </label>
-
-            <select id="filtroEstado" class="form-select">
-                <option value="">Todos</option>
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-            </select>
+            <strong id="contadorUsuarios">
+                @totalUsuarios
+            </strong>
 
         </div>
 
-        <div class="col-md-4">
+        <div class="text-muted small">
+            Puede combinar búsqueda, estado y categoría.
+        </div>
 
-            <label class="form-label">
-                Filtrar por Categoría
-            </label>
+    </div>
 
-            <select id="filtroCategoria" class="form-select">
-                <option value="">Todas</option>
+    <div class="card shadow-sm usuarios-table-card">
 
-                @foreach (var categoria in Model
-                                .Select(x => x.IdCategoriaNavigation?.NombreCategoria)
-                                .Where(x => !string.IsNullOrWhiteSpace(x))
-                                .Distinct()
-                                .OrderBy(x => x))
-                {
-                    <option value="@categoria">
-                        @categoria
-                    </option>
-                }
+        <div class="table-responsive">
 
-            </select>
+            <table class="table table-hover align-middle mb-0 categorias-table usuarios-table">
+
+                <thead>
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Nombre completo</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Departamento</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="fila-usuario">
+
+                            <td class="fw-semibold">
+                                @item.Cedula
+                            </td>
+
+                            <td>
+
+                                <div class="usuario-nombre">
+
+                                    <span class="usuario-avatar-tabla">
+
+                                        @{
+                                            string inicial =
+                                            !string.IsNullOrWhiteSpace(item.Nombre)
+                                            ? item.Nombre.Substring(0, 1).ToUpper()
+                                            : "U";
+                                        }
+
+                                    @inicial
+
+                                </span>
+
+                                <div>
+
+                                    <div class="fw-semibold">
+                                        @item.Nombre
+                                        @item.Apellido1
+                                        @item.Apellido2
+                                    </div>
+
+                                    <small class="text-muted">
+                                        Usuario #@item.IdUsuario
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            <a href="mailto:@item.Correo"
+                               class="usuario-correo">
+
+                                @item.Correo
+
+                            </a>
+                        </td>
+
+                        <td>
+                            @(string.IsNullOrWhiteSpace(item.Telefono)
+                                                        ? "No registrado"
+                                                        : item.Telefono)
+                                                                    </td>
+
+                        <td>
+                            @(item.IdDepartamentoNavigation?.NombreDepartamento
+                                                        ?? "Sin departamento")
+                                                                          </td>
+
+                        <td class="categoria-usuario">
+
+                            <span class="badge bg-light text-dark border">
+                                @(item.IdCategoriaNavigation?.NombreCategoria
+                                                                ?? "Sin categoría")
+                            </span>
+
+                            </td>
+
+                            <td class="estado-usuario">
+
+                            @if (item.Estado == "Activo")
+                                {
+                                    <span class="badge bg-success estado-badge">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Activo
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger estado-badge">
+                                        <i class="bi bi-x-circle me-1"></i>
+                                        Inactivo
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.IdUsuario"
+                                   class="btn btn-primary btn-sm">
+
+                                    <i class="bi bi-pencil-square me-1"></i>
+                                    Editar
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
 
         </div>
 
     </div>
 
-    <table class="table table-hover shadow-sm categorias-table">
+    <div id="sinResultadosUsuarios"
+         class="alert alert-warning text-center mt-3 d-none">
 
-        <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Nombre Completo</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Departamento</th>
-                <th>Categoría</th>
-                <th>Estado</th>
-                <th></th>
-            </tr>
-        </thead>
+        <i class="bi bi-search me-2"></i>
 
-        <tbody>
+        No se encontraron usuarios que coincidan con los filtros seleccionados.
 
-            @foreach (var item in Model)
-            {
-                <tr class="fila-usuario">
-
-                    <td>@item.Cedula</td>
-
-                    <td>
-                        @item.Nombre
-                        @item.Apellido1
-                        @item.Apellido2
-                    </td>
-
-                    <td>@item.Correo</td>
-
-                    <td>@item.Telefono</td>
-
-                    <td>
-                        @(item.IdDepartamentoNavigation?.NombreDepartamento)
-                    </td>
-
-                    <td class="categoria-usuario">
-                        @(item.IdCategoriaNavigation?.NombreCategoria)
-                    </td>
-
-                    <td class="estado-usuario">
-
-                        @if (item.Estado == "Activo")
-                        {
-                            <span class="badge bg-success">
-                                Activo
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-danger">
-                                Inactivo
-                            </span>
-                        }
-
-                    </td>
-
-                    <td>
-
-                        <a asp-action="Edit"
-                           asp-route-id="@item.IdUsuario"
-                           class="btn btn-primary btn-sm">
-                            Editar
-                        </a>
-
-                    </td>
-
-                </tr>
-            }
-
-        </tbody>
-
-    </table>
+    </div>
 
 </div>
 
@@ -170,52 +332,133 @@
 
     <script>
 
-        document.getElementById("buscarUsuario").addEventListener("keyup", filtrarUsuarios);
-        document.getElementById("filtroEstado").addEventListener("change", filtrarUsuarios);
-        document.getElementById("filtroCategoria").addEventListener("change", filtrarUsuarios);
+        document.addEventListener("DOMContentLoaded", function () {
 
-        function filtrarUsuarios()
-        {
-            let texto = document.getElementById("buscarUsuario").value.toLowerCase();
-            let estado = document.getElementById("filtroEstado").value.toLowerCase();
-            let categoria = document.getElementById("filtroCategoria").value.toLowerCase();
+            const buscarUsuario =
+                document.getElementById("buscarUsuario");
 
-            let filas = document.querySelectorAll(".fila-usuario");
+            const filtroEstado =
+                document.getElementById("filtroEstado");
 
-            filas.forEach(function(fila){
+            const filtroCategoria =
+                document.getElementById("filtroCategoria");
 
-                let contenido = fila.innerText.toLowerCase();
+            const limpiarFiltros =
+                document.getElementById("limpiarFiltros");
 
-                let estadoFila = fila.querySelector(".estado-usuario")
-                                     .innerText
-                                     .trim()
-                                     .toLowerCase();
+            const contadorUsuarios =
+                document.getElementById("contadorUsuarios");
 
-                let categoriaFila = fila.querySelector(".categoria-usuario")
-                                        .innerText
-                                        .trim()
-                                        .toLowerCase();
+            const sinResultados =
+                document.getElementById("sinResultadosUsuarios");
 
-                let coincideTexto = contenido.includes(texto);
+            function normalizarTexto(texto) {
 
-                let coincideEstado =
-                    estado === "" ||
-                    estadoFila === estado;
+                return (texto || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
 
-                let coincideCategoria =
-                    categoria === "" ||
-                    categoriaFila === categoria;
+            }
 
-                fila.style.display =
-                    coincideTexto &&
-                    coincideEstado &&
-                    coincideCategoria
-                    ? ""
-                    : "none";
+            function filtrarUsuarios() {
 
-            });
+                const texto =
+                    normalizarTexto(buscarUsuario.value);
 
-        }
+                const estado =
+                    normalizarTexto(filtroEstado.value);
+
+                const categoria =
+                    normalizarTexto(filtroCategoria.value);
+
+                const filas =
+                    document.querySelectorAll(".fila-usuario");
+
+                let visibles = 0;
+
+                filas.forEach(function (fila) {
+
+                    const contenido =
+                        normalizarTexto(fila.innerText);
+
+                    const estadoFila =
+                        normalizarTexto(
+                            fila.querySelector(".estado-usuario")?.innerText
+                        );
+
+                    const categoriaFila =
+                        normalizarTexto(
+                            fila.querySelector(".categoria-usuario")?.innerText
+                        );
+
+                    const coincideTexto =
+                        texto === "" ||
+                        contenido.includes(texto);
+
+                    const coincideEstado =
+                        estado === "" ||
+                        estadoFila.includes(estado);
+
+                    const coincideCategoria =
+                        categoria === "" ||
+                        categoriaFila.includes(categoria);
+
+                    const mostrar =
+                        coincideTexto &&
+                        coincideEstado &&
+                        coincideCategoria;
+
+                    fila.style.display =
+                        mostrar ? "" : "none";
+
+                    if (mostrar) {
+                        visibles++;
+                    }
+
+                });
+
+                contadorUsuarios.textContent = visibles;
+
+                sinResultados.classList.toggle(
+                    "d-none",
+                    visibles > 0
+                );
+
+            }
+
+            buscarUsuario.addEventListener(
+                "input",
+                filtrarUsuarios
+            );
+
+            filtroEstado.addEventListener(
+                "change",
+                filtrarUsuarios
+            );
+
+            filtroCategoria.addEventListener(
+                "change",
+                filtrarUsuarios
+            );
+
+            limpiarFiltros.addEventListener(
+                "click",
+                function () {
+
+                    buscarUsuario.value = "";
+                    filtroEstado.value = "";
+                    filtroCategoria.value = "";
+
+                    buscarUsuario.focus();
+
+                    filtrarUsuarios();
+
+                }
+            );
+
+        });
 
     </script>
 

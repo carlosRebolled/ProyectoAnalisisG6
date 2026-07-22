@@ -2,96 +2,256 @@
     Layout = null;
     ViewData["Title"] = "Inicio de Sesión";
 }
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
+
     <meta charset="utf-8" />
-    <title>@ViewData["Title"]</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Facultad_Farmacia.styles.css" asp-append-version="true" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Facultad Farmacia</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <link rel="icon"
+          type="image/png"
+          href="~/images/favicon_farmacia.png" />
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/Facultad_Farmacia.styles.css"
+          asp-append-version="true" />
+
 </head>
-<body>
 
-    <div class="ucr-bar">
+<body class="login-body">
 
-        <a href="https://www.ucr.ac.cr"
-           target="_blank"
-           class="ucr-link">
-            UNIVERSIDAD DE COSTA RICA
-        </a>
+    <div class="login-page">
 
-        <a href="https://www.ucr.ac.cr"
-           target="_blank"
-           class="ucr-logo-link">
+        <div class="login-content">
 
-            <img src="~/images/Farmacia_logo.png"
-                 alt="Logo UCR"
-                 class="ucr-logo" />
+            <!-- BARRA SUPERIOR -->
 
-        </a>
+            <div class="ucr-bar">
+
+                <a href="https://www.ucr.ac.cr"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="ucr-link">
+
+                    UNIVERSIDAD DE COSTA RICA
+
+                </a>
+
+                <a href="https://farmacia.ucr.ac.cr/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="ucr-logo-link">
+
+                    <img src="~/images/Farmacia_logo.png"
+                         alt="Logo Facultad de Farmacia"
+                         class="ucr-logo" />
+
+                </a>
+
+            </div>
+
+            <!-- CONTENIDO DEL LOGIN -->
+
+            <main class="login-main">
+
+                <div class="login-wrapper">
+
+                    <div class="card login-card">
+
+                        <div class="login-header">
+
+                            <div class="login-logo-container">
+
+                                <img src="~/images/Farmacia_logo.png"
+                                     alt="Logo Facultad de Farmacia"
+                                     class="login-logo" />
+
+                            </div>
+
+                            <h1 class="login-title">
+                                Inicio de Sesión
+                            </h1>
+
+                            <p class="login-subtitle">
+                                Sistema de Informes de la Facultad de Farmacia
+                            </p>
+
+                        </div>
+
+                        <div class="card-body login-card-body">
+
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger"
+                                     role="alert">
+
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+
+                                    @ViewBag.Error
+
+                                </div>
+                            }
+
+                            <form method="post"
+                                  asp-controller="Account"
+                                  asp-action="Login">
+
+                                @Html.AntiForgeryToken()
+
+                                <div class="mb-3">
+
+                                    <label for="correo"
+                                           class="form-label login-label">
+
+                                        <i class="bi bi-envelope me-1"></i>
+                                        Correo institucional
+
+                                    </label>
+
+                                    <input type="email"
+                                           id="correo"
+                                           name="correo"
+                                           class="form-control login-input"
+                                           placeholder="usuario@ucr.ac.cr"
+                                           autocomplete="username"
+                                           required />
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <label for="contrasena"
+                                           class="form-label login-label">
+
+                                        <i class="bi bi-lock me-1"></i>
+                                        Contraseña
+
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <input type="password"
+                                               id="contrasena"
+                                               name="contrasena"
+                                               class="form-control login-input"
+                                               placeholder="Ingrese su contraseña"
+                                               autocomplete="current-password"
+                                               required />
+
+                                        <button type="button"
+                                                id="mostrarContrasena"
+                                                class="btn btn-outline-secondary password-button"
+                                                aria-label="Mostrar contraseña">
+
+                                            <i id="iconoContrasena"
+                                               class="bi bi-eye"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <button type="submit"
+                                        class="btn btn-login w-100">
+
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                                    Ingresar
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <footer class="footer-custom">
+
+            <div class="footer-content">
+
+                <span>
+                    © 2026 Facultad de Farmacia
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <span>
+                    Tel. 2511-8350
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <span>
+                    Correo: recepción.farmacia@ucr.ac.cr
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <a href="#"
+                   class="footer-link">
+
+                    Contáctenos
+
+                </a>
+
+            </div>
+
+        </footer>
 
     </div>
 
-<div class="login-wrapper">
-    <div class="card login-card shadow-sm">
-        <div class="card-header text-center login-header">
-                <img src="~/images/Farmacia_logo.png"
-                     alt="Logo Facultad de Farmacia"
-                     class="login-logo me-2" />
-            <h4>Inicio de Sesión</h4>
-        </div>
-        <div class="card-body">
-            <form method="post">
-                <div class="mb-3">
-                    <label class="form-label">Correo</label>
-                    <input type="email"
-                           name="correo"
-                           class="form-control form-control-sm"
-                           required />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password"
-                           name="contrasena"
-                           class="form-control form-control-sm"
-                           required />
-                </div>
-
-                <button type="submit" class="btn btn-login w-100">
-                    Ingresar
-                </button>
-            </form>
-
-            @if (ViewBag.Error != null)
-            {
-                <div class="alert alert-danger mt-3">
-                    @ViewBag.Error
-                </div>
-            }
-        </div>
-    </div>
-</div>
-    <footer class="footer-custom">
-
-        <div class="footer-content">
-
-            © 2026 Facultad de Farmacia -
-            Tel. 2511-8350 |
-            Correo: recepción.farmacia@ucr.ac.cr |
-            <a href="#" class="footer-link">
-                Contáctenos
-            </a>
-
-        </div>
-
-    </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        const botonContrasena = document.getElementById("mostrarContrasena");
+        const campoContrasena = document.getElementById("contrasena");
+        const iconoContrasena = document.getElementById("iconoContrasena");
+
+        botonContrasena.addEventListener("click", function () {
+
+            const esPassword = campoContrasena.type === "password";
+
+            campoContrasena.type = esPassword ? "text" : "password";
+
+            iconoContrasena.className =
+                esPassword
+                    ? "bi bi-eye-slash"
+                    : "bi bi-eye";
+        });
+    </script>
+
 </body>
+
 </html>

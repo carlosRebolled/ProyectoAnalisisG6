@@ -2,155 +2,611 @@
 
 @{
     ViewData["Title"] = "Informe Final Facultad";
+
     var rolUsuario = Context.Session.GetString("Rol") ?? "";
+
+    var aniosDisponibles = Model
+        .Select(i => i.Anio)
+        .Distinct()
+        .OrderByDescending(a => a)
+        .ToList();
+
+    var generadoresDisponibles = Model
+        .Where(i => i.IdUsuarioGeneraNavigation != null)
+        .Select(i => new
+        {
+            Id = i.IdUsuarioGenera,
+            Nombre = $"{i.IdUsuarioGeneraNavigation.Nombre} {i.IdUsuarioGeneraNavigation.Apellido1} {i.IdUsuarioGeneraNavigation.Apellido2}".Trim()
+        })
+        .GroupBy(i => i.Id)
+        .Select(g => g.First())
+        .OrderBy(i => i.Nombre)
+        .ToList();
+
+    var totalInformes = Model.Count();
 }
 
 <div class="container-fluid">
 
-    <div class="categorias-section">
+    <div class="categorias-section informe-final-header">
 
-        <h2 class="mb-3">
-            Informe Final de Facultad
-        </h2>
+        <div class="informe-final-header-content">
+
+            <div>
+
+                <h2 class="mb-2">
+                    Informe Final de Facultad
+                </h2>
+
+                <p class="mb-0 informe-final-subtitulo">
+                    Consulte y gestione los informes finales anuales de la Facultad.
+                </p>
+
+            </div>
+
+            @if (rolUsuario == "Decano" || rolUsuario == "Administrador")
+            {
+                <a asp-action="Create"
+                   class="btn btn-create informe-final-create-button">
+
+                    <i class="bi bi-file-earmark-plus me-2"></i>
+                    Generar Informe Final
+
+                </a>
+            }
+
+        </div>
 
         @if (TempData["Exito"] != null)
         {
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-3 mb-0">
+
+                <i class="bi bi-check-circle me-2"></i>
                 @TempData["Exito"]
+
             </div>
         }
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">
+            <div class="alert alert-danger mt-3 mb-0">
+
+                <i class="bi bi-exclamation-triangle me-2"></i>
                 @TempData["Error"]
+
             </div>
         }
 
-        <p>
-            <a asp-action="Create"
-               class="btn btn-create">
-                ➕ Generar Informe Final
-            </a>
-        </p>
+    </div>
+
+    <div class="card shadow-sm filtros-informe-final-card mb-4">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-lg-4 col-md-12">
+
+                    <label for="buscarInformeFinal"
+                           class="form-label">
+
+                        Buscar
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input type="text"
+                               id="buscarInformeFinal"
+                               class="form-control"
+                               placeholder="Año, usuario o estado..." />
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+
+                    <label for="filtroGenerador"
+                           class="form-label">
+
+                        Generado por
+
+                    </label>
+
+                    <select id="filtroGenerador"
+                            class="form-select">
+
+                        <option value="">
+                            Todos los usuarios
+                        </option>
+
+                        @foreach (var generador in generadoresDisponibles)
+                        {
+                            <option value="@generador.Nombre">
+                                @generador.Nombre
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+
+                    <label for="filtroEstadoFinal"
+                           class="form-label">
+
+                        Estado
+
+                    </label>
+
+                    <select id="filtroEstadoFinal"
+                            class="form-select">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="Borrador">
+                            Borrador
+                        </option>
+
+                        <option value="Finalizado">
+                            Finalizado
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+
+                    <label for="filtroAnioFinal"
+                           class="form-label">
+
+                        Año
+
+                    </label>
+
+                    <select id="filtroAnioFinal"
+                            class="form-select">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        @foreach (var anio in aniosDisponibles)
+                        {
+                            <option value="@anio">
+                                @anio
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-1 col-md-12 d-flex align-items-end">
+
+                    <button type="button"
+                            id="limpiarFiltrosFinal"
+                            class="btn btn-secondary w-100"
+                            title="Limpiar filtros">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <table class="table table-hover shadow-sm categorias-table">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
-        <thead>
-            <tr>
-                <th>Año</th>
-                <th>Generado por</th>
-                <th>Estado</th>
-                <th>Fecha Generación</th>
-                <th>Fecha Finalización</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+        <div class="informe-final-contador">
 
-        <tbody>
+            <i class="bi bi-file-earmark-check me-1"></i>
 
-            @foreach (var item in Model)
-            {
-                <tr>
+            Informes encontrados:
 
-                    <td>
-                        @item.Anio
-                    </td>
+            <strong id="contadorInformeFinal">
+                @totalInformes
+            </strong>
 
-                    <td>
-                        @item.IdUsuarioGeneraNavigation?.Nombre
-                        @item.IdUsuarioGeneraNavigation?.Apellido1
-                        @item.IdUsuarioGeneraNavigation?.Apellido2
-                    </td>
+        </div>
 
-                    <td>
+        <div class="text-muted small">
+            Puede combinar los filtros disponibles.
+        </div>
 
-                        @if (item.IdEstado == 1)
+    </div>
+
+    <div class="card shadow-sm informe-final-table-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0 categorias-table informe-final-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Año</th>
+                        <th>Generado por</th>
+                        <th>Estado</th>
+                        <th>Fecha de generación</th>
+                        <th>Fecha de finalización</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        string nombreGenerador =
+                        $"{item.IdUsuarioGeneraNavigation?.Nombre} {item.IdUsuarioGeneraNavigation?.Apellido1} {item.IdUsuarioGeneraNavigation?.Apellido2}".Trim();
+
+                        string nombreEstado = item.IdEstado switch
                         {
-                            <span class="badge bg-secondary">
-                                Borrador
-                            </span>
-                        }
-                        else if (item.IdEstado == 5)
+                            1 => "Borrador",
+                            5 => "Finalizado",
+                            _ => item.IdEstadoNavigation?.NombreEstado ?? "Desconocido"
+                        };
+
+                        string claseEstado = item.IdEstado switch
                         {
-                            <span class="badge bg-primary">
-                                Finalizado
-                            </span>
-                        }
-                        else
+                            1 => "bg-secondary",
+                            5 => "bg-primary",
+                            _ => "bg-dark"
+                        };
+
+                        string iconoEstado = item.IdEstado switch
                         {
-                            <span class="badge bg-secondary">
-                                @item.IdEstadoNavigation?.NombreEstado
-                            </span>
-                        }
+                            1 => "bi-pencil",
+                            5 => "bi-file-earmark-check",
+                            _ => "bi-question-circle"
+                        };
 
-                    </td>
+                        <tr class="fila-informe-final"
+                            data-generador="@nombreGenerador"
+                            data-estado="@nombreEstado"
+                            data-anio="@item.Anio">
 
-                    <td>
-                        @item.FechaGeneracion.ToString("dd/MM/yyyy")
-                    </td>
+                            <td>
 
-                    <td>
-                        @(item.FechaAprobacion?.ToString("dd/MM/yyyy HH:mm") ?? "No finalizado")
-                    </td>
+                                <span class="informe-final-anio">
+                                    @item.Anio
+                                </span>
 
-                    <td>
+                            </td>
 
-                        <a asp-action="Details"
-                           asp-route-id="@item.IdInformeFinal"
-                           class="btn btn-info btn-sm">
-                            Ver
-                        </a>
+                            <td class="generador-informe-final">
 
-                        @if (item.IdEstado == 1)
-                        {
-                            <a asp-action="Edit"
-                               asp-route-id="@item.IdInformeFinal"
-                               class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
+                                <div class="generador-final-info">
 
-                            <form asp-action="Finalizar"
-                                  asp-route-id="@item.IdInformeFinal"
-                                  method="post"
-                                  style="display:inline;">
+                                    <span class="generador-final-avatar">
 
-                                @Html.AntiForgeryToken()
+                                        @{
+                                            string inicial =
+                                            !string.IsNullOrWhiteSpace(item.IdUsuarioGeneraNavigation?.Nombre)
+                                            ? item.IdUsuarioGeneraNavigation.Nombre.Substring(0, 1).ToUpper()
+                                            : "U";
+                                        }
 
-                                <button type="submit"
-                                        class="btn btn-success btn-sm">
-                                    Finalizar
-                                </button>
+                                        @inicial
 
-                            </form>
-                        }
+                                    </span>
 
-                        @if (rolUsuario == "Administrador" && item.IdEstado == 5)
-                        {
-                            <form asp-action="Reabrir"
-                                  asp-route-id="@item.IdInformeFinal"
-                                  method="post"
-                                  style="display:inline;">
+                                    <div>
 
-                                @Html.AntiForgeryToken()
+                                        <div class="fw-semibold">
+                                            @nombreGenerador
+                                        </div>
 
-                                <button type="submit"
-                                        class="btn btn-danger btn-sm">
-                                    Reabrir
-                                </button>
+                                        <small class="text-muted">
+                                            Informe #@item.IdInformeFinal
+                                        </small>
 
-                            </form>
-                        }
+                                    </div>
 
-                    </td>
+                                </div>
 
-                </tr>
-            }
+                            </td>
 
-        </tbody>
+                            <td class="estado-informe-final">
 
-    </table>
+                                <span class="badge @claseEstado informe-final-estado-badge">
+
+                                    <i class="bi @iconoEstado me-1"></i>
+                                    @nombreEstado
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-nowrap">
+
+                                <div>
+                                    @item.FechaGeneracion.ToString("dd/MM/yyyy")
+                                </div>
+
+                                <small class="text-muted">
+                                    @item.FechaGeneracion.ToString("HH:mm")
+                                </small>
+
+                            </td>
+
+                            <td class="text-nowrap">
+
+                                @if (item.FechaAprobacion.HasValue)
+                                {
+                                    <div>
+                                        @item.FechaAprobacion.Value.ToString("dd/MM/yyyy")
+                                    </div>
+
+                                    <small class="text-muted">
+                                        @item.FechaAprobacion.Value.ToString("HH:mm")
+                                    </small>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">
+                                        No finalizado
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <div class="d-inline-flex flex-wrap justify-content-center gap-1">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.IdInformeFinal"
+                                       class="btn btn-info btn-sm">
+
+                                        <i class="bi bi-eye me-1"></i>
+                                        Ver
+
+                                    </a>
+
+                                    @if (item.IdEstado == 1 &&
+                                                                    (rolUsuario == "Decano" || rolUsuario == "Administrador"))
+                                    {
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.IdInformeFinal"
+                                           class="btn btn-warning btn-sm">
+
+                                            <i class="bi bi-pencil-square me-1"></i>
+                                            Editar
+
+                                        </a>
+
+                                        <form asp-action="Finalizar"
+                                              asp-route-id="@item.IdInformeFinal"
+                                              method="post"
+                                              class="d-inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="btn btn-success btn-sm"
+                                                    onclick="return confirm('¿Está seguro de finalizar este informe? Después no podrá editarse, salvo que un administrador lo reabra.');">
+
+                                                <i class="bi bi-check-circle me-1"></i>
+                                                Finalizar
+
+                                            </button>
+
+                                        </form>
+                                    }
+
+                                    @if (rolUsuario == "Administrador" &&
+                                                                    item.IdEstado == 5)
+                                    {
+                                        <form asp-action="Reabrir"
+                                              asp-route-id="@item.IdInformeFinal"
+                                              method="post"
+                                              class="d-inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="btn btn-outline-danger btn-sm"
+                                                    onclick="return confirm('¿Está seguro de reabrir este informe? Volverá al estado Borrador.');">
+
+                                                <i class="bi bi-unlock me-1"></i>
+                                                Reabrir
+
+                                            </button>
+
+                                        </form>
+                                    }
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div id="sinResultadosInformeFinal"
+         class="alert alert-warning text-center mt-3 d-none">
+
+        <i class="bi bi-search me-2"></i>
+
+        No se encontraron informes finales que coincidan con los filtros seleccionados.
+
+    </div>
 
 </div>
+
+@section Scripts {
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const buscador =
+                document.getElementById("buscarInformeFinal");
+
+            const filtroGenerador =
+                document.getElementById("filtroGenerador");
+
+            const filtroEstado =
+                document.getElementById("filtroEstadoFinal");
+
+            const filtroAnio =
+                document.getElementById("filtroAnioFinal");
+
+            const limpiarFiltros =
+                document.getElementById("limpiarFiltrosFinal");
+
+            const contador =
+                document.getElementById("contadorInformeFinal");
+
+            const sinResultados =
+                document.getElementById("sinResultadosInformeFinal");
+
+            function normalizarTexto(texto) {
+
+                return (texto || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
+
+            }
+
+            function filtrarInformesFinales() {
+
+                const texto =
+                    normalizarTexto(buscador.value);
+
+                const generador =
+                    normalizarTexto(filtroGenerador.value);
+
+                const estado =
+                    normalizarTexto(filtroEstado.value);
+
+                const anio =
+                    normalizarTexto(filtroAnio.value);
+
+                const filas =
+                    document.querySelectorAll(".fila-informe-final");
+
+                let visibles = 0;
+
+                filas.forEach(function (fila) {
+
+                    const contenido =
+                        normalizarTexto(fila.innerText);
+
+                    const generadorFila =
+                        normalizarTexto(fila.dataset.generador);
+
+                    const estadoFila =
+                        normalizarTexto(fila.dataset.estado);
+
+                    const anioFila =
+                        normalizarTexto(fila.dataset.anio);
+
+                    const coincideTexto =
+                        texto === "" ||
+                        contenido.includes(texto);
+
+                    const coincideGenerador =
+                        generador === "" ||
+                        generadorFila === generador;
+
+                    const coincideEstado =
+                        estado === "" ||
+                        estadoFila === estado;
+
+                    const coincideAnio =
+                        anio === "" ||
+                        anioFila === anio;
+
+                    const mostrar =
+                        coincideTexto &&
+                        coincideGenerador &&
+                        coincideEstado &&
+                        coincideAnio;
+
+                    fila.style.display =
+                        mostrar ? "" : "none";
+
+                    if (mostrar) {
+                        visibles++;
+                    }
+
+                });
+
+                contador.textContent = visibles;
+
+                sinResultados.classList.toggle(
+                    "d-none",
+                    visibles > 0
+                );
+
+            }
+
+            buscador.addEventListener(
+                "input",
+                filtrarInformesFinales
+            );
+
+            filtroGenerador.addEventListener(
+                "change",
+                filtrarInformesFinales
+            );
+
+            filtroEstado.addEventListener(
+                "change",
+                filtrarInformesFinales
+            );
+
+            filtroAnio.addEventListener(
+                "change",
+                filtrarInformesFinales
+            );
+
+            limpiarFiltros.addEventListener(
+                "click",
+                function () {
+
+                    buscador.value = "";
+                    filtroGenerador.value = "";
+                    filtroEstado.value = "";
+                    filtroAnio.value = "";
+
+                    buscador.focus();
+
+                    filtrarInformesFinales();
+
+                }
+            );
+
+        });
+
+    </script>
+
+}

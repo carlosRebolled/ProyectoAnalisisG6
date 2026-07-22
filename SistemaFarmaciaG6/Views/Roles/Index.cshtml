@@ -1,121 +1,294 @@
 ﻿@model IEnumerable<SistemaFarmaciaG6.Models.Usuario>
 
 @{
-    ViewData["Title"] = "Roles";
+    ViewData["Title"] = "Gestión de Roles";
+
+    var totalUsuarios = Model.Count();
+
+    var rolesDisponibles = new[]
+    {
+        "Administrador",
+        "Docente",
+        "Director",
+        "Decano",
+        "Jefatura",
+        "Visualizador"
+    };
 }
 
 <div class="container-fluid">
 
-    <div class="categorias-section">
+    <div class="categorias-section roles-header">
 
-        <h2 class="mb-3">
-            Gestión de Roles
-        </h2>
+        <div class="roles-header-content">
+
+            <div>
+
+                <h2 class="mb-2">
+                    Gestión de Roles
+                </h2>
+
+                <p class="mb-0 roles-subtitulo">
+                    Consulte y modifique los permisos asignados a cada usuario del sistema.
+                </p>
+
+            </div>
+
+        </div>
 
         @if (TempData["Exito"] != null)
         {
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-3 mb-0">
+
+                <i class="bi bi-check-circle me-2"></i>
+
                 @TempData["Exito"]
+
             </div>
         }
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">
+            <div class="alert alert-danger mt-3 mb-0">
+
+                <i class="bi bi-exclamation-triangle me-2"></i>
+
                 @TempData["Error"]
+
             </div>
         }
 
     </div>
 
-    <div class="row mb-4">
+    <div class="card shadow-sm filtros-roles-card mb-4">
 
-        <div class="col-md-4">
+        <div class="card-body">
 
-            <label class="form-label">
-                Buscar por usuario o correo
-            </label>
+            <div class="row g-3">
 
-            <input type="text"
-                   id="buscarRol"
-                   class="form-control"
-                   placeholder="Escriba para buscar..." />
+                <div class="col-lg-6 col-md-12">
 
-        </div>
+                    <label for="buscarRol"
+                           class="form-label">
 
-        <div class="col-md-4">
+                        Buscar usuario
 
-            <label class="form-label">
-                Filtrar por Rol
-            </label>
+                    </label>
 
-            <select id="filtroRol" class="form-select">
+                    <div class="input-group">
 
-                <option value="">Todos</option>
-                <option value="Administrador">Administrador</option>
-                <option value="Docente">Docente</option>
-                <option value="Director">Director</option>
-                <option value="Decano">Decano</option>
-                <option value="Jefatura">Jefatura</option>
-                <option value="Visualizador">Visualizador</option>
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
 
-            </select>
+                        <input type="text"
+                               id="buscarRol"
+                               class="form-control"
+                               placeholder="Nombre, correo o rol..." />
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 col-md-9">
+
+                    <label for="filtroRol"
+                           class="form-label">
+
+                        Filtrar por rol
+
+                    </label>
+
+                    <select id="filtroRol"
+                            class="form-select">
+
+                        <option value="">
+                            Todos los roles
+                        </option>
+
+                        @foreach (var rol in rolesDisponibles)
+                        {
+                            <option value="@rol">
+                                @rol
+                            </option>
+                        }
+
+                        <option value="Sin rol">
+                            Sin rol
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-1 col-md-3 d-flex align-items-end">
+
+                    <button type="button"
+                            id="limpiarFiltros"
+                            class="btn btn-secondary w-100"
+                            title="Limpiar filtros">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
-    <table class="table table-hover shadow-sm categorias-table">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
-        <thead>
+        <div class="roles-contador">
 
-            <tr>
-                <th>Usuario</th>
-                <th>Correo</th>
-                <th>Rol Actual</th>
-                <th></th>
-            </tr>
+            <i class="bi bi-person-badge me-1"></i>
 
-        </thead>
+            Usuarios encontrados:
 
-        <tbody>
+            <strong id="contadorRoles">
+                @totalUsuarios
+            </strong>
 
-            @foreach (var usuario in Model)
-            {
-                <tr class="fila-rol">
+        </div>
 
-                    <td>
-                        @usuario.Nombre
-                        @usuario.Apellido1
-                        @usuario.Apellido2
-                    </td>
+        <div class="text-muted small">
+            Puede combinar la búsqueda con el filtro por rol.
+        </div>
 
-                    <td>
-                        @usuario.Correo
-                    </td>
+    </div>
 
-                    <td class="rol-usuario">
+    <div class="card shadow-sm roles-table-card">
 
-                        @(usuario.UsuarioRols.FirstOrDefault()?.IdRolNavigation?.NombreRol ?? "Sin rol")
+        <div class="table-responsive">
 
-                    </td>
+            <table class="table table-hover align-middle mb-0 categorias-table roles-table">
 
-                    <td>
+                <thead>
 
-                        <a asp-action="Edit"
-                           asp-route-id="@usuario.IdUsuario"
-                           class="btn btn-primary btn-sm">
-                            Cambiar Rol
-                        </a>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Correo</th>
+                        <th>Rol actual</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
 
-                    </td>
+                </thead>
 
-                </tr>
-            }
+                <tbody>
 
-        </tbody>
+                    @foreach (var usuario in Model)
+                    {
+                        var nombreRol =
+                        usuario.UsuarioRols
+                        .FirstOrDefault()?
+                        .IdRolNavigation?
+                        .NombreRol
+                        ?? "Sin rol";
 
-    </table>
+                        string claseRol = nombreRol switch
+                        {
+                            "Administrador" => "bg-danger",
+                            "Docente" => "bg-primary",
+                            "Director" => "bg-warning text-dark",
+                            "Decano" => "bg-success",
+                            "Jefatura" => "bg-info text-dark",
+                            "Visualizador" => "bg-secondary",
+                            _ => "bg-dark"
+                        };
+
+                        <tr class="fila-rol">
+
+                            <td>
+
+                                <div class="rol-usuario-info">
+
+                                    <span class="rol-avatar">
+
+                                        @{
+                                            string inicial =
+                                            !string.IsNullOrWhiteSpace(usuario.Nombre)
+                                            ? usuario.Nombre.Substring(0, 1).ToUpper()
+                                            : "U";
+                                        }
+
+                                        @inicial
+
+                                    </span>
+
+                                    <div>
+
+                                        <div class="fw-semibold">
+
+                                            @usuario.Nombre
+                                            @usuario.Apellido1
+                                            @usuario.Apellido2
+
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Usuario #@usuario.IdUsuario
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+
+                                <a href="mailto:@usuario.Correo"
+                                   class="rol-correo">
+
+                                    @usuario.Correo
+
+                                </a>
+
+                            </td>
+
+                            <td class="rol-usuario">
+
+                                <span class="badge @claseRol rol-badge">
+                                    @nombreRol
+                                </span>
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@usuario.IdUsuario"
+                                   class="btn btn-primary btn-sm">
+
+                                    <i class="bi bi-person-gear me-1"></i>
+                                    Cambiar Rol
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div id="sinResultadosRoles"
+         class="alert alert-warning text-center mt-3 d-none">
+
+        <i class="bi bi-search me-2"></i>
+
+        No se encontraron usuarios que coincidan con los filtros seleccionados.
+
+    </div>
 
 </div>
 
@@ -123,37 +296,111 @@
 
     <script>
 
-        document.getElementById("buscarRol").addEventListener("keyup", filtrarRoles);
-        document.getElementById("filtroRol").addEventListener("change", filtrarRoles);
+        document.addEventListener("DOMContentLoaded", function () {
 
-        function filtrarRoles()
-        {
-            let texto = document.getElementById("buscarRol").value.toLowerCase();
-            let rol = document.getElementById("filtroRol").value.toLowerCase();
+            const buscarRol =
+                document.getElementById("buscarRol");
 
-            let filas = document.querySelectorAll(".fila-rol");
+            const filtroRol =
+                document.getElementById("filtroRol");
 
-            filas.forEach(function (fila) {
+            const limpiarFiltros =
+                document.getElementById("limpiarFiltros");
 
-                let contenido = fila.innerText.toLowerCase();
+            const contadorRoles =
+                document.getElementById("contadorRoles");
 
-                let rolFila = fila.querySelector(".rol-usuario")
-                                  .innerText
-                                  .trim()
-                                  .toLowerCase();
+            const sinResultados =
+                document.getElementById("sinResultadosRoles");
 
-                let coincideTexto = contenido.includes(texto);
+            function normalizarTexto(texto) {
 
-                let coincideRol =
-                    rol === "" ||
-                    rolFila === rol;
+                return (texto || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
 
-                fila.style.display =
-                    coincideTexto && coincideRol
-                    ? ""
-                    : "none";
-            });
-        }
+            }
+
+            function filtrarRoles() {
+
+                const texto =
+                    normalizarTexto(buscarRol.value);
+
+                const rolSeleccionado =
+                    normalizarTexto(filtroRol.value);
+
+                const filas =
+                    document.querySelectorAll(".fila-rol");
+
+                let visibles = 0;
+
+                filas.forEach(function (fila) {
+
+                    const contenido =
+                        normalizarTexto(fila.innerText);
+
+                    const rolFila =
+                        normalizarTexto(
+                            fila.querySelector(".rol-usuario")?.innerText
+                        );
+
+                    const coincideTexto =
+                        texto === "" ||
+                        contenido.includes(texto);
+
+                    const coincideRol =
+                        rolSeleccionado === "" ||
+                        rolFila === rolSeleccionado;
+
+                    const mostrar =
+                        coincideTexto &&
+                        coincideRol;
+
+                    fila.style.display =
+                        mostrar ? "" : "none";
+
+                    if (mostrar) {
+                        visibles++;
+                    }
+
+                });
+
+                contadorRoles.textContent = visibles;
+
+                sinResultados.classList.toggle(
+                    "d-none",
+                    visibles > 0
+                );
+
+            }
+
+            buscarRol.addEventListener(
+                "input",
+                filtrarRoles
+            );
+
+            filtroRol.addEventListener(
+                "change",
+                filtrarRoles
+            );
+
+            limpiarFiltros.addEventListener(
+                "click",
+                function () {
+
+                    buscarRol.value = "";
+                    filtroRol.value = "";
+
+                    buscarRol.focus();
+
+                    filtrarRoles();
+
+                }
+            );
+
+        });
 
     </script>
 

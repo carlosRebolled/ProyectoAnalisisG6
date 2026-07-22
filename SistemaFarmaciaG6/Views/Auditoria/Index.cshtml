@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Bitácora";
+
+    var acciones = Model
+        .Select(a => a.Accion)
+        .Where(a => !string.IsNullOrWhiteSpace(a))
+        .Distinct()
+        .OrderBy(a => a)
+        .ToList();
 }
 
 <div class="container-fluid">
@@ -12,77 +19,256 @@
             Bitácora del Sistema
         </h2>
 
+        <p class="text-dark mb-0">
+            Consulte las operaciones realizadas por los usuarios dentro del sistema.
+        </p>
+
     </div>
 
-    <div class="row mb-4">
+    <div class="card shadow-sm mb-4">
 
-        <div class="col-md-4">
+        <div class="card-body">
 
-            <label class="form-label">
-                Buscar por usuario
-            </label>
+            <div class="row g-3">
 
-            <input type="text"
-                   id="buscarUsuario"
-                   class="form-control"
-                   placeholder="Escriba el nombre del usuario..." />
+                <div class="col-md-4">
+
+                    <label for="buscarAuditoria"
+                           class="form-label">
+
+                        Buscar
+
+                    </label>
+
+                    <input type="text"
+                           id="buscarAuditoria"
+                           class="form-control"
+                           placeholder="Usuario, tabla, acción o descripción..." />
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <label for="filtroAccion"
+                           class="form-label">
+
+                        Filtrar por acción
+
+                    </label>
+
+                    <select id="filtroAccion"
+                            class="form-select">
+
+                        <option value="">
+                            Todas las acciones
+                        </option>
+
+                        @foreach (var accion in acciones)
+                        {
+                            <option value="@accion">
+                                @accion
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <label for="fechaDesde"
+                           class="form-label">
+
+                        Desde
+
+                    </label>
+
+                    <input type="date"
+                           id="fechaDesde"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <label for="fechaHasta"
+                           class="form-label">
+
+                        Hasta
+
+                    </label>
+
+                    <input type="date"
+                           id="fechaHasta"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-1 d-flex align-items-end">
+
+                    <button type="button"
+                            id="limpiarFiltros"
+                            class="btn btn-secondary w-100"
+                            title="Limpiar filtros">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
-    <table class="table table-hover shadow-sm categorias-table">
+    <div class="d-flex justify-content-between align-items-center mb-2">
 
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Usuario</th>
-                <th>Tabla</th>
-                <th>Acción</th>
-                <th>Descripción</th>
-                <th>IP</th>
-            </tr>
-        </thead>
+        <span class="text-muted">
+            Registros encontrados:
+            <strong id="contadorRegistros">@Model.Count()</strong>
+        </span>
 
-        <tbody>
+    </div>
 
-            @foreach (var item in Model)
-            {
-                <tr class="fila-auditoria">
+    <div class="table-responsive">
 
-                    <td>
-                        @item.Fecha.ToString("dd/MM/yyyy HH:mm")
-                    </td>
+        <table class="table table-hover shadow-sm categorias-table align-middle">
 
-                    <td class="nombre-usuario">
-                        @item.IdUsuarioNavigation.Nombre
-                        @item.IdUsuarioNavigation.Apellido1
-                    </td>
+            <thead>
 
-                    <td>
-                        @item.TablaAfectada
-                    </td>
-
-                    <td>
-                        <span class="badge bg-primary">
-                            @item.Accion
-                        </span>
-                    </td>
-
-                    <td>
-                        @item.Descripcion
-                    </td>
-
-                    <td>
-                        @item.IpEquipo
-                    </td>
-
+                <tr>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Tabla</th>
+                    <th>Acción</th>
+                    <th>Descripción</th>
+                    <th>IP</th>
                 </tr>
-            }
 
-        </tbody>
+            </thead>
 
-    </table>
+            <tbody id="cuerpoAuditoria">
+
+                @foreach (var item in Model)
+                {
+                    string claseAccion = item.Accion?.ToLower() switch
+                    {
+                        "crear" => "bg-success",
+                        "editar" => "bg-warning text-dark",
+                        "eliminar" => "bg-danger",
+                        "enviar" => "bg-primary",
+                        "aprobar" => "bg-success",
+                        "devolver" => "bg-danger",
+                        "reabrir" => "bg-info text-dark",
+                        "login" => "bg-secondary",
+                        "logout" => "bg-dark",
+                        _ => "bg-primary"
+                    };
+
+                    <tr class="fila-auditoria"
+                        data-fecha="@item.Fecha.ToString("yyyy-MM-dd")"
+                        data-accion="@item.Accion?.ToLower()">
+
+                        <td class="text-nowrap">
+
+                            <div>
+                                @item.Fecha.ToString("dd/MM/yyyy")
+                            </div>
+
+                            <small class="text-muted">
+                                @item.Fecha.ToString("HH:mm:ss")
+                            </small>
+
+                        </td>
+
+                        <td class="nombre-usuario">
+
+                            @if (item.IdUsuarioNavigation != null)
+                            {
+                                <div class="fw-semibold">
+
+                                    @item.IdUsuarioNavigation.Nombre
+                                    @item.IdUsuarioNavigation.Apellido1
+                                    @item.IdUsuarioNavigation.Apellido2
+
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-muted">
+                                    Usuario no disponible
+                                </span>
+                            }
+
+                        </td>
+
+                        <td class="tabla-afectada">
+
+                            <span class="badge bg-light text-dark border">
+                                @item.TablaAfectada
+                            </span>
+
+                        </td>
+
+                        <td class="accion-auditoria">
+
+                            <span class="badge @claseAccion">
+                                @item.Accion
+                            </span>
+
+                        </td>
+
+                        <td class="descripcion-auditoria">
+
+                            @if (string.IsNullOrWhiteSpace(item.Descripcion))
+                            {
+                                <span class="text-muted">
+                                    Sin descripción
+                                </span>
+                            }
+                            else
+                            {
+                                @item.Descripcion
+                            }
+
+                        </td>
+
+                        <td class="text-nowrap">
+
+                            @if (string.IsNullOrWhiteSpace(item.IpEquipo))
+                            {
+                                <span class="text-muted">
+                                    No disponible
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    @item.IpEquipo
+                                </span>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div id="sinResultados"
+         class="alert alert-warning text-center d-none">
+
+        <i class="bi bi-search me-2"></i>
+
+        No se encontraron registros que coincidan con los filtros seleccionados.
+
+    </div>
 
 </div>
 
@@ -90,29 +276,130 @@
 
     <script>
 
-        document.getElementById("buscarUsuario")
-        .addEventListener("keyup", function () {
+        document.addEventListener("DOMContentLoaded", function () {
 
-            let texto = this.value.toLowerCase();
+            const buscador = document.getElementById("buscarAuditoria");
+            const filtroAccion = document.getElementById("filtroAccion");
+            const fechaDesde = document.getElementById("fechaDesde");
+            const fechaHasta = document.getElementById("fechaHasta");
+            const limpiarFiltros = document.getElementById("limpiarFiltros");
+            const contadorRegistros = document.getElementById("contadorRegistros");
+            const sinResultados = document.getElementById("sinResultados");
 
-            let filas = document.querySelectorAll(".fila-auditoria");
+            function normalizarTexto(texto) {
 
-            filas.forEach(function (fila) {
+                return texto
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
 
-                let nombre = fila.querySelector(".nombre-usuario")
-                                 .innerText
-                                 .toLowerCase();
+            }
 
-                fila.style.display =
-                    nombre.includes(texto)
-                    ? ""
-                    : "none";
+            function filtrarAuditoria() {
 
-            });
+                const texto = normalizarTexto(buscador.value);
+                const accionSeleccionada =
+                    normalizarTexto(filtroAccion.value);
+
+                const fechaInicial = fechaDesde.value;
+                const fechaFinal = fechaHasta.value;
+
+                const filas =
+                    document.querySelectorAll(".fila-auditoria");
+
+                let visibles = 0;
+
+                filas.forEach(function (fila) {
+
+                    const contenido =
+                        normalizarTexto(fila.innerText);
+
+                    const accionFila =
+                        normalizarTexto(
+                            fila.dataset.accion || ""
+                        );
+
+                    const fechaFila =
+                        fila.dataset.fecha || "";
+
+                    const coincideTexto =
+                        texto === "" ||
+                        contenido.includes(texto);
+
+                    const coincideAccion =
+                        accionSeleccionada === "" ||
+                        accionFila === accionSeleccionada;
+
+                    const coincideFechaDesde =
+                        fechaInicial === "" ||
+                        fechaFila >= fechaInicial;
+
+                    const coincideFechaHasta =
+                        fechaFinal === "" ||
+                        fechaFila <= fechaFinal;
+
+                    const mostrar =
+                        coincideTexto &&
+                        coincideAccion &&
+                        coincideFechaDesde &&
+                        coincideFechaHasta;
+
+                    fila.style.display = mostrar ? "" : "none";
+
+                    if (mostrar) {
+                        visibles++;
+                    }
+
+                });
+
+                contadorRegistros.textContent = visibles;
+
+                sinResultados.classList.toggle(
+                    "d-none",
+                    visibles > 0
+                );
+
+            }
+
+            buscador.addEventListener(
+                "input",
+                filtrarAuditoria
+            );
+
+            filtroAccion.addEventListener(
+                "change",
+                filtrarAuditoria
+            );
+
+            fechaDesde.addEventListener(
+                "change",
+                filtrarAuditoria
+            );
+
+            fechaHasta.addEventListener(
+                "change",
+                filtrarAuditoria
+            );
+
+            limpiarFiltros.addEventListener(
+                "click",
+                function () {
+
+                    buscador.value = "";
+                    filtroAccion.value = "";
+                    fechaDesde.value = "";
+                    fechaHasta.value = "";
+
+                    buscador.focus();
+
+                    filtrarAuditoria();
+
+                }
+            );
 
         });
 
     </script>
 
 }
-
