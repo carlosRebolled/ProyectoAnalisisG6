@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Models;
 using SistemaFarmaciaG6.Helpers;
@@ -8,10 +9,12 @@ namespace SistemaFarmaciaG6.Controllers
     public class AccountController : Controller
     {
         private readonly DbFacultadFarmaciaContext _context;
+        private readonly PasswordHasher<Usuario> _passwordHasher;
 
         public AccountController(DbFacultadFarmaciaContext context)
         {
             _context = context;
+            _passwordHasher = new PasswordHasher<Usuario>();
         }
 
         [HttpGet]
@@ -24,10 +27,68 @@ namespace SistemaFarmaciaG6.Controllers
         public IActionResult Login(string correo, string contrasena)
         {
             var usuario = _context.Usuarios
-                .FirstOrDefault(u => u.Correo == correo &&
-                                     u.Contrasena == contrasena);
+                .FirstOrDefault(u => u.Correo == correo);
 
-            if (usuario == null)
+            bool accesoPermitido = false;
+
+            if (usuario != null)
+            {
+                try
+                {
+                    var resultado = _passwordHasher.VerifyHashedPassword(
+                        usuario,
+                        usuario.Contrasena,
+                        contrasena
+                    );
+
+                    if (resultado == PasswordVerificationResult.Success ||
+                        resultado == PasswordVerificationResult.SuccessRehashNeeded)
+                    {
+                        accesoPermitido = true;
+
+                        if (resultado ==
+                            PasswordVerificationResult.SuccessRehashNeeded)
+                        {
+                            usuario.Contrasena = _passwordHasher.HashPassword(
+                                usuario,
+                                contrasena
+                            );
+
+                            _context.SaveChanges();
+                        }
+                    }
+                }
+                catch
+                {
+                    // La contraseña probablemente está almacenada
+                    // en texto plano.
+                }
+
+                // Compatibilidad temporal con contraseñas antiguas.
+                if (!accesoPermitido &&
+                    usuario.Contrasena == contrasena)
+                {
+                    accesoPermitido = true;
+
+                    // Migración automática a hash.
+                    usuario.Contrasena = _passwordHasher.HashPassword(
+                        usuario,
+                        contrasena
+                    );
+
+                    _context.SaveChanges();
+
+                    AuditoriaHelper.Registrar(
+                        _context,
+                        HttpContext,
+                        "Usuarios",
+                        "MigrarContraseña",
+                        $"La contraseña del usuario {usuario.Nombre} {usuario.Apellido1} fue migrada automáticamente a hash."
+                    );
+                }
+            }
+
+            if (!accesoPermitido)
             {
                 ViewBag.Error = "Correo o contraseña incorrectos";
                 return View();
@@ -57,9 +118,20 @@ namespace SistemaFarmaciaG6.Controllers
                 return View();
             }
 
-            HttpContext.Session.SetInt32("IdUsuario", usuario.IdUsuario);
-            HttpContext.Session.SetString("Nombre", $"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}");
-            HttpContext.Session.SetString("Rol", rol.NombreRol);
+            HttpContext.Session.SetInt32(
+                "IdUsuario",
+                usuario.IdUsuario
+            );
+
+            HttpContext.Session.SetString(
+                "Nombre",
+                $"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}"
+            );
+
+            HttpContext.Session.SetString(
+                "Rol",
+                rol.NombreRol
+            );
 
             // Auditoría Login
             AuditoriaHelper.Registrar(

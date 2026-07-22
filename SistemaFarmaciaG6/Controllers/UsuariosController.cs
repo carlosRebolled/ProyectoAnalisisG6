@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
-using SistemaFarmaciaG6.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using SistemaFarmaciaG6.Helpers;
+using SistemaFarmaciaG6.Models;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace SistemaFarmaciaG6.Controllers
 {
     public class UsuariosController : Controller
     {
         private readonly DbFacultadFarmaciaContext _context;
-
+        private readonly PasswordHasher<Usuario> _passwordHasher;
         public UsuariosController(DbFacultadFarmaciaContext context)
         {
             _context = context;
+            _passwordHasher = new PasswordHasher<Usuario>();
         }
 
         private bool EsAdministrador()
@@ -152,6 +156,12 @@ namespace SistemaFarmaciaG6.Controllers
                     CargarCombos();
                     return View(usuario);
                 }
+
+                // convertir contraseña a hash
+                usuario.Contrasena = _passwordHasher.HashPassword(
+                    usuario,
+                    usuario.Contrasena
+                );
 
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
