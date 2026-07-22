@@ -3,12 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\controllers\\informefinalfacultadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:controllers\\informefinalfacultadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\informefinalfacultad\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\informefinalfacultad\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\controllers\\informefinalfacultadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:controllers\\informefinalfacultadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\informefinalfacultad\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -37,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\decano\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\decano\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\models\\informedireccion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -159,10 +179,6 @@
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:controllers\\auditoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -211,10 +227,6 @@
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\categorias\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -237,10 +249,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\views\\informedocente\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\informedocente\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\obj\\Debug\\net8.0\\SistemaFarmaciaG6.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -283,10 +291,6 @@
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|c:\\users\\carlos\\source\\repos\\proyectoanalisisg6\\sistemafarmaciag6\\data\\dbfacultadfarmaciacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73085064-00CF-79F5-9D3D-6A48747EDF0F}|SistemaFarmaciaG6.csproj|solutionrelative:data\\dbfacultadfarmaciacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -310,7 +314,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 269,
-          "SelectedChildIndex": 59,
+          "SelectedChildIndex": 62,
           "Children": [
             {
               "$type": "Bookmark",
@@ -538,33 +542,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "InformeDireccionController.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeDireccionController.cs",
-              "RelativeDocumentMoniker": "Controllers\\InformeDireccionController.cs",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeDireccionController.cs",
-              "RelativeToolTip": "Controllers\\InformeDireccionController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwLUBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T22:18:38.773Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\InformeDireccion\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Edit.cshtml",
-              "RelativeToolTip": "Views\\InformeDireccion\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFoAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:35:31.218Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDireccion\\Index.cshtml",
@@ -572,46 +550,83 @@
               "RelativeToolTip": "Views\\InformeDireccion\\Index.cshtml",
               "ViewState": "AgIAAJkAAAAAAAAAAAAAAL0AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:19:33.819Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:19:33.819Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "InformeFinalFacultadController.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeFinalFacultadController.cs",
-              "RelativeDocumentMoniker": "Controllers\\InformeFinalFacultadController.cs",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeFinalFacultadController.cs",
-              "RelativeToolTip": "Controllers\\InformeFinalFacultadController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAuwCMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T23:38:00.588Z",
-              "EditorCaption": ""
+              "DocumentIndex": 10,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\InformeDireccion\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Edit.cshtml",
+              "RelativeToolTip": "Views\\InformeDireccion\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-19T22:35:31.218Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\InformeFinalFacultad\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Index.cshtml",
-              "RelativeToolTip": "Views\\InformeFinalFacultad\\Index.cshtml",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAowJsAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T23:42:34.973Z",
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAIwFYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T08:40:45.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T23:29:53.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAABMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-31T23:37:30.87Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\InformeFinalFacultad\\Details.cshtml",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Details.cshtml",
-              "RelativeToolTip": "Views\\InformeFinalFacultad\\Details.cshtml",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAqwIEAAAAGAAAAAAAAAA==",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAA0CAAAAAAAAAAAowFECAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T23:44:35.032Z",
+              "WhenOpened": "2026-05-31T23:46:45.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAAN4CAAAAAAAAAAAcwPwCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-05-31T23:47:55.686Z",
               "EditorCaption": ""
             },
             {
@@ -621,6 +636,68 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\InformeFinalFacultad\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Details.cshtml",
+              "RelativeToolTip": "Views\\InformeFinalFacultad\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-19T23:44:35.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\InformeFinalFacultad\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Index.cshtml",
+              "RelativeToolTip": "Views\\InformeFinalFacultad\\Index.cshtml",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAowJsAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-19T23:42:34.973Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InformeFinalFacultadController.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeFinalFacultadController.cs",
+              "RelativeDocumentMoniker": "Controllers\\InformeFinalFacultadController.cs",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeFinalFacultadController.cs",
+              "RelativeToolTip": "Controllers\\InformeFinalFacultadController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAuwCMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T23:38:00.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAABkAAAAAAAAAAADwvyoAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-24T22:27:47.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "InformeDireccionController.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeDireccionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\InformeDireccionController.cs",
+              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeDireccionController.cs",
+              "RelativeToolTip": "Controllers\\InformeDireccionController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwLUBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T22:18:38.773Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDocente\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDocente\\Index.cshtml",
@@ -628,12 +705,11 @@
               "RelativeToolTip": "Views\\InformeDocente\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8BAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T14:56:15.085Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T14:56:15.085Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "InformeDocenteController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\InformeDocenteController.cs",
               "RelativeDocumentMoniker": "Controllers\\InformeDocenteController.cs",
@@ -641,12 +717,11 @@
               "RelativeToolTip": "Controllers\\InformeDocenteController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAIECAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T14:50:36.143Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T14:50:36.143Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Decano\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "Views\\Decano\\Dashboard.cshtml",
@@ -654,12 +729,11 @@
               "RelativeToolTip": "Views\\Decano\\Dashboard.cshtml",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T19:53:48.59Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:53:48.59Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "InformeDireccion.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\InformeDireccion.cs",
               "RelativeDocumentMoniker": "Models\\InformeDireccion.cs",
@@ -667,25 +741,11 @@
               "RelativeToolTip": "Models\\InformeDireccion.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAkwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T22:23:29.476Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:23:29.476Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAKwAAAAAAAAAAAAowAwBAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-31T23:46:45.836Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 20,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeFinalFacultad\\Create.cshtml",
@@ -693,12 +753,11 @@
               "RelativeToolTip": "Views\\InformeFinalFacultad\\Create.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T23:43:05.713Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T23:43:05.713Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "RevisionInformesController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\RevisionInformesController.cs",
               "RelativeDocumentMoniker": "Controllers\\RevisionInformesController.cs",
@@ -706,12 +765,11 @@
               "RelativeToolTip": "Controllers\\RevisionInformesController.cs",
               "ViewState": "AgIAAKMAAAAAAAAAAAAuwMQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T20:12:47.5Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T20:12:47.5Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "DetalleInformeFinal.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\DetalleInformeFinal.cs",
               "RelativeDocumentMoniker": "Models\\DetalleInformeFinal.cs",
@@ -719,12 +777,11 @@
               "RelativeToolTip": "Models\\DetalleInformeFinal.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T23:53:47.117Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T23:53:47.117Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeFinalFacultad\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeFinalFacultad\\Edit.cshtml",
@@ -732,12 +789,11 @@
               "RelativeToolTip": "Views\\InformeFinalFacultad\\Edit.cshtml",
               "ViewState": "AgIAAAIAAAAAAAAAAAAAwCgAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T23:43:42.82Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T23:43:42.82Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "InformeFinalFacultad.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\InformeFinalFacultad.cs",
               "RelativeDocumentMoniker": "Models\\InformeFinalFacultad.cs",
@@ -745,12 +801,11 @@
               "RelativeToolTip": "Models\\InformeFinalFacultad.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T23:16:50.863Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T23:16:50.863Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 23,
               "Title": "RevisionInformeDireccionController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\RevisionInformeDireccionController.cs",
               "RelativeDocumentMoniker": "Controllers\\RevisionInformeDireccionController.cs",
@@ -758,12 +813,11 @@
               "RelativeToolTip": "Controllers\\RevisionInformeDireccionController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAKEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T22:50:57.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:50:57.95Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 24,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Delete.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDireccion\\Delete.cshtml",
@@ -771,12 +825,11 @@
               "RelativeToolTip": "Views\\InformeDireccion\\Delete.cshtml",
               "ViewState": "AgIAAB8AAAAAAAAAAAAowEAAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:44:52.602Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:44:52.602Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 22,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\RevisionInformeDireccion\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\RevisionInformeDireccion\\Index.cshtml",
@@ -784,12 +837,11 @@
               "RelativeToolTip": "Views\\RevisionInformeDireccion\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:52:01.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:52:01.607Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 21,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\RevisionInformeDireccion\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\RevisionInformeDireccion\\Details.cshtml",
@@ -797,12 +849,11 @@
               "RelativeToolTip": "Views\\RevisionInformeDireccion\\Details.cshtml",
               "ViewState": "AgIAAJoAAAAAAAAAAAAuwLsAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:52:57.219Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:52:57.219Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 25,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDireccion\\Details.cshtml",
@@ -810,12 +861,11 @@
               "RelativeToolTip": "Views\\InformeDireccion\\Details.cshtml",
               "ViewState": "AgIAAB4AAAAAAAAAAAAowDsAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:28:48.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:28:48.227Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 26,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDireccion\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDireccion\\Create.cshtml",
@@ -823,12 +873,11 @@
               "RelativeToolTip": "Views\\InformeDireccion\\Create.cshtml",
               "ViewState": "AgIAAAUAAAAAAAAAAAAowCIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T22:28:20.564Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T22:28:20.564Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 29,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\RevisionInformes\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\RevisionInformes\\Details.cshtml",
@@ -836,12 +885,11 @@
               "RelativeToolTip": "Views\\RevisionInformes\\Details.cshtml",
               "ViewState": "AgIAAOYAAAAAAAAAAAAuwP0AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T20:25:53.264Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T20:25:53.264Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 30,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\RevisionInformes\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\RevisionInformes\\Index.cshtml",
@@ -849,12 +897,11 @@
               "RelativeToolTip": "Views\\RevisionInformes\\Index.cshtml",
               "ViewState": "AgIAAJgAAAAAAAAAAAAswLUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T20:22:25.548Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T20:22:25.548Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 31,
               "Title": "Observacione.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\Observacione.cs",
               "RelativeDocumentMoniker": "Models\\Observacione.cs",
@@ -862,12 +909,11 @@
               "RelativeToolTip": "Models\\Observacione.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T20:15:04.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T20:15:04.474Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 27,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Usuarios\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Usuarios\\Index.cshtml",
@@ -875,12 +921,11 @@
               "RelativeToolTip": "Views\\Usuarios\\Index.cshtml",
               "ViewState": "AgIAAMAAAAAAAAAAAAAswN0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-02T07:35:11.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T07:35:11.553Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 28,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDocente\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDocente\\Details.cshtml",
@@ -888,12 +933,11 @@
               "RelativeToolTip": "Views\\InformeDocente\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T14:53:53.422Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T14:53:53.422Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 32,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Visualizador\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "Views\\Visualizador\\Dashboard.cshtml",
@@ -901,12 +945,11 @@
               "RelativeToolTip": "Views\\Visualizador\\Dashboard.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T19:58:01.542Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:58:01.542Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 33,
               "Title": "VisualizadorController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\VisualizadorController.cs",
               "RelativeDocumentMoniker": "Controllers\\VisualizadorController.cs",
@@ -914,12 +957,11 @@
               "RelativeToolTip": "Controllers\\VisualizadorController.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAiwB4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T19:56:43.439Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:56:43.439Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 34,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Jefatura\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "Views\\Jefatura\\Dashboard.cshtml",
@@ -927,12 +969,11 @@
               "RelativeToolTip": "Views\\Jefatura\\Dashboard.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T19:55:58.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:55:58.256Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 35,
               "Title": "JefaturaController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\JefaturaController.cs",
               "RelativeDocumentMoniker": "Controllers\\JefaturaController.cs",
@@ -940,12 +981,11 @@
               "RelativeToolTip": "Controllers\\JefaturaController.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAA2wB8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T19:54:24.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:54:24.43Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 36,
               "Title": "DecanoController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\DecanoController.cs",
               "RelativeDocumentMoniker": "Controllers\\DecanoController.cs",
@@ -953,12 +993,11 @@
               "RelativeToolTip": "Controllers\\DecanoController.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAiwB4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T19:52:27.573Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:52:27.573Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 38,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Director\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "Views\\Director\\Dashboard.cshtml",
@@ -966,12 +1005,11 @@
               "RelativeToolTip": "Views\\Director\\Dashboard.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T19:51:30.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:51:30.18Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 39,
               "Title": "DirectorController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\DirectorController.cs",
               "RelativeDocumentMoniker": "Controllers\\DirectorController.cs",
@@ -979,12 +1017,11 @@
               "RelativeToolTip": "Controllers\\DirectorController.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAiwCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T19:48:47.937Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:48:47.937Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 40,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Docente\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "Views\\Docente\\Dashboard.cshtml",
@@ -992,12 +1029,11 @@
               "RelativeToolTip": "Views\\Docente\\Dashboard.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T19:43:51.79Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:43:51.79Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 41,
               "Title": "DocenteController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\DocenteController.cs",
               "RelativeDocumentMoniker": "Controllers\\DocenteController.cs",
@@ -1005,12 +1041,11 @@
               "RelativeToolTip": "Controllers\\DocenteController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T19:42:33.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:42:33.504Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 37,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
@@ -1018,12 +1053,11 @@
               "RelativeToolTip": "Controllers\\HomeController.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAwCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-31T23:41:26.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:41:26.49Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 45,
               "Title": "CategoriasController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\CategoriasController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoriasController.cs",
@@ -1031,12 +1065,11 @@
               "RelativeToolTip": "Controllers\\CategoriasController.cs",
               "ViewState": "AgIAAM4AAAAAAAAAAAAiwPEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-31T23:41:21.184Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:41:21.184Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 42,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Auditoria\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Auditoria\\Index.cshtml",
@@ -1044,12 +1077,11 @@
               "RelativeToolTip": "Views\\Auditoria\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T19:14:24.499Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:14:24.499Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 43,
               "Title": "AuditoriaController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\AuditoriaController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuditoriaController.cs",
@@ -1057,12 +1089,11 @@
               "RelativeToolTip": "Controllers\\AuditoriaController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAADwvyQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T19:13:26.219Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T19:13:26.219Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 44,
               "Title": "AdminController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
@@ -1070,25 +1101,11 @@
               "RelativeToolTip": "Controllers\\AdminController.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAxwCYAAABZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T17:19:44.803Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T17:19:44.803Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAqwGQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-01T08:40:45.159Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 46,
               "Title": "PerfilController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\PerfilController.cs",
               "RelativeDocumentMoniker": "Controllers\\PerfilController.cs",
@@ -1096,12 +1113,11 @@
               "RelativeToolTip": "Controllers\\PerfilController.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAYwHQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T08:24:44.269Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:24:44.269Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 47,
               "Title": "RolesController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\RolesController.cs",
               "RelativeDocumentMoniker": "Controllers\\RolesController.cs",
@@ -1109,12 +1125,11 @@
               "RelativeToolTip": "Controllers\\RolesController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAiwIYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T08:12:25.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:12:25.593Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 48,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsuariosController.cs",
@@ -1122,12 +1137,11 @@
               "RelativeToolTip": "Controllers\\UsuariosController.cs",
               "ViewState": "AgIAAKAAAAAAAAAAAADwvz8BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T07:33:48.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T07:33:48.752Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 49,
               "Title": "AuditoriaHelper.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Helpers\\AuditoriaHelper.cs",
               "RelativeDocumentMoniker": "Helpers\\AuditoriaHelper.cs",
@@ -1135,12 +1149,11 @@
               "RelativeToolTip": "Helpers\\AuditoriaHelper.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAkwCMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T18:55:08.258Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T18:55:08.258Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 50,
               "Title": "Auditorium.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\Auditorium.cs",
               "RelativeDocumentMoniker": "Models\\Auditorium.cs",
@@ -1148,12 +1161,11 @@
               "RelativeToolTip": "Models\\Auditorium.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAgwBcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T18:53:32.079Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T18:53:32.079Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 54,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Categorias\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Categorias\\Edit.cshtml",
@@ -1161,12 +1173,11 @@
               "RelativeToolTip": "Views\\Categorias\\Edit.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-31T23:45:26.814Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:45:26.814Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 55,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Categorias\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Categorias\\Create.cshtml",
@@ -1174,12 +1185,11 @@
               "RelativeToolTip": "Views\\Categorias\\Create.cshtml",
               "ViewState": "AgIAAB4AAAAAAAAAAAAAADUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-31T23:44:26.903Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:44:26.903Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 52,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Roles\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Roles\\Index.cshtml",
@@ -1187,12 +1197,11 @@
               "RelativeToolTip": "Views\\Roles\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-03T08:16:06.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-03T08:16:06.173Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 51,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Categorias\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Categorias\\Index.cshtml",
@@ -1200,12 +1209,11 @@
               "RelativeToolTip": "Views\\Categorias\\Index.cshtml",
               "ViewState": "AgIAAIQAAAAAAAAAAAAcwJgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-31T23:45:31.894Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T23:45:31.894Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 53,
               "Title": "site.js",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\wwwroot\\js\\site.js",
               "RelativeDocumentMoniker": "wwwroot\\js\\site.js",
@@ -1213,25 +1221,11 @@
               "RelativeToolTip": "wwwroot\\js\\site.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-06-19T18:42:26.283Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T18:42:26.283Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "wwwroot\\css\\site.css",
-              "ViewState": "AgIAAGUBAAAAAAAAAAAuwIEBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-05-31T23:47:55.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 56,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
@@ -1239,12 +1233,11 @@
               "RelativeToolTip": "Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-01T09:02:16.074Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T09:02:16.074Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 57,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Admin\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "Views\\Admin\\Dashboard.cshtml",
@@ -1252,12 +1245,11 @@
               "RelativeToolTip": "Views\\Admin\\Dashboard.cshtml",
               "ViewState": "AgIAAIsAAAAAAAAAAAAuwKMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T17:20:39.164Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T17:20:39.164Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 61,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDocente\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDocente\\Create.cshtml",
@@ -1265,12 +1257,11 @@
               "RelativeToolTip": "Views\\InformeDocente\\Create.cshtml",
               "ViewState": "AgIAADsEAAAAAAAAAAAAAFIEAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T15:01:44.143Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T15:01:44.143Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 58,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDocente\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDocente\\Edit.cshtml",
@@ -1278,12 +1269,11 @@
               "RelativeToolTip": "Views\\InformeDocente\\Edit.cshtml",
               "ViewState": "AgIAAAgDAAAAAAAAAAAwwFADAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T15:04:36.661Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T15:04:36.661Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 60,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDocente\\Delete.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDocente\\Delete.cshtml",
@@ -1291,12 +1281,11 @@
               "RelativeToolTip": "Views\\InformeDocente\\Delete.cshtml",
               "ViewState": "AgIAABgAAAAAAAAAAAAswDAAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T15:57:16.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T15:57:16.786Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 59,
               "Title": "Enviar.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\InformeDocente\\Enviar.cshtml",
               "RelativeDocumentMoniker": "Views\\InformeDocente\\Enviar.cshtml",
@@ -1304,25 +1293,11 @@
               "RelativeToolTip": "Views\\InformeDocente\\Enviar.cshtml",
               "ViewState": "AgIAACkAAAAAAAAAAAAswEEAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-19T16:08:38.034Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-19T16:08:38.034Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAACKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-31T23:37:30.87Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 63,
               "Title": "SeguridadHelper.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Helpers\\SeguridadHelper.cs",
               "RelativeDocumentMoniker": "Helpers\\SeguridadHelper.cs",
@@ -1334,7 +1309,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 62,
               "Title": "SistemaFarmaciaG6.AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\obj\\Debug\\net8.0\\SistemaFarmaciaG6.AssemblyInfo.cs",
               "RelativeDocumentMoniker": "obj\\Debug\\net8.0\\SistemaFarmaciaG6.AssemblyInfo.cs",
@@ -1346,7 +1321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 68,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Usuarios\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Usuarios\\Edit.cshtml",
@@ -1358,7 +1333,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 69,
               "Title": "Role.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\Role.cs",
               "RelativeDocumentMoniker": "Models\\Role.cs",
@@ -1370,7 +1345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 64,
               "Title": "SistemaFarmaciaG6.csproj",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\SistemaFarmaciaG6.csproj",
               "RelativeDocumentMoniker": "SistemaFarmaciaG6.csproj",
@@ -1382,7 +1357,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 65,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Perfil\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Perfil\\Edit.cshtml",
@@ -1394,7 +1369,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 66,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Perfil\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Perfil\\Index.cshtml",
@@ -1406,19 +1381,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-31T23:29:53.834Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 67,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Roles\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Roles\\Edit.cshtml",
@@ -1430,7 +1393,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 70,
               "Title": "Usuario.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Models\\Usuario.cs",
               "RelativeDocumentMoniker": "Models\\Usuario.cs",
@@ -1442,7 +1405,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 71,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Usuarios\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Usuarios\\Create.cshtml",
@@ -1454,7 +1417,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 72,
               "Title": "DbFacultadFarmaciaContext.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Data\\DbFacultadFarmaciaContext.cs",
               "RelativeDocumentMoniker": "Data\\DbFacultadFarmaciaContext.cs",
@@ -1466,7 +1429,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 73,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
@@ -1478,7 +1441,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 75,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Categorias\\Delete.cshtml",
               "RelativeDocumentMoniker": "Views\\Categorias\\Delete.cshtml",
@@ -1490,7 +1453,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 74,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Carlos\\source\\repos\\ProyectoAnalisisG6\\SistemaFarmaciaG6\\Views\\Categorias\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Categorias\\Details.cshtml",

@@ -1,212 +1,209 @@
 is_global = true
 build_property.TargetFramework = net8.0
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v8.0
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
-build_property.EntryPointFilePath = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SistemaFarmaciaG6
 build_property.RootNamespace = SistemaFarmaciaG6
-build_property.ProjectDir = C:\Users\informatica\Documents\GitHub\ProyectoAnalisisG6\SistemaFarmaciaG6\
+build_property.ProjectDir = C:\Users\Carlos\source\repos\ProyectoAnalisisG6\SistemaFarmaciaG6\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\informatica\Documents\GitHub\ProyectoAnalisisG6\SistemaFarmaciaG6
+build_property.MSBuildProjectDirectory = C:\Users\Carlos\source\repos\ProyectoAnalisisG6\SistemaFarmaciaG6
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Account/Login.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Admin/Dashboard.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Auditoria/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Auditoria/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRvcmlhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Create.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Delete.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Details.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Categorias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Decano/Dashboard.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Decano/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVjYW5vXERhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Director/Dashboard.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Director/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyZWN0b3JcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Docente/Dashboard.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Docente/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jZW50ZVxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Home/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Home/Privacy.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Create.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURpcmVjY2lvblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Delete.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURpcmVjY2lvblxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Details.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURpcmVjY2lvblxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURpcmVjY2lvblxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Enviar.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Enviar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURpcmVjY2lvblxFbnZpYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDireccion/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURpcmVjY2lvblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Create.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Delete.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Details.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Enviar.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Enviar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcRW52aWFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeDocente/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZURvY2VudGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Create.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZUZpbmFsRmFjdWx0YWRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Details.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZUZpbmFsRmFjdWx0YWRcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZUZpbmFsRmFjdWx0YWRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/InformeFinalFacultad/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5mb3JtZUZpbmFsRmFjdWx0YWRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Jefatura/Dashboard.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Jefatura/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmVmYXR1cmFcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Perfil/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Perfil/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Perfil/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Perfil/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformeDireccion/Details.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformeDireccion/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aXNpb25JbmZvcm1lRGlyZWNjaW9uXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformeDireccion/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformeDireccion/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aXNpb25JbmZvcm1lRGlyZWNjaW9uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformes/Details.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aXNpb25JbmZvcm1lc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformes/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/RevisionInformes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aXNpb25JbmZvcm1lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Roles/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Roles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Roles/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Roles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Shared/Error.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Create.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Edit.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Index.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Visualizador/Dashboard.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Visualizador/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzdWFsaXphZG9yXERhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/_ViewImports.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/_ViewStart.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/informatica/Documents/GitHub/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Shared/_Layout.cshtml]
+[C:/Users/Carlos/source/repos/ProyectoAnalisisG6/SistemaFarmaciaG6/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-y3mtfusspb

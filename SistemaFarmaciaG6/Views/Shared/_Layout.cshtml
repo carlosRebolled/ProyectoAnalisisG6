@@ -1,269 +1,594 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewData["Title"] - Facultad Farmacia</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-    <link rel="icon" type="image/png" href="~/images/favicon_farmacia.png" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Facultad_Farmacia.styles.css" asp-append-version="true" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <link rel="icon"
+          type="image/png"
+          href="~/images/favicon_farmacia.png" />
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/Facultad_Farmacia.styles.css"
+          asp-append-version="true" />
 </head>
 
-<body>
+<body class="layout-body">
 
     @{
-        string nombreUsuario = Context.Session.GetString("Nombre") ?? "";
-        string rolUsuario = Context.Session.GetString("Rol") ?? "";
+        string nombreUsuario =
+        Context.Session.GetString("Nombre") ?? "";
+
+        string rolUsuario =
+        Context.Session.GetString("Rol") ?? "";
+
+        string controladorActual =
+        ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
     }
 
-    <div class="ucr-bar">
-        <a href="https://www.ucr.ac.cr" target="_blank" class="ucr-link">
-            UNIVERSIDAD DE COSTA RICA
-        </a>
+    <div class="layout-page">
 
-        <a href="https://farmacia.ucr.ac.cr/" target="_blank" class="ucr-logo-link">
-            <img src="~/images/Farmacia_logo.png" alt="Logo UCR" class="ucr-logo" />
-        </a>
-    </div>
+        <div class="layout-content">
 
-    @if (!string.IsNullOrEmpty(nombreUsuario))
-    {
-        <div class="user-menu">
-            <span class="user-name">@nombreUsuario</span>
-            <span class="separator">|</span>
-            <span class="user-role">@rolUsuario</span>
+            <!-- BARRA SUPERIOR UCR -->
 
-            <a asp-controller="Perfil" asp-action="Index">Mi Perfil</a>
-            <a asp-controller="Account" asp-action="Logout">Cerrar Sesión</a>
-        </div>
-    }
+            <div class="ucr-bar">
 
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-teal border-bottom box-shadow">
-            <div class="container-fluid">
+                <a href="https://www.ucr.ac.cr"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="ucr-link">
 
-                <button class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    UNIVERSIDAD DE COSTA RICA
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                </a>
 
-                    <ul class="navbar-nav flex-grow-1">
+                <a href="https://farmacia.ucr.ac.cr/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="ucr-logo-link">
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-house"></i>
-                                Home
-                            </a>
-                        </li>
+                    <img src="~/images/Farmacia_logo.png"
+                         alt="Logo Facultad de Farmacia"
+                         class="ucr-logo" />
 
-                        @if (rolUsuario == "Administrador")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Usuarios" asp-action="Index">
-                                    <i class="bi bi-people"></i>
-                                    Usuarios
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Roles" asp-action="Index">
-                                    <i class="bi bi-person-badge"></i>
-                                    Roles
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Categorias" asp-action="Index">
-                                    <i class="bi bi-tags"></i>
-                                    Categorías
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
-                                    <i class="bi bi-file-earmark-text"></i>
-                                    Informes Docentes
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="RevisionInformes" asp-action="Index">
-                                    <i class="bi bi-check2-square"></i>
-                                    Revisión Docentes
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDireccion" asp-action="Index">
-                                    <i class="bi bi-building"></i>
-                                    Informe Dirección
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="RevisionInformeDireccion" asp-action="Index">
-                                    <i class="bi bi-clipboard-check"></i>
-                                    Revisión Dirección
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeFinalFacultad" asp-action="Index">
-                                    <i class="bi bi-file-earmark-check"></i>
-                                    Informe Final
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Auditoria" asp-action="Index">
-                                    <i class="bi bi-clock-history"></i>
-                                    Bitácora
-                                </a>
-                            </li>
-                        }
-
-                        @if (rolUsuario == "Docente")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Docente" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDocente" asp-action="Index">
-                                    <i class="bi bi-file-earmark-text"></i>
-                                    Mi Informe
-                                </a>
-                            </li>
-                        }
-
-                        @if (rolUsuario == "Director")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Director" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="RevisionInformes" asp-action="Index">
-                                    <i class="bi bi-check2-square"></i>
-                                    Revisión Docentes
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeDireccion" asp-action="Index">
-                                    <i class="bi bi-building"></i>
-                                    Informe Dirección
-                                </a>
-                            </li>
-                        }
-
-                        @if (rolUsuario == "Decano")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Decano" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="RevisionInformeDireccion" asp-action="Index">
-                                    <i class="bi bi-clipboard-check"></i>
-                                    Revisión Dirección
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeFinalFacultad" asp-action="Index">
-                                    <i class="bi bi-file-earmark-check"></i>
-                                    Informe Final
-                                </a>
-                            </li>
-                        }
-
-                        @if (rolUsuario == "Jefatura")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Jefatura" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeFinalFacultad" asp-action="Index">
-                                    <i class="bi bi-file-earmark-check"></i>
-                                    Consultar Informe Final
-                                </a>
-                            </li>
-                        }
-
-                        @if (rolUsuario == "Visualizador")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Visualizador" asp-action="Dashboard">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="InformeFinalFacultad" asp-action="Index">
-                                    <i class="bi bi-eye"></i>
-                                    Consultar Informe Final
-                                </a>
-                            </li>
-                        }
-
-                    </ul>
-
-                </div>
+                </a>
 
             </div>
-        </nav>
-    </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <!-- INFORMACIÓN DEL USUARIO -->
+            @if (!string.IsNullOrWhiteSpace(nombreUsuario))
+            {
+                string inicialUsuario = nombreUsuario.Substring(0, 1).ToUpper();
+
+                <div class="user-menu">
+
+                    <div class="user-information">
+
+                        <span class="user-avatar">
+                            @inicialUsuario
+                        </span>
+
+                        <span class="user-name">
+                            @nombreUsuario
+                        </span>
+
+                        <span class="user-role">
+                            @rolUsuario
+                        </span>
+
+                    </div>
+
+                    <div class="user-actions">
+
+                        <a asp-controller="Perfil"
+                           asp-action="Index"
+                           class="user-action-link">
+
+                            <i class="bi bi-person-circle"></i>
+                            Mi Perfil
+
+                        </a>
+
+                        <a asp-controller="Account"
+                           asp-action="Logout"
+                           class="user-action-link logout-link">
+
+                            <i class="bi bi-box-arrow-right"></i>
+                            Cerrar Sesión
+
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+
+            <!-- MENÚ PRINCIPAL -->
+
+            <header>
+
+                <nav class="navbar navbar-expand-xl navbar-light main-navbar shadow-sm">
+
+                    <div class="container-fluid">
+
+                        <button class="navbar-toggler"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#menuPrincipal"
+                                aria-controls="menuPrincipal"
+                                aria-expanded="false"
+                                aria-label="Mostrar menú">
+
+                            <span class="navbar-toggler-icon"></span>
+
+                        </button>
+
+                        <div id="menuPrincipal"
+                             class="collapse navbar-collapse">
+
+                            <ul class="navbar-nav flex-grow-1 align-items-xl-center gap-xl-1">
+
+                                <!-- HOME -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link menu-link @(controladorActual == "Home" ? "active" : "")"
+                                       asp-controller="Home"
+                                       asp-action="Index">
+
+                                        <i class="bi bi-house-door"></i>
+                                        <span>Home</span>
+
+                                    </a>
+
+                                </li>
+
+                                <!-- ADMINISTRADOR -->
+                                @if (rolUsuario == "Administrador")
+                                {
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Admin" ? "active" : "")"
+                                           asp-controller="Admin"
+                                           asp-action="Dashboard">
+
+                                            <i class="bi bi-speedometer2"></i>
+                                            <span>Dashboard</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Usuarios" ? "active" : "")"
+                                           asp-controller="Usuarios"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-people"></i>
+                                            <span>Usuarios</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Roles" ? "active" : "")"
+                                           asp-controller="Roles"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-person-badge"></i>
+                                            <span>Roles</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Categorias" ? "active" : "")"
+                                           asp-controller="Categorias"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-tags"></i>
+                                            <span>Categorías</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeDocente" ? "active" : "")"
+                                           asp-controller="InformeDocente"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-file-earmark-text"></i>
+
+                                            <span>
+                                                Informes<br />
+                                                Docentes
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "RevisionInformes" ? "active" : "")"
+                                           asp-controller="RevisionInformes"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-check2-square"></i>
+
+                                            <span>
+                                                Revisión<br />
+                                                Docentes
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeDireccion" ? "active" : "")"
+                                           asp-controller="InformeDireccion"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-building"></i>
+
+                                            <span>
+                                                Informe<br />
+                                                Dirección
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "RevisionInformeDireccion" ? "active" : "")"
+                                           asp-controller="RevisionInformeDireccion"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-clipboard-check"></i>
+
+                                            <span>
+                                                Revisión<br />
+                                                Dirección
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeFinalFacultad" ? "active" : "")"
+                                           asp-controller="InformeFinalFacultad"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-file-earmark-check"></i>
+
+                                            <span>
+                                                Informe<br />
+                                                Final
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Auditoria" ? "active" : "")"
+                                           asp-controller="Auditoria"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-clock-history"></i>
+                                            <span>Bitácora</span>
+
+                                        </a>
+
+                                    </li>
+                                }
+
+                                <!-- DOCENTE -->
+                                @if (rolUsuario == "Docente")
+                                {
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Docente" ? "active" : "")"
+                                           asp-controller="Docente"
+                                           asp-action="Dashboard">
+
+                                            <i class="bi bi-speedometer2"></i>
+                                            <span>Dashboard</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeDocente" ? "active" : "")"
+                                           asp-controller="InformeDocente"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-file-earmark-person"></i>
+                                            <span>Mi Informe</span>
+
+                                        </a>
+
+                                    </li>
+                                }
+
+                                <!-- DIRECTOR -->
+                                @if (rolUsuario == "Director")
+                                {
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Director" ? "active" : "")"
+                                           asp-controller="Director"
+                                           asp-action="Dashboard">
+
+                                            <i class="bi bi-speedometer2"></i>
+                                            <span>Dashboard</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "RevisionInformes" ? "active" : "")"
+                                           asp-controller="RevisionInformes"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-check2-square"></i>
+
+                                            <span>
+                                                Revisión<br />
+                                                Docentes
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeDireccion" ? "active" : "")"
+                                           asp-controller="InformeDireccion"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-building"></i>
+
+                                            <span>
+                                                Informe<br />
+                                                Dirección
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+                                }
+
+                                <!-- DECANO -->
+                                @if (rolUsuario == "Decano")
+                                {
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Decano" ? "active" : "")"
+                                           asp-controller="Decano"
+                                           asp-action="Dashboard">
+
+                                            <i class="bi bi-speedometer2"></i>
+                                            <span>Dashboard</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "RevisionInformeDireccion" ? "active" : "")"
+                                           asp-controller="RevisionInformeDireccion"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-clipboard-check"></i>
+
+                                            <span>
+                                                Revisión<br />
+                                                Dirección
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeFinalFacultad" ? "active" : "")"
+                                           asp-controller="InformeFinalFacultad"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-file-earmark-check"></i>
+
+                                            <span>
+                                                Informe<br />
+                                                Final
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+                                }
+
+                                <!-- JEFATURA -->
+                                @if (rolUsuario == "Jefatura")
+                                {
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Jefatura" ? "active" : "")"
+                                           asp-controller="Jefatura"
+                                           asp-action="Dashboard">
+
+                                            <i class="bi bi-speedometer2"></i>
+                                            <span>Dashboard</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeFinalFacultad" ? "active" : "")"
+                                           asp-controller="InformeFinalFacultad"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-file-earmark-check"></i>
+
+                                            <span>
+                                                Consultar<br />
+                                                Informe Final
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+                                }
+
+                                <!-- VISUALIZADOR -->
+                                @if (rolUsuario == "Visualizador")
+                                {
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "Visualizador" ? "active" : "")"
+                                           asp-controller="Visualizador"
+                                           asp-action="Dashboard">
+
+                                            <i class="bi bi-speedometer2"></i>
+                                            <span>Dashboard</span>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link menu-link @(controladorActual == "InformeFinalFacultad" ? "active" : "")"
+                                           asp-controller="InformeFinalFacultad"
+                                           asp-action="Index">
+
+                                            <i class="bi bi-eye"></i>
+
+                                            <span>
+                                                Consultar<br />
+                                                Informe Final
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+                                }
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </nav>
+
+            </header>
+
+            <!-- CONTENIDO PRINCIPAL -->
+
+            <div class="container main-container">
+
+                <main role="main" class="main-content">
+
+                    @RenderBody()
+
+                </main>
+
+            </div>
+
+        </div>
+
+        <!-- PIE DE PÁGINA -->
+
+        <footer class="footer-custom">
+
+            <div class="footer-content">
+
+                <span>
+                    © 2026 Facultad de Farmacia
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <span>
+                    Tel. 2511-8350
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <span>
+                    Correo: recepción.farmacia@ucr.ac.cr
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <a href="#"
+                   class="footer-link">
+
+                    Contáctenos
+
+                </a>
+
+            </div>
+
+        </footer>
+
     </div>
 
-    <footer class="footer-custom">
-        <div class="footer-content">
-            © 2026 Facultad de Farmacia -
-            Tel. 2511-8350 |
-            Correo: recepción.farmacia@ucr.ac.cr |
-            <a href="#">Contáctenos</a>
-        </div>
-    </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
 </html>
