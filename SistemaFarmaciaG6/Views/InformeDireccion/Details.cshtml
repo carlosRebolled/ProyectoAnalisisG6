@@ -312,6 +312,124 @@
 
     <hr />
 
+    <h4 class="mt-4 mb-3">
+        Informes Docentes Consolidados
+    </h4>
+
+    @{
+        var informesDocentes = ViewBag.InformesDocentes as List<SistemaFarmaciaG6.Models.InformeDocente>;
+    }
+
+    @if (informesDocentes == null || !informesDocentes.Any())
+    {
+        <div class="alert alert-warning">
+            No existen informes docentes aprobados para este departamento.
+        </div>
+    }
+    else
+    {
+        foreach (var docente in informesDocentes)
+        {
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header bg-primary text-white">
+
+                    <strong>
+
+                        @docente.IdUsuarioNavigation.Apellido1
+                        @docente.IdUsuarioNavigation.Apellido2,
+                        @docente.IdUsuarioNavigation.Nombre
+
+                    </strong>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered table-sm">
+
+                        <thead class="table-light">
+
+                            <tr>
+                                <th width="70%">Actividad</th>
+                                <th class="text-center">Cantidad</th>
+                                <th>Detalle</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Congresos y Seminarios (Participación Activa)</td>
+                                <td class="text-center">@docente.CantidadCongresosActivos</td>
+                                <td>@docente.DetalleCongresosActivos</td>
+                            </tr>
+
+                            <tr>
+                                <td>Congresos y Seminarios (Participación Pasiva)</td>
+                                <td class="text-center">@docente.CantidadCongresosPasivos</td>
+                                <td>@docente.DetalleCongresosPasivos</td>
+                            </tr>
+
+                            <tr>
+                                <td>Acción Social</td>
+                                <td class="text-center">@docente.CantidadAccionSocial</td>
+                                <td>@docente.DetalleAccionSocial</td>
+                            </tr>
+
+                            <tr>
+                                <td>Investigación</td>
+                                <td class="text-center">@docente.CantidadInvestigacion</td>
+                                <td>@docente.DetalleInvestigacion</td>
+                            </tr>
+
+                            <tr>
+                                <td>Docencia</td>
+                                <td class="text-center">@docente.CantidadDocencia</td>
+                                <td>@docente.DetalleDocencia</td>
+                            </tr>
+
+                            <tr>
+                                <td>Publicaciones</td>
+                                <td class="text-center">@docente.CantidadPublicaciones</td>
+                                <td>@docente.DetallePublicaciones</td>
+                            </tr>
+
+                            <tr>
+                                <td>Cursos de Grado</td>
+                                <td class="text-center">@docente.CantidadCursosGrado</td>
+                                <td>@docente.DetalleCursosGrado</td>
+                            </tr>
+
+                            <tr>
+                                <td>Posgrado</td>
+                                <td class="text-center">@docente.CantidadPosgrado</td>
+                                <td>@docente.DetallePosgrado</td>
+                            </tr>
+
+                            <tr>
+                                <td>Representación Institucional</td>
+                                <td class="text-center">@docente.CantidadRepresentacion</td>
+                                <td>@docente.DetalleRepresentacion</td>
+                            </tr>
+
+                            <tr>
+                                <td>Otros</td>
+                                <td></td>
+                                <td>@docente.DetalleOtros</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        }
+    }
+
     <div class="card border-info mb-3">
 
         <div class="card-header bg-info text-white">

@@ -1,7 +1,10 @@
-﻿@model IEnumerable<SistemaFarmaciaG6.Models.InformeDocente>
+﻿@model IEnumerable<SistemaFarmaciaG6.Models.Usuario>
 
 @{
-    ViewData["Title"] = "Revisión de Informes";
+    ViewData["Title"] = "Revisión de Informes Docentes";
+
+    var informes = ViewBag.Informes
+        as Dictionary<int, SistemaFarmaciaG6.Models.InformeDocente>;
 }
 
 <div class="container-fluid">
@@ -65,68 +68,110 @@
         <thead>
             <tr>
                 <th>Docente</th>
-                <th>Año</th>
                 <th>Estado</th>
                 <th>Fecha Envío</th>
-                <th></th>
+                <th>Última Modificación</th>
+                <th>Detalle</th>
             </tr>
         </thead>
 
         <tbody>
 
-            @foreach (var item in Model)
+            @foreach (var docente in Model)
             {
-                <tr class="fila-informe">
+                var informe = informes != null && informes.ContainsKey(docente.IdUsuario)
+                    ? informes[docente.IdUsuario]
+                    : null;
 
-                    <td class="nombre-docente">
-                        @item.IdUsuarioNavigation.Nombre
-                        @item.IdUsuarioNavigation.Apellido1
-                        @item.IdUsuarioNavigation.Apellido2
-                    </td>
+                <tr>
 
                     <td>
-                        @item.Anio
+                        @docente.Apellido1
+                        @docente.Apellido2
+                        @docente.Nombre
                     </td>
 
                     <td class="estado-informe">
 
-                        @if (item.IdEstado == 2)
+                        @if (informe == null)
+                        {
+                            <span class="badge bg-secondary">
+                                No generado
+                            </span>
+                        }
+                        else if (informe.IdEstado == 1)
+                        {
+                            <span class="badge bg-secondary">
+                                Borrador
+                            </span>
+                        }
+                        else if (informe.IdEstado == 2)
                         {
                             <span class="badge bg-warning text-dark">
                                 Pendiente
                             </span>
                         }
-                        else if (item.IdEstado == 3)
+                        else if (informe.IdEstado == 3)
                         {
                             <span class="badge bg-danger">
                                 Devuelto
                             </span>
                         }
-                        else if (item.IdEstado == 4)
+                        else if (informe.IdEstado == 4)
                         {
                             <span class="badge bg-success">
                                 Aprobado
                             </span>
                         }
+
+                    </td>
+
+                    <td>
+                        @(informe?.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "-")
+                    </td>
+
+                    <td>
+                        @(informe?.FechaCreacion.ToString("dd/MM/yyyy HH:mm") ?? "-")
+                    </td>
+
+                    <td>
+                        @if (informe != null)
+                        {
+                            <a asp-action="Details"
+                               asp-route-id="@informe.IdInformeDocente"
+                               class="btn btn-info btn-sm">
+                                Ver
+                            </a>
+
+                            @if (informe.IdEstado == 2)
+                            {
+                                <form asp-action="Aprobar"
+                                      asp-route-id="@informe.IdInformeDocente"
+                                      method="post"
+                                      style="display:inline;">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button class="btn btn-success btn-sm">
+                                        Aprobar
+                                    </button>
+
+                                </form>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@informe.IdInformeDocente"
+                                   class="btn btn-warning btn-sm">
+                                    Devolver
+                                </a>
+                            }
+                        }
                         else
                         {
-                            <span class="badge bg-secondary">
-                                @item.IdEstadoNavigation?.NombreEstado
+                            <span class="text-muted">
+                                Sin informe
                             </span>
                         }
 
-                    </td>
-
-                    <td>
-                        @(item.FechaEnvio?.ToString("dd/MM/yyyy HH:mm") ?? "Sin enviar")
-                    </td>
-
-                    <td>
-                        <a asp-action="Details"
-                           asp-route-id="@item.IdInformeDocente"
-                           class="btn btn-primary btn-sm">
-                            Revisar
-                        </a>
                     </td>
 
                 </tr>

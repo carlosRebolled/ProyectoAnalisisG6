@@ -1,0 +1,122 @@
+﻿@model SistemaFarmaciaG6.Models.InformeDireccion
+
+@{
+    ViewData["Title"] = "Informes pendientes";
+}
+
+<div class="container-fluid">
+
+    <div class="categorias-section">
+        <h2 class="mb-3">
+            Envío de Informe de Dirección
+        </h2>
+    </div>
+
+    <div class="card shadow-sm border-warning">
+
+        <div class="card-header bg-warning text-dark">
+            No es posible enviar el informe
+        </div>
+
+        <div class="card-body">
+
+            <h5 class="text-warning">
+                Aún hay informes docentes pendientes.
+            </h5>
+
+            <p class="text-muted">
+                Para enviar el Informe de Dirección, todos los docentes del departamento
+                deben tener su informe generado y aprobado.
+            </p>
+
+            <hr />
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+                        <th>Docente</th>
+                        <th>Estado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var docente in ViewBag.DocentesPendientes)
+                    {
+                        <tr>
+
+                            <td>
+                                @docente.Nombre
+                            </td>
+
+                            <td>
+
+                                @switch ((string)docente.Estado)
+                                {
+                                    case "No generado":
+
+                                        <span class="badge bg-danger">
+                                            No generado
+                                        </span>
+
+                                        break;
+
+                                    case "Borrador":
+
+                                        <span class="badge bg-secondary">
+                                            Borrador
+                                        </span>
+
+                                        break;
+
+                                    case "Pendiente":
+
+                                        <span class="badge bg-warning text-dark">
+                                            Pendiente
+                                        </span>
+
+                                        break;
+
+                                    case "Devuelto":
+
+                                        <span class="badge bg-danger">
+                                            Devuelto
+                                        </span>
+
+                                        break;
+
+                                    default:
+
+                                        <span class="badge bg-secondary">
+                                            @docente.Estado
+                                        </span>
+
+                                        break;
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+            <div class="mt-4">
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Volver
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

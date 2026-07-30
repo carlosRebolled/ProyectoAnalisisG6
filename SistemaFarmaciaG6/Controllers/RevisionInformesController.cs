@@ -41,23 +41,24 @@ namespace SistemaFarmaciaG6.Controllers
             var rol = HttpContext.Session.GetString("Rol");
             var idDepartamento = ObtenerDepartamentoDirector();
 
+            var docentes = _context.Usuarios
+                .Include(u => u.IdDepartamentoNavigation)
+                .Where(u => u.IdDepartamento == idDepartamento)
+                .OrderBy(u => u.Apellido1)
+                .ThenBy(u => u.Apellido2)
+                .ThenBy(u => u.Nombre)
+                .ToList();
+
+            int anioActual = DateTime.Now.Year;
+
             var informes = _context.InformeDocentes
-                .Include(i => i.IdUsuarioNavigation)
                 .Include(i => i.IdEstadoNavigation)
-                .AsQueryable();
+                .Where(i => i.Anio == anioActual)
+                .ToDictionary(i => i.IdUsuario);
 
-            if (rol == "Director")
-            {
-                informes = informes.Where(i =>
-                    i.IdUsuarioNavigation.IdDepartamento == idDepartamento);
-            }
+            ViewBag.Informes = informes;
 
-            informes = informes.Where(i =>
-                i.IdEstado == 2 ||
-                i.IdEstado == 3 ||
-                i.IdEstado == 4);
-
-            return View(informes.OrderByDescending(i => i.FechaEnvio).ToList());
+            return View(docentes);
         }
 
         public IActionResult Details(int id)
