@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
 using SistemaFarmaciaG6.Helpers;
 using SistemaFarmaciaG6.Models;
-using Microsoft.AspNetCore.Identity;
-
 
 namespace SistemaFarmaciaG6.Controllers
 {

@@ -15,7 +15,7 @@ GO
 
 INSERT INTO dbo.UsuarioRol (id_usuario, id_rol)
 VALUES
-(10, 3); -- Luis Decano
+(1006, 3); -- Luis Decano
 GO
 
 SELECT * FROM dbo.UsuarioRol;

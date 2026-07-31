@@ -118,30 +118,45 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var usuario = _context.Usuarios
-                .Include(u => u.IdGeneroNavigation)
-                .Include(u => u.IdDepartamentoNavigation)
-                .Include(u => u.IdCategoriaNavigation)
-                .Include(u => u.IdTipoNombramientoNavigation)
-                .FirstOrDefault(u => u.IdUsuario == idUsuario);
+            int anioActual = DateTime.Now.Year;
 
-            if (usuario == null)
+            bool existe = _context.InformeDocentes.Any(i =>
+                i.IdUsuario == idUsuario &&
+                i.Anio == anioActual);
+
+            if (existe)
             {
-                return NotFound();
+                TempData["Error"] =
+                    $"Ya existe un informe docente para el año {anioActual}.";
+
+                return RedirectToAction(nameof(Index));
             }
 
-            var hoy = DateTime.Today;
-            var edad = hoy.Year - usuario.FechaNacimiento.Year;
-
-            if (usuario.FechaNacimiento.ToDateTime(TimeOnly.MinValue) > hoy.AddYears(-edad))
+            var informe = new InformeDocente
             {
-                edad--;
-            }
+                IdUsuario = idUsuario.Value,
+                IdEstado = 1,
+                Anio = anioActual,
+                FechaCreacion = DateTime.Now,
+                FechaEnvio = null,
+                FechaAprobacion = null
+            };
 
-            ViewBag.Edad = edad;
-            ViewBag.Usuario = usuario;
+            _context.InformeDocentes.Add(informe);
+            _context.SaveChanges();
 
-            return View();
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "InformeDocente",
+                "Crear",
+                $"Se creó el informe docente #{informe.IdInformeDocente} del año {informe.Anio}."
+            );
+
+            return RedirectToAction(nameof(Edit), new
+            {
+                id = informe.IdInformeDocente
+            });
         }
 
         [HttpPost]
@@ -369,6 +384,46 @@ namespace SistemaFarmaciaG6.Controllers
 
             try
             {
+                bool formularioIncompleto = false;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleCongresosActivos))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleCongresosPasivos))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleAccionSocial))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleInvestigacion))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleDocencia))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetallePublicaciones))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleCursosGrado))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetallePosgrado))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleRepresentacion))
+                    formularioIncompleto = true;
+
+                if (string.IsNullOrWhiteSpace(informe.DetalleOtros))
+                    formularioIncompleto = true;
+
+                if (formularioIncompleto)
+                {
+                    TempData["Error"] =
+                        "Existen espacios obligatorios sin completar. Complete la información o marque 'No aplica'.";
+
+                    return RedirectToAction(nameof(Edit), new { id });
+                }
+
                 informeBD.CantidadCongresosActivos = informe.CantidadCongresosActivos;
                 informeBD.DetalleCongresosActivos = informe.DetalleCongresosActivos;
 
@@ -409,7 +464,8 @@ namespace SistemaFarmaciaG6.Controllers
                     $"Se editó el informe docente #{informeBD.IdInformeDocente} del año {informeBD.Anio}."
                 );
 
-                TempData["Exito"] = "Informe actualizado correctamente.";
+                TempData["LimpiarLocalStorage"] = true;
+                TempData["Exito"] = "Informe guardado correctamente.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

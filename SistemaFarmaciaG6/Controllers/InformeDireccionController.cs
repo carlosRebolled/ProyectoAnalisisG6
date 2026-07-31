@@ -84,16 +84,50 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
+            int anioActual = DateTime.Now.Year;
+
+            bool existeInforme = _context.InformeDireccions.Any(i =>
+                i.IdUsuario == idUsuario &&
+                i.Anio == anioActual);
+
+            if (existeInforme)
+            {
+                TempData["Error"] =
+                    $"Ya existe un informe de dirección para el año {anioActual}.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
             ViewBag.NombreDirector = $"{usuario.Nombre} {usuario.Apellido1} {usuario.Apellido2}";
             ViewBag.Correo = usuario.Correo;
             ViewBag.Departamento = usuario.IdDepartamentoNavigation.NombreDepartamento;
-            ViewBag.Anio = DateTime.Now.Year;
+            ViewBag.Anio = anioActual;
 
-            ViewBag.Cursos = _context.Cursos
-                .OrderBy(c => c.SiglaCurso)
-                .ToList();
+            var informe = new InformeDireccion
+            {
+                IdUsuario = idUsuario.Value,
+                IdEstado = 1,
+                Anio = anioActual,
+                FechaCreacion = DateTime.Now
+            };
 
-            return View();
+            _context.InformeDireccions.Add(informe);
+            _context.SaveChanges();
+
+            AuditoriaHelper.Registrar(
+                _context,
+                HttpContext,
+                "InformeDireccion",
+                "Crear",
+                $"Se creó el informe de dirección #{informe.IdInformeDireccion} del año {informe.Anio}."
+            );
+
+            TempData["Exito"] = "Informe creado correctamente.";
+
+            return RedirectToAction(nameof(Edit), new
+            {
+                id = informe.IdInformeDireccion
+            });
         }
 
         [HttpPost]
@@ -356,7 +390,9 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
-                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -366,8 +402,11 @@ namespace SistemaFarmaciaG6.Controllers
                 .First();
 
             var docentesDepartamento = _context.Usuarios
-                .Where(u => u.IdDepartamento == idDepartamento &&
-                            u.Estado == "Activo")
+                .Where(u =>
+                    u.IdDepartamento == idDepartamento &&
+                    u.Estado == "Activo" &&
+                    u.UsuarioRols.Any(ur =>
+                        ur.IdRolNavigation.NombreRol == "Docente"))
                 .OrderBy(u => u.Apellido1)
                 .ThenBy(u => u.Apellido2)
                 .ThenBy(u => u.Nombre)
@@ -391,7 +430,8 @@ namespace SistemaFarmaciaG6.Controllers
                 }
                 else
                 {
-                    estado = informeDocente.IdEstadoNavigation.NombreEstado;
+                    estado = informeDocente.IdEstadoNavigation?.NombreEstado
+                             ?? "Sin estado";
                 }
 
                 if (estado != "Aprobado")
@@ -445,7 +485,9 @@ namespace SistemaFarmaciaG6.Controllers
 
             if (informe.IdEstado != 1 && informe.IdEstado != 3)
             {
-                TempData["Error"] = "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+                TempData["Error"] =
+                    "Solo se pueden enviar informes en estado Borrador o Devuelto.";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -455,15 +497,19 @@ namespace SistemaFarmaciaG6.Controllers
                 .First();
 
             var docentes = _context.Usuarios
-                .Where(u => u.IdDepartamento == idDepartamento &&
-                            u.Estado == "Activo")
+                .Where(u =>
+                    u.IdDepartamento == idDepartamento &&
+                    u.Estado == "Activo" &&
+                    u.UsuarioRols.Any(ur =>
+                        ur.IdRolNavigation.NombreRol == "Docente"))
                 .ToList();
 
             foreach (var docente in docentes)
             {
-                var informeDocente = _context.InformeDocentes.FirstOrDefault(i =>
-                    i.IdUsuario == docente.IdUsuario &&
-                    i.Anio == informe.Anio);
+                var informeDocente = _context.InformeDocentes
+                    .FirstOrDefault(i =>
+                        i.IdUsuario == docente.IdUsuario &&
+                        i.Anio == informe.Anio);
 
                 if (informeDocente == null || informeDocente.IdEstado != 4)
                 {
@@ -473,6 +519,7 @@ namespace SistemaFarmaciaG6.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
+
             informe.IdEstado = 2;
             informe.FechaEnvio = DateTime.Now;
 
@@ -486,7 +533,9 @@ namespace SistemaFarmaciaG6.Controllers
                 $"Se envió el informe de dirección #{informe.IdInformeDireccion} del año {informe.Anio}."
             );
 
-            TempData["Exito"] = "Informe de dirección enviado correctamente.";
+            TempData["Exito"] =
+                "Informe de dirección enviado correctamente.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -547,9 +596,12 @@ namespace SistemaFarmaciaG6.Controllers
 
             ViewBag.Anio = informe.Anio;
 
-            ViewBag.Cursos = _context.Cursos
+            var cursos = _context.Cursos
+                .AsNoTracking()
                 .OrderBy(c => c.SiglaCurso)
                 .ToList();
+
+            ViewBag.Cursos = cursos;
 
             return View(informe);
         }

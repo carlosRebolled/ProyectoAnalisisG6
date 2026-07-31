@@ -18,9 +18,9 @@
 
             <p>
                 <strong>Generado por:</strong>
-                @Model.IdUsuarioGeneraNavigation.Nombre
-                @Model.IdUsuarioGeneraNavigation.Apellido1
-                @Model.IdUsuarioGeneraNavigation.Apellido2
+                @Model.IdUsuarioGeneraNavigation?.Nombre
+                @Model.IdUsuarioGeneraNavigation?.Apellido1
+                @Model.IdUsuarioGeneraNavigation?.Apellido2
             </p>
 
             <p>
@@ -55,6 +55,96 @@
         </div>
 
     </div>
+
+    @if (ViewBag.InformesDireccion != null)
+    {
+        <div class="card shadow-sm border-0 mt-4">
+
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-building me-2"></i>
+                Informes de Dirección incluidos
+            </div>
+
+            <div class="card-body">
+
+                @foreach (var informe in ViewBag.InformesDireccion)
+                {
+                    <div class="card mb-3 border-start border-primary border-4">
+
+                        <div class="card-body">
+
+                            <h6 class="fw-bold mb-1">
+                                @informe.IdUsuarioNavigation?.Apellido1
+                                @informe.IdUsuarioNavigation?.Apellido2,
+                                @informe.IdUsuarioNavigation?.Nombre
+                            </h6>
+
+                            <small class="text-muted">
+                                Departamento:
+                                @informe.IdUsuarioNavigation?.IdDepartamentoNavigation?.NombreDepartamento
+                            </small>
+
+                            <br />
+
+                            <small class="text-muted">
+                                Estado:
+                                @informe.IdEstadoNavigation?.NombreEstado
+                            </small>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    }
+
+    @if (ViewBag.InformesDocentes != null)
+    {
+        <div class="card shadow-sm border-0 mt-4">
+
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-people-fill me-2"></i>
+                Informes Docentes incluidos
+            </div>
+
+            <div class="card-body">
+
+                @foreach (var docente in ViewBag.InformesDocentes)
+                {
+                    <div class="card mb-3 border-start border-success border-4">
+
+                        <div class="card-body">
+
+                            <h6 class="fw-bold mb-1">
+                                @docente.IdUsuarioNavigation?.Apellido1
+                                @docente.IdUsuarioNavigation?.Apellido2,
+                                @docente.IdUsuarioNavigation?.Nombre
+                            </h6>
+
+                            <small class="text-muted">
+                                Departamento:
+                                @docente.IdUsuarioNavigation?.IdDepartamentoNavigation?.NombreDepartamento
+                            </small>
+
+                            <br />
+
+                            <small class="text-muted">
+                                Estado:
+                                @docente.IdEstadoNavigation?.NombreEstado
+                            </small>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    }
 
     <div class="card shadow-sm mb-4">
 

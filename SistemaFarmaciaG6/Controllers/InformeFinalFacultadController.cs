@@ -154,6 +154,32 @@ namespace SistemaFarmaciaG6.Controllers
                 return NotFound();
             }
 
+            var informesDireccion = _context.InformeDireccions
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdDepartamentoNavigation)
+                .Include(i => i.IdEstadoNavigation)
+                .Where(i =>
+                    i.Anio == informe.Anio &&
+                    i.IdEstado == 4)
+                .OrderBy(i => i.IdUsuarioNavigation.IdDepartamentoNavigation.NombreDepartamento)
+                .ToList();
+
+            ViewBag.InformesDireccion = informesDireccion;
+
+            var informesDocentes = _context.InformeDocentes
+                .Include(i => i.IdUsuarioNavigation)
+                    .ThenInclude(u => u.IdDepartamentoNavigation)
+                .Include(i => i.IdEstadoNavigation)
+                .Where(i =>
+                    i.Anio == informe.Anio &&
+                    i.IdEstado == 4)
+                .OrderBy(i => i.IdUsuarioNavigation.Apellido1)
+                .ThenBy(i => i.IdUsuarioNavigation.Apellido2)
+                .ThenBy(i => i.IdUsuarioNavigation.Nombre)
+                .ToList();
+
+            ViewBag.InformesDocentes = informesDocentes;
+
             return View(informe);
         }
 
