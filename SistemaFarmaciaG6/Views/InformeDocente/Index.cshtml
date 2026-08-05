@@ -142,6 +142,14 @@
                        class="btn btn-info">
                         Ver Detalle
                     </a>
+                    <a asp-action="ExportarPdf"
+                       asp-route-id="@informeActual.IdInformeDocente"
+                       class="btn btn-danger btn-sm">
+
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        PDF
+
+                    </a>
 
                     @if (informeActual.IdEstado == 1 || informeActual.IdEstado == 3)
                     {
