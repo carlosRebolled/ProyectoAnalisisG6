@@ -300,251 +300,6 @@ namespace SistemaFarmaciaG6.Controllers
             return View(informe);
         }
 
-        /*public IActionResult ExportarPdf2(int id)
-        {
-            if (!EsAdministrador())
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            var informe = _context.InformeDocentes
-                .Include(i => i.IdEstadoNavigation)
-                .Include(i => i.IdUsuarioNavigation)
-                .Include(i => i.DetalleInformeD)
-                .FirstOrDefault(i => i.IdInformeFinal == id);
-
-            if (informe == null)
-            {
-                return NotFound();
-            }
-
-            string nombreGenerador =
-                $"{informe.IdUsuarioNavigation?.Nombre} " +
-                $"{informe.IdUsuarioNavigation?.Apellido1} " +
-                $"{informe.IdUsuarioNavigation?.Apellido2}";
-
-            nombreGenerador = nombreGenerador.Trim();
-
-            string nombreEstado =
-                informe.IdEstadoNavigation?.NombreEstado
-                ?? (informe.IdEstado == 1 ? "Borrador" : "Finalizado");
-
-            byte[] pdf = Document.Create(document =>
-            {
-                document.Page(page =>
-                {
-                    page.Size(PageSizes.A4);
-
-                    page.Margin(40);
-
-                    page.DefaultTextStyle(text =>
-                        text.FontSize(10)
-                            .FontFamily("Arial")
-                    );
-
-                    page.Header()
-                        .BorderBottom(2)
-                        .BorderColor("#168F8D")
-                        .PaddingBottom(12)
-                        .Column(header =>
-                        {
-                            header.Item()
-                                .Text("UNIVERSIDAD DE COSTA RICA")
-                                .FontSize(15)
-                                .Bold()
-                                .FontColor("#168F8D");
-
-                            header.Item()
-                                .Text("Facultad de Farmacia")
-                                .FontSize(11);
-
-                            header.Item()
-                                .PaddingTop(8)
-                                .Text("INFORME FINAL DE FACULTAD")
-                                .FontSize(20)
-                                .Bold();
-                        });
-
-                    page.Content()
-                        .PaddingVertical(20)
-                        .Column(contenido =>
-                        {
-                            contenido.Spacing(12);
-
-                            contenido.Item()
-                                .Background("#F3F7F8")
-                                .Border(1)
-                                .BorderColor("#D4E1E4")
-                                .Padding(15)
-                                .Column(datos =>
-                                {
-                                    datos.Spacing(7);
-
-                                    datos.Item().Text(texto =>
-                                    {
-                                        texto.Span("Año: ").Bold();
-                                        texto.Span(informe.Anio.ToString());
-                                    });
-
-                                    datos.Item().Text(texto =>
-                                    {
-                                        texto.Span("Generado por: ").Bold();
-                                        texto.Span(nombreGenerador);
-                                    });
-
-                                    datos.Item().Text(texto =>
-                                    {
-                                        texto.Span("Estado: ").Bold();
-                                        texto.Span(nombreEstado);
-                                    });
-
-                                    datos.Item().Text(texto =>
-                                    {
-                                        texto.Span("Fecha de generación: ").Bold();
-
-                                        texto.Span(
-                                            informe.FechaGeneracion
-                                                .ToString("dd/MM/yyyy HH:mm")
-                                        );
-                                    });
-
-                                    datos.Item().Text(texto =>
-                                    {
-                                        texto.Span("Fecha de finalización: ").Bold();
-
-                                        texto.Span(
-                                            informe.FechaAprobacion.HasValue
-                                                ? informe.FechaAprobacion.Value
-                                                    .ToString("dd/MM/yyyy HH:mm")
-                                                : "No finalizado"
-                                        );
-                                    });
-                                });
-
-                            contenido.Item()
-                                .PaddingTop(8)
-                                .Text("Observaciones generales")
-                                .FontSize(14)
-                                .Bold()
-                                .FontColor("#168F8D");
-
-                            contenido.Item()
-                                .Border(1)
-                                .BorderColor("#D9E2E6")
-                                .Padding(12)
-                                .Text(
-                                    string.IsNullOrWhiteSpace(informe.Observaciones)
-                                        ? "Sin observaciones."
-                                        : informe.Observaciones
-                                );
-
-                            if (informe.DetalleInformeFinals != null &&
-                                informe.DetalleInformeFinals.Any())
-                            {
-                                contenido.Item()
-                                    .PaddingTop(8)
-                                    .Text("Detalle del informe")
-                                    .FontSize(14)
-                                    .Bold()
-                                    .FontColor("#168F8D");
-
-                                contenido.Item().Table(tabla =>
-                                {
-                                    tabla.ColumnsDefinition(columnas =>
-                                    {
-                                        columnas.RelativeColumn(2);
-                                        columnas.ConstantColumn(70);
-                                        columnas.RelativeColumn(4);
-                                    });
-
-                                    tabla.Header(encabezado =>
-                                    {
-                                        encabezado.Cell()
-                                            .Element(EstiloEncabezado)
-                                            .Text("Tipo de actividad")
-                                            .Bold();
-
-                                        encabezado.Cell()
-                                            .Element(EstiloEncabezado)
-                                            .AlignCenter()
-                                            .Text("Cantidad")
-                                            .Bold();
-
-                                        encabezado.Cell()
-                                            .Element(EstiloEncabezado)
-                                            .Text("Detalle")
-                                            .Bold();
-                                    });
-
-                                    foreach (var detalle in informe.DetalleInformeFinals)
-                                    {
-                                        tabla.Cell()
-                                            .Element(EstiloCelda)
-                                            .Text(detalle.TipoActividad ?? "");
-
-                                        tabla.Cell()
-                                            .Element(EstiloCelda)
-                                            .AlignCenter()
-                                            .Text(
-                                                detalle.Cantidad?.ToString() ?? "-"
-                                            );
-
-                                        tabla.Cell()
-                                            .Element(EstiloCelda)
-                                            .Text(
-                                                detalle.DetalleActividad
-                                                ?? "Sin detalle"
-                                            );
-                                    }
-                                });
-                            }
-                        });
-
-                    page.Footer()
-                        .BorderTop(1)
-                        .BorderColor("#D9E2E6")
-                        .PaddingTop(8)
-                        .Row(footer =>
-                        {
-                            footer.RelativeItem()
-                                .Text(
-                                    $"Generado el {DateTime.Now:dd/MM/yyyy HH:mm}"
-                                )
-                                .FontSize(8)
-                                .FontColor(Colors.Grey.Darken1);
-
-                            footer.RelativeItem()
-                                .AlignRight()
-                                .Text(texto =>
-                                {
-                                    texto.Span("Página ").FontSize(8);
-                                    texto.CurrentPageNumber().FontSize(8);
-                                    texto.Span(" de ").FontSize(8);
-                                    texto.TotalPages().FontSize(8);
-                                });
-                        });
-                });
-            }).GeneratePdf();
-
-            AuditoriaHelper.Registrar(
-                _context,
-                HttpContext,
-                "InformeFinalFacultad",
-                "Exportar PDF",
-                $"Se exportó a PDF el informe final " +
-                $"#{informe.IdInformeFinal} del año {informe.Anio}."
-            );
-
-            string nombreArchivo =
-                $"Informe_Final_Facultad_{informe.Anio}.pdf";
-
-            return File(
-                pdf,
-                "application/pdf",
-                nombreArchivo
-            );
-        }
-        */
         [HttpGet]
         public IActionResult ExportarPdf(int id)
         {
@@ -583,7 +338,6 @@ namespace SistemaFarmaciaG6.Controllers
                     informe.IdEstadoNavigation?.NombreEstado
                     ?? (informe.IdEstado == 1 ? "Borrador" : "Finalizado");
 
-                // Generación del PDF
                 byte[] pdf = Document.Create(document =>
                 {
                     document.Page(page =>
@@ -593,7 +347,6 @@ namespace SistemaFarmaciaG6.Controllers
 
                         page.DefaultTextStyle(t => t.FontSize(10).FontFamily("Arial"));
 
-                        // Encabezado
                         page.Header()
                             .BorderBottom(2)
                             .BorderColor("#168F8D")
@@ -610,7 +363,6 @@ namespace SistemaFarmaciaG6.Controllers
                                     .FontSize(20).Bold();
                             });
 
-                        // Contenido
                         page.Content().PaddingVertical(20).Column(contenido =>
                         {
                             contenido.Spacing(12);
@@ -657,7 +409,6 @@ namespace SistemaFarmaciaG6.Controllers
                                     });
                                 });
 
-                            // Tabla de secciones del informe
                             contenido.Item().PaddingTop(8).Text("Detalle del Informe Docente")
                                 .FontSize(14).Bold().FontColor("#168F8D");
 
@@ -665,7 +416,7 @@ namespace SistemaFarmaciaG6.Controllers
                             {
                                 tabla.ColumnsDefinition(c =>
                                 {
-                                    c.RelativeColumn(3); // Nombre sección
+                                    c.RelativeColumn(3); //  sección
                                     c.ConstantColumn(70); // Cantidad
                                     c.RelativeColumn(7); // Detalle
                                 });
@@ -677,7 +428,6 @@ namespace SistemaFarmaciaG6.Controllers
                                     h.Cell().Element(EstiloEncabezado).Text("Detalle").Bold();
                                 });
 
-                                // Cada sección del modelo
                                 AgregarFila(tabla, "Congresos Activos", informe.CantidadCongresosActivos, informe.DetalleCongresosActivos);
                                 AgregarFila(tabla, "Congresos Pasivos", informe.CantidadCongresosPasivos, informe.DetalleCongresosPasivos);
                                 AgregarFila(tabla, "Acción Social", informe.CantidadAccionSocial, informe.DetalleAccionSocial);
@@ -690,7 +440,6 @@ namespace SistemaFarmaciaG6.Controllers
                                 AgregarFila(tabla, "Otros", null, informe.DetalleOtros);
                             });
 
-                            // Observaciones
                             contenido.Item().PaddingTop(8).Text("Observaciones")
                                 .FontSize(14).Bold().FontColor("#168F8D");
 
@@ -700,7 +449,6 @@ namespace SistemaFarmaciaG6.Controllers
                                     : informe.ObservacionesDocente);
                         });
 
-                        // Pie de página
                         page.Footer().BorderTop(1).BorderColor("#D9E2E6").PaddingTop(8)
                             .Row(footer =>
                             {
@@ -738,7 +486,6 @@ namespace SistemaFarmaciaG6.Controllers
             }
         }
 
-        // Método auxiliar para filas de la tabla
         private static void AgregarFila(TableDescriptor tabla, string seccion, int? cantidad, string? detalle)
         {
             tabla.Cell().Element(EstiloCelda).Text(seccion);
