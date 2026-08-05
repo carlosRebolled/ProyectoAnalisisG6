@@ -10,7 +10,7 @@ public partial class InformeDocente
     public int IdUsuario { get; set; }
 
     public int IdEstado { get; set; }
-
+    
     public int Anio { get; set; }
 
     public DateTime FechaCreacion { get; set; }
@@ -62,4 +62,5 @@ public partial class InformeDocente
     public virtual EstadosInforme IdEstadoNavigation { get; set; } = null!;
 
     public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
+
 }

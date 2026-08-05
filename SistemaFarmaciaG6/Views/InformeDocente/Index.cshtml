@@ -306,6 +306,14 @@
                                class="btn btn-info btn-sm">
                                 Ver
                             </a>
+                            <a asp-action="ExportarPdf"
+                               asp-route-id="@item.IdInformeDocente"
+                               class="btn btn-danger btn-sm">
+
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                PDF
+
+                            </a>
 
                             @if (rolUsuario == "Administrador" &&
                                                 (item.IdEstado == 2 || item.IdEstado == 4 || item.IdEstado == 5))
