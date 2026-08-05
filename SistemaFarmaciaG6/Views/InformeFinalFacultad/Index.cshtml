@@ -380,6 +380,15 @@
 
                                     </a>
 
+                                    <a asp-action="ExportarPdf"
+                                       asp-route-id="@item.IdInformeFinal"
+                                       class="btn btn-danger btn-sm">
+
+                                        <i class="bi bi-file-earmark-pdf"></i>
+                                        PDF
+
+                                    </a>
+
                                     @if (item.IdEstado == 1 &&
                                                                     (rolUsuario == "Decano" || rolUsuario == "Administrador"))
                                     {
