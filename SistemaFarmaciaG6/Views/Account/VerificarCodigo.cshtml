@@ -1,0 +1,389 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Verificar código";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Facultad Farmacia</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <link rel="icon"
+          type="image/png"
+          href="~/images/favicon_farmacia.png" />
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/Facultad_Farmacia.styles.css"
+          asp-append-version="true" />
+
+    <style>
+
+        body {
+            background: #f4f7f8;
+        }
+
+        .verify-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .verify-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .verify-card {
+            width: 100%;
+            max-width: 500px;
+            border: none;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .verify-header {
+            background: linear-gradient(135deg, #168f8d, #0f6f6d);
+            color: white;
+            text-align: center;
+            padding: 30px 25px 25px;
+        }
+
+        .verify-logo {
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+
+        .verify-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .verify-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .verify-subtitle {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .verify-body {
+            padding: 30px;
+            background: white;
+        }
+
+        .verify-info {
+            background: #f4f8f8;
+            border-left: 4px solid #168f8d;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 22px;
+            font-size: 0.9rem;
+            color: #536574;
+        }
+
+        .verify-label {
+            font-weight: 600;
+            color: #405467;
+        }
+
+        .codigo-input {
+            height: 56px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 10px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+            .codigo-input:focus {
+                border-color: #168f8d;
+                box-shadow: 0 0 0 0.2rem rgba(22, 143, 141, 0.15);
+            }
+
+        .btn-verificar {
+            background: #168f8d;
+            color: white;
+            border: none;
+            min-height: 46px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+            .btn-verificar:hover {
+                background: #0f7472;
+                color: white;
+                transform: translateY(-1px);
+            }
+
+        .resend-link {
+            color: #168f8d;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+            .resend-link:hover {
+                color: #0f6f6d;
+                text-decoration: underline;
+            }
+
+        .email-text {
+            font-weight: 600;
+            color: #168f8d;
+            word-break: break-word;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="verify-page">
+
+        <!-- BARRA SUPERIOR -->
+
+        <div class="ucr-bar">
+
+            <a href="https://www.ucr.ac.cr"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="ucr-link">
+
+                UNIVERSIDAD DE COSTA RICA
+
+            </a>
+
+            <a href="https://farmacia.ucr.ac.cr/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="ucr-logo-link">
+
+                <img src="~/images/Farmacia_logo.png"
+                     alt="Logo Facultad de Farmacia"
+                     class="ucr-logo" />
+
+            </a>
+
+        </div>
+
+        <!-- CONTENIDO -->
+
+        <main class="verify-main">
+
+            <div class="card verify-card">
+
+                <div class="verify-header">
+
+                    <img src="~/images/Farmacia_logo.png"
+                         alt="Logo Facultad de Farmacia"
+                         class="verify-logo" />
+
+                    <div class="verify-icon">
+
+                        <i class="bi bi-envelope-check"></i>
+
+                    </div>
+
+                    <h1 class="verify-title">
+                        Verificar código
+                    </h1>
+
+                    <p class="verify-subtitle">
+                        Confirme su identidad para continuar
+                    </p>
+
+                </div>
+
+                <div class="verify-body">
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger"
+                             role="alert">
+
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+
+                            @ViewBag.Error
+
+                        </div>
+                    }
+
+                    <div class="verify-info">
+
+                        <i class="bi bi-info-circle me-1"></i>
+
+                        Hemos enviado un código de 6 dígitos a:
+
+                        <div class="email-text mt-1">
+                            @ViewBag.Correo
+                        </div>
+
+                        <div class="mt-2">
+                            El código tiene una validez limitada.
+                        </div>
+
+                    </div>
+
+                    <form asp-controller="Account"
+                          asp-action="VerificarCodigo"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="correo"
+                               value="@ViewBag.Correo" />
+
+                        <div class="mb-4">
+
+                            <label for="codigo"
+                                   class="form-label verify-label">
+
+                                <i class="bi bi-shield-lock me-1"></i>
+                                Código de verificación
+
+                            </label>
+
+                            <input type="text"
+                                   id="codigo"
+                                   name="codigo"
+                                   class="form-control codigo-input"
+                                   maxlength="6"
+                                   minlength="6"
+                                   inputmode="numeric"
+                                   pattern="[0-9]{6}"
+                                   autocomplete="one-time-code"
+                                   placeholder="000000"
+                                   required />
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-verificar w-100">
+
+                            <i class="bi bi-check-circle me-2"></i>
+                            Verificar código
+
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-4">
+
+                        <p class="text-muted mb-2">
+                            ¿No recibió el código?
+                        </p>
+
+                        <a asp-controller="Account"
+                           asp-action="OlvideContrasena"
+                           class="resend-link">
+
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+                            Solicitar otro código
+
+                        </a>
+
+                    </div>
+
+                    <div class="text-center mt-3">
+
+                        <a asp-controller="Account"
+                           asp-action="Login"
+                           class="resend-link">
+
+                            <i class="bi bi-arrow-left me-1"></i>
+                            Volver al inicio de sesión
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- FOOTER -->
+
+        <footer class="footer-custom">
+
+            <div class="footer-content">
+
+                <span>
+                    © 2026 Facultad de Farmacia
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <span>
+                    Tel. 2511-8350
+                </span>
+
+                <span class="footer-separator">
+                    |
+                </span>
+
+                <span>
+                    Correo: recepción.farmacia@ucr.ac.cr
+                </span>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        const codigo = document.getElementById("codigo");
+
+        codigo.addEventListener("input", function () {
+
+            this.value =
+                this.value.replace(/\D/g, "").slice(0, 6);
+
+        });
+
+    </script>
+
+</body>
+
+</html>

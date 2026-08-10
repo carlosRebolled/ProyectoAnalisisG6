@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewData["Title"] = "Inicio de Sesión";
+    ViewData["Title"] = "Recuperar contraseña";
 }
 
 <!DOCTYPE html>
@@ -67,7 +67,7 @@
 
             </div>
 
-            <!-- CONTENIDO DEL LOGIN -->
+            <!-- CONTENIDO -->
 
             <main class="login-main">
 
@@ -86,11 +86,11 @@
                             </div>
 
                             <h1 class="login-title">
-                                Inicio de Sesión
+                                Recuperar contraseña
                             </h1>
 
                             <p class="login-subtitle">
-                                Sistema de Informes de la Facultad de Farmacia
+                                Ingrese el correo registrado en su cuenta
                             </p>
 
                         </div>
@@ -99,8 +99,7 @@
 
                             @if (ViewBag.Error != null)
                             {
-                                <div class="alert alert-danger"
-                                     role="alert">
+                                <div class="alert alert-danger">
 
                                     <i class="bi bi-exclamation-triangle me-2"></i>
 
@@ -109,21 +108,20 @@
                                 </div>
                             }
 
-                            @if (TempData["Exito"] != null)
+                            @if (TempData["Mensaje"] != null)
                             {
-                                <div class="alert alert-success"
-                                     role="alert">
+                                <div class="alert alert-info">
 
-                                    <i class="bi bi-check-circle me-2"></i>
+                                    <i class="bi bi-info-circle me-2"></i>
 
-                                    @TempData["Exito"]
+                                    @TempData["Mensaje"]
 
                                 </div>
                             }
 
-                            <form method="post"
-                                  asp-controller="Account"
-                                  asp-action="Login">
+                            <form asp-controller="Account"
+                                  asp-action="OlvideContrasena"
+                                  method="post">
 
                                 @Html.AntiForgeryToken()
 
@@ -142,69 +140,33 @@
                                            name="correo"
                                            class="form-control login-input"
                                            placeholder="Ingrese su correo"
-                                           autocomplete="username"
+                                           autocomplete="email"
                                            required />
-
-                                </div>
-
-                                <div class="mb-3">
-
-                                    <label for="contrasena"
-                                           class="form-label login-label">
-
-                                        <i class="bi bi-lock me-1"></i>
-                                        Contraseña
-
-                                    </label>
-
-                                    <div class="input-group">
-
-                                        <input type="password"
-                                               id="contrasena"
-                                               name="contrasena"
-                                               class="form-control login-input"
-                                               placeholder="Ingrese su contraseña"
-                                               autocomplete="current-password"
-                                               required />
-
-                                        <button type="button"
-                                                id="mostrarContrasena"
-                                                class="btn btn-outline-secondary password-button"
-                                                aria-label="Mostrar contraseña">
-
-                                            <i id="iconoContrasena"
-                                               class="bi bi-eye"></i>
-
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                                <!-- RECUPERAR CONTRASEÑA -->
-
-                                <div class="text-end mb-3">
-
-                                    <a asp-controller="Account"
-                                       asp-action="OlvideContrasena"
-                                       class="forgot-password-link">
-
-                                        <i class="bi bi-key me-1"></i>
-                                        ¿Olvidó su contraseña?
-
-                                    </a>
 
                                 </div>
 
                                 <button type="submit"
                                         class="btn btn-login w-100">
 
-                                    <i class="bi bi-box-arrow-in-right me-2"></i>
-                                    Ingresar
+                                    <i class="bi bi-send me-2"></i>
+                                    Enviar código
 
                                 </button>
 
                             </form>
+
+                            <div class="text-center mt-3">
+
+                                <a asp-controller="Account"
+                                   asp-action="Login"
+                                   class="forgot-password-link">
+
+                                    <i class="bi bi-arrow-left me-1"></i>
+                                    Volver al inicio de sesión
+
+                                </a>
+
+                            </div>
 
                         </div>
 
@@ -242,17 +204,6 @@
                     Correo: recepción.farmacia@ucr.ac.cr
                 </span>
 
-                <span class="footer-separator">
-                    |
-                </span>
-
-                <a href="#"
-                   class="footer-link">
-
-                    Contáctenos
-
-                </a>
-
             </div>
 
         </footer>
@@ -261,38 +212,6 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-
-        const botonContrasena =
-            document.getElementById("mostrarContrasena");
-
-        const campoContrasena =
-            document.getElementById("contrasena");
-
-        const iconoContrasena =
-            document.getElementById("iconoContrasena");
-
-        botonContrasena.addEventListener(
-            "click",
-            function () {
-
-                const esPassword =
-                    campoContrasena.type === "password";
-
-                campoContrasena.type =
-                    esPassword
-                        ? "text"
-                        : "password";
-
-                iconoContrasena.className =
-                    esPassword
-                        ? "bi bi-eye-slash"
-                        : "bi bi-eye";
-            }
-        );
-
-    </script>
-
 </body>
 
-</html>z
+</html>

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaFarmaciaG6.Data;
 using QuestPDF.Infrastructure;
+using SistemaFarmaciaG6.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddDbContext<DbFacultadFarmaciaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DB_FacultadFarmacia")));

@@ -54,6 +54,7 @@ public partial class DbFacultadFarmaciaContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
+    public virtual DbSet<RecuperacionContrasena> RecuperacionesContrasena { get; set; }
     public virtual DbSet<UsuarioRol> UsuarioRols { get; set; }
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -70,6 +71,46 @@ public partial class DbFacultadFarmaciaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+        modelBuilder.Entity<RecuperacionContrasena>(entity =>
+        {
+            entity.HasKey(e => e.IdRecuperacion);
+
+            entity.ToTable("RecuperacionContrasena");
+
+            entity.Property(e => e.IdRecuperacion)
+                .HasColumnName("id_recuperacion");
+
+            entity.Property(e => e.IdUsuario)
+                .HasColumnName("id_usuario");
+
+            entity.Property(e => e.CodigoHash)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("codigo_hash");
+
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_creacion");
+
+            entity.Property(e => e.FechaExpiracion)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_expiracion");
+
+            entity.Property(e => e.Utilizado)
+                .HasColumnName("utilizado");
+
+            entity.Property(e => e.Intentos)
+                .HasColumnName("intentos");
+
+            entity.HasOne(e => e.IdUsuarioNavigation)
+                .WithMany()
+                .HasForeignKey(e => e.IdUsuario)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+
+
         modelBuilder.Entity<Curso>(entity =>
         {
             entity.HasKey(e => e.IdCurso);

@@ -396,60 +396,7 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            int idDepartamento = _context.Usuarios
-                .Where(u => u.IdUsuario == informe.IdUsuario)
-                .Select(u => u.IdDepartamento)
-                .First();
 
-            var docentesDepartamento = _context.Usuarios
-                .Where(u =>
-                    u.IdDepartamento == idDepartamento &&
-                    u.Estado == "Activo" &&
-                    u.UsuarioRols.Any(ur =>
-                        ur.IdRolNavigation.NombreRol == "Docente"))
-                .OrderBy(u => u.Apellido1)
-                .ThenBy(u => u.Apellido2)
-                .ThenBy(u => u.Nombre)
-                .ToList();
-
-            var pendientes = new List<dynamic>();
-
-            foreach (var docente in docentesDepartamento)
-            {
-                var informeDocente = _context.InformeDocentes
-                    .Include(i => i.IdEstadoNavigation)
-                    .FirstOrDefault(i =>
-                        i.IdUsuario == docente.IdUsuario &&
-                        i.Anio == informe.Anio);
-
-                string estado;
-
-                if (informeDocente == null)
-                {
-                    estado = "No generado";
-                }
-                else
-                {
-                    estado = informeDocente.IdEstadoNavigation?.NombreEstado
-                             ?? "Sin estado";
-                }
-
-                if (estado != "Aprobado")
-                {
-                    pendientes.Add(new
-                    {
-                        Nombre = $"{docente.Apellido1} {docente.Apellido2}, {docente.Nombre}",
-                        Estado = estado
-                    });
-                }
-            }
-
-            if (pendientes.Any())
-            {
-                ViewBag.DocentesPendientes = pendientes;
-
-                return View("Pendientes", informe);
-            }
 
             return View(informe);
         }
@@ -491,34 +438,7 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            int idDepartamento = _context.Usuarios
-                .Where(u => u.IdUsuario == informe.IdUsuario)
-                .Select(u => u.IdDepartamento)
-                .First();
-
-            var docentes = _context.Usuarios
-                .Where(u =>
-                    u.IdDepartamento == idDepartamento &&
-                    u.Estado == "Activo" &&
-                    u.UsuarioRols.Any(ur =>
-                        ur.IdRolNavigation.NombreRol == "Docente"))
-                .ToList();
-
-            foreach (var docente in docentes)
-            {
-                var informeDocente = _context.InformeDocentes
-                    .FirstOrDefault(i =>
-                        i.IdUsuario == docente.IdUsuario &&
-                        i.Anio == informe.Anio);
-
-                if (informeDocente == null || informeDocente.IdEstado != 4)
-                {
-                    TempData["Error"] =
-                        "Aún hay informes docentes pendientes de aprobación.";
-
-                    return RedirectToAction(nameof(Index));
-                }
-            }
+            
 
             informe.IdEstado = 2;
             informe.FechaEnvio = DateTime.Now;
