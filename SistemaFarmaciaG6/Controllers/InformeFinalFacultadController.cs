@@ -27,7 +27,10 @@ namespace SistemaFarmaciaG6.Controllers
             return HttpContext.Session.GetInt32("IdUsuario");
         }
 
-        private bool PuedeGestionar()
+        /// <summary>
+        /// Roles que pueden consultar el informe final (listado, detalle y PDF).
+        /// </summary>
+        private bool PuedeVer()
         {
             var rol = RolSesion();
 
@@ -37,6 +40,19 @@ namespace SistemaFarmaciaG6.Controllers
                    rol == "Visualizador";
         }
 
+        /// <summary>
+        /// Roles que pueden crear, editar y finalizar el informe final.
+        /// El Visualizador solo puede consultar.
+        /// </summary>
+        private bool PuedeGestionar()
+        {
+            var rol = RolSesion();
+
+            return rol == "Decano" ||
+                   rol == "Administrador" ||
+                   rol == "Jefatura";
+        }
+
         private bool EsAdministrador()
         {
             return RolSesion() == "Administrador";
@@ -44,7 +60,7 @@ namespace SistemaFarmaciaG6.Controllers
 
         public IActionResult Index()
         {
-            if (!PuedeGestionar())
+            if (!PuedeVer())
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -140,7 +156,7 @@ namespace SistemaFarmaciaG6.Controllers
 
         public IActionResult Details(int id)
         {
-            if (!PuedeGestionar())
+            if (!PuedeVer())
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -188,7 +204,7 @@ namespace SistemaFarmaciaG6.Controllers
         [HttpGet]
         public IActionResult ExportarPdf(int id)
         {
-            if (!PuedeGestionar())
+            if (!PuedeVer())
             {
                 return RedirectToAction("Index", "Home");
             }

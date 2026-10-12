@@ -63,6 +63,17 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirigirNoAutorizado();
             }
 
+            categoria.NombreCategoria = categoria.NombreCategoria?.Trim() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(categoria.NombreCategoria) &&
+                _context.Categorias.Any(c =>
+                    c.NombreCategoria.ToLower() == categoria.NombreCategoria.ToLower()))
+            {
+                ModelState.AddModelError(
+                    nameof(Categoria.NombreCategoria),
+                    "Ya existe una categoría con ese nombre.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Categorias.Add(categoria);
@@ -117,6 +128,17 @@ namespace SistemaFarmaciaG6.Controllers
             if (id != categoria.IdCategoria)
             {
                 return NotFound();
+            }
+
+            categoria.NombreCategoria = categoria.NombreCategoria?.Trim() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(categoria.NombreCategoria) &&
+                _context.Categorias.Any(c =>
+                    c.NombreCategoria.ToLower() == categoria.NombreCategoria.ToLower() && c.IdCategoria != id))
+            {
+                ModelState.AddModelError(
+                    nameof(Categoria.NombreCategoria),
+                    "Ya existe una categoría con ese nombre.");
             }
 
             if (ModelState.IsValid)

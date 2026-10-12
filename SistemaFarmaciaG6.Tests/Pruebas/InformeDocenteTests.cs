@@ -233,7 +233,7 @@ public class InformeDocenteTests : PruebaBase
     [InlineData(EstadoDevuelto)]
     public void Enviar_BorradorODevuelto_PasaAPendiente(int estadoInicial)
     {
-        var informe = AgregarInformeDocente(IdDocente, estadoInicial);
+        var informe = AgregarInformeDocenteCompleto(IdDocente, estadoInicial);
 
         Como("Docente", IdDocente).EnviarConfirmado(informe.IdInformeDocente);
 

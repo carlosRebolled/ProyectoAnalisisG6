@@ -412,8 +412,10 @@ namespace SistemaFarmaciaG6.Controllers
         [HttpPost]
         public IActionResult Login(string correo, string contrasena)
         {
+            correo = correo?.Trim().ToLower() ?? "";
+
             var usuario = _context.Usuarios
-                .FirstOrDefault(u => u.Correo == correo);
+                .FirstOrDefault(u => u.Correo.ToLower() == correo);
 
             bool accesoPermitido = false;
 
@@ -503,6 +505,9 @@ namespace SistemaFarmaciaG6.Controllers
                 ViewBag.Error = "El rol asignado no existe";
                 return View();
             }
+
+            usuario.UltimoInicioSesion = DateTime.Now;
+            _context.SaveChanges();
 
             HttpContext.Session.SetInt32(
                 "IdUsuario",

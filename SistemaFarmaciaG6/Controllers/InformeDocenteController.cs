@@ -35,6 +35,24 @@ namespace SistemaFarmaciaG6.Controllers
             return RolSesion() == "Administrador";
         }
 
+        /// <summary>
+        /// Indica si falta alguno de los detalles obligatorios del informe.
+        /// Se usa al crear, al editar y antes de enviarlo a revisión.
+        /// </summary>
+        public static bool FormularioIncompleto(InformeDocente informe)
+        {
+            return string.IsNullOrWhiteSpace(informe.DetalleCongresosActivos) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleCongresosPasivos) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleAccionSocial) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleInvestigacion) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleDocencia) ||
+                   string.IsNullOrWhiteSpace(informe.DetallePublicaciones) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleCursosGrado) ||
+                   string.IsNullOrWhiteSpace(informe.DetallePosgrado) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleRepresentacion) ||
+                   string.IsNullOrWhiteSpace(informe.DetalleOtros);
+        }
+
         private bool PuedeVerInforme(InformeDocente informe)
         {
             int? idUsuario = IdUsuarioSesion();
@@ -195,37 +213,7 @@ namespace SistemaFarmaciaG6.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                bool formularioIncompleto = false;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleCongresosActivos))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleCongresosPasivos))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleAccionSocial))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleInvestigacion))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleDocencia))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetallePublicaciones))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleCursosGrado))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetallePosgrado))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleRepresentacion))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleOtros))
-                    formularioIncompleto = true;
+                bool formularioIncompleto = FormularioIncompleto(informe);
 
                 if (formularioIncompleto)
                 {
@@ -607,37 +595,7 @@ namespace SistemaFarmaciaG6.Controllers
 
             try
             {
-                bool formularioIncompleto = false;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleCongresosActivos))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleCongresosPasivos))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleAccionSocial))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleInvestigacion))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleDocencia))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetallePublicaciones))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleCursosGrado))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetallePosgrado))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleRepresentacion))
-                    formularioIncompleto = true;
-
-                if (string.IsNullOrWhiteSpace(informe.DetalleOtros))
-                    formularioIncompleto = true;
+                bool formularioIncompleto = FormularioIncompleto(informe);
 
                 if (formularioIncompleto)
                 {
@@ -823,6 +781,14 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            if (FormularioIncompleto(informe))
+            {
+                TempData["Error"] =
+                    "El informe tiene espacios obligatorios sin completar. Complételo (o marque 'No aplica') antes de enviarlo.";
+
+                return RedirectToAction(nameof(Edit), new { id });
+            }
+
             return View(informe);
         }
 
@@ -856,6 +822,14 @@ namespace SistemaFarmaciaG6.Controllers
             {
                 TempData["Error"] = "Solo se pueden enviar informes en estado Borrador o Devuelto.";
                 return RedirectToAction(nameof(Index));
+            }
+
+            if (FormularioIncompleto(informe))
+            {
+                TempData["Error"] =
+                    "El informe tiene espacios obligatorios sin completar. Complételo (o marque 'No aplica') antes de enviarlo.";
+
+                return RedirectToAction(nameof(Edit), new { id });
             }
 
             informe.IdEstado = 2;

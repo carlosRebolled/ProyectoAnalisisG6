@@ -92,6 +92,23 @@ namespace SistemaFarmaciaG6.Controllers
                 return RedirectToAction(nameof(Edit), new { id = id });
             }
 
+            if (!_context.Roles.Any(r => r.IdRol == idRol))
+            {
+                TempData["Error"] = "El rol seleccionado no existe.";
+                return RedirectToAction(nameof(Edit), new { id = id });
+            }
+
+            // Evita que el administrador se quite a sí mismo el acceso
+            bool esSuPropiaCuenta = id == HttpContext.Session.GetInt32("IdUsuario");
+            bool sigueSiendoAdmin = _context.Roles
+                .Any(r => r.IdRol == idRol && r.NombreRol == "Administrador");
+
+            if (esSuPropiaCuenta && !sigueSiendoAdmin)
+            {
+                TempData["Error"] = "No puede quitarse a sí mismo el rol de Administrador.";
+                return RedirectToAction(nameof(Edit), new { id = id });
+            }
+
             var usuarioRol = _context.UsuarioRols
                 .Include(ur => ur.IdRolNavigation)
                 .FirstOrDefault(ur => ur.IdUsuario == id);

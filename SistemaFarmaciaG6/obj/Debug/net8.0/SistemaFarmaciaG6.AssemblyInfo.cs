@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaFarmaciaG6")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c471413543c5399d5c8e7ca4e7c64c216f79107b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b2d57f9f4cd9b264e34c853e579a75a58c24006")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaFarmaciaG6")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaFarmaciaG6")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

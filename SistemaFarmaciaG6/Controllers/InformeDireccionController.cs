@@ -184,6 +184,30 @@ namespace SistemaFarmaciaG6.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
+                /*
+                 * Se valida ANTES de guardar. Antes el informe se guardaba primero
+                 * y, si la validación fallaba, quedaba un informe vacío que impedía
+                 * crear otro ese año.
+                 */
+                NumeroSesion ??= Array.Empty<string>();
+                FechaSesion ??= Array.Empty<DateTime>();
+                PuntosVistos ??= Array.Empty<string>();
+
+                if (NumeroSesion.Length != FechaSesion.Length ||
+                    NumeroSesion.Length != PuntosVistos.Length)
+                {
+                    TempData["Error"] = "Existe un problema con la información de las reuniones.";
+
+                    return RedirectToAction(nameof(Create));
+                }
+
+                if (IdCurso == null || !IdCurso.Any(c => c != 0))
+                {
+                    TempData["Error"] = "Debe agregar al menos un curso.";
+
+                    return RedirectToAction(nameof(Create));
+                }
+
                 informe.IdUsuario = idUsuario.Value;
                 informe.IdEstado = 1;
                 informe.Anio = anioActual;
@@ -193,14 +217,6 @@ namespace SistemaFarmaciaG6.Controllers
 
                 _context.InformeDireccions.Add(informe);
                 _context.SaveChanges();
-
-                if (NumeroSesion.Length != FechaSesion.Length ||
-                    NumeroSesion.Length != PuntosVistos.Length)
-                {
-                    TempData["Error"] = "Existe un problema con la información de las reuniones.";
-
-                    return RedirectToAction(nameof(Create));
-                }
 
                 for (int i = 0; i < NumeroSesion.Length; i++)
                 {
@@ -219,13 +235,6 @@ namespace SistemaFarmaciaG6.Controllers
                 }
 
                 _context.SaveChanges();
-
-                if (IdCurso == null || IdCurso.Length == 0)
-                {
-                    TempData["Error"] = "Debe agregar al menos un curso.";
-
-                    return RedirectToAction(nameof(Create));
-                }
 
                 for (int i = 0; i < IdCurso.Length; i++)
                 {
@@ -439,6 +448,17 @@ namespace SistemaFarmaciaG6.Controllers
             }
 
             
+
+            bool tieneCursos = _context.CursosDireccions
+                .Any(c => c.IdInformeDireccion == informe.IdInformeDireccion);
+
+            if (!tieneCursos)
+            {
+                TempData["Error"] =
+                    "Debe registrar al menos un curso antes de enviar el informe.";
+
+                return RedirectToAction(nameof(Edit), new { id });
+            }
 
             informe.IdEstado = 2;
             informe.FechaEnvio = DateTime.Now;

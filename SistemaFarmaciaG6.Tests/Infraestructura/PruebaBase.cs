@@ -46,6 +46,7 @@ public abstract class PruebaBase : IDisposable
     public const int IdSinRol = 7;
 
     public const string ClaveValida = "Clave123!";
+    public const int IdCursoEjemplo = 1;
 
     protected readonly DbFacultadFarmaciaContext Db;
 
@@ -107,6 +108,32 @@ public abstract class PruebaBase : IDisposable
         Db.InformeDocentes.Add(informe);
         Db.SaveChanges();
         return informe;
+    }
+
+    /// <summary>
+    /// Informe docente con todos los campos obligatorios llenos (listo para enviar).
+    /// </summary>
+    protected InformeDocente AgregarInformeDocenteCompleto(int idUsuario, int estado)
+    {
+        var informe = InformeDocenteCompleto();
+        informe.IdUsuario = idUsuario;
+        informe.IdEstado = estado;
+        informe.Anio = AnioActual;
+        informe.FechaCreacion = DateTime.Now;
+        Db.InformeDocentes.Add(informe);
+        Db.SaveChanges();
+        return informe;
+    }
+
+    protected void AgregarCursoAlInforme(InformeDireccion informe)
+    {
+        Db.CursosDireccions.Add(new CursosDireccion
+        {
+            IdInformeDireccion = informe.IdInformeDireccion,
+            IdCurso = IdCursoEjemplo,
+            AsistentesCurso = 25
+        });
+        Db.SaveChanges();
     }
 
     protected InformeDireccion AgregarInformeDireccion(int idUsuario, int estado, int? anio = null)
@@ -183,6 +210,8 @@ public abstract class PruebaBase : IDisposable
         Db.Categorias.AddRange(
             new Categoria { IdCategoria = CategoriaInstructor, NombreCategoria = "Instructor", Estado = "Activo" },
             new Categoria { IdCategoria = CategoriaSinUsuarios, NombreCategoria = "Catedrático", Estado = "Activo" });
+
+        Db.Cursos.Add(new Curso { IdCurso = IdCursoEjemplo, SiglaCurso = "FA-101", NombreCurso = "Farmacología I", Estado = "Activo" });
 
         Db.TiposNombramientos.Add(new TiposNombramiento { IdTipoNombramiento = 1, NombreNombramiento = "Propiedad", Estado = "Activo" });
 

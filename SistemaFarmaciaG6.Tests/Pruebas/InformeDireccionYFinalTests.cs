@@ -66,6 +66,7 @@ public class InformeDireccionYFinalTests : PruebaBase
     public void Direccion_Enviar_PasaAPendiente()
     {
         var informe = AgregarInformeDireccion(IdDirector, EstadoBorrador);
+        AgregarCursoAlInforme(informe);
 
         Direccion().EnviarConfirmado(informe.IdInformeDireccion);
 

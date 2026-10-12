@@ -41,9 +41,19 @@ namespace SistemaFarmaciaG6.Controllers
             var rol = HttpContext.Session.GetString("Rol");
             var idDepartamento = ObtenerDepartamentoDirector();
 
-            var docentes = _context.Usuarios
+            // Solo docentes activos. El Director ve su departamento;
+            // el Administrador ve todos los departamentos.
+            var consulta = _context.Usuarios
                 .Include(u => u.IdDepartamentoNavigation)
-                .Where(u => u.IdDepartamento == idDepartamento)
+                .Where(u => u.Estado == "Activo" &&
+                            u.UsuarioRols.Any(ur => ur.IdRolNavigation.NombreRol == "Docente"));
+
+            if (rol != "Administrador")
+            {
+                consulta = consulta.Where(u => u.IdDepartamento == idDepartamento);
+            }
+
+            var docentes = consulta
                 .OrderBy(u => u.Apellido1)
                 .ThenBy(u => u.Apellido2)
                 .ThenBy(u => u.Nombre)

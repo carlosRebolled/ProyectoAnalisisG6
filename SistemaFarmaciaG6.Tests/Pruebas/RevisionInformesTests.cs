@@ -125,7 +125,7 @@ public class RevisionInformesTests : PruebaBase
     [Fact]
     public void FlujoCompleto_DevueltoCorregidoYReenviado_TerminaAprobado()
     {
-        var informe = AgregarInformeDocente(IdDocente, EstadoBorrador);
+        var informe = AgregarInformeDocenteCompleto(IdDocente, EstadoBorrador);
         var docente = Preparar(new InformeDocenteController(Db), "Docente", IdDocente);
 
         docente.EnviarConfirmado(informe.IdInformeDocente);

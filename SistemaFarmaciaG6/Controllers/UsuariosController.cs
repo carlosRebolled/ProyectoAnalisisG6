@@ -24,6 +24,11 @@ namespace SistemaFarmaciaG6.Controllers
             return rol == "Administrador";
         }
 
+        private bool EsRolAdministrador(int idRol)
+        {
+            return _context.Roles.Any(r => r.IdRol == idRol && r.NombreRol == "Administrador");
+        }
+
         private IActionResult RedirigirNoAutorizado()
         {
             return RedirectToAction("Index", "Home");
@@ -97,6 +102,8 @@ namespace SistemaFarmaciaG6.Controllers
                 usuario.FechaRegistro = DateTime.Now;
                 usuario.CambiarContrasena = true;
                 usuario.UltimoInicioSesion = null;
+                usuario.Correo = usuario.Correo?.Trim().ToLower() ?? "";
+                usuario.Cedula = usuario.Cedula?.Trim() ?? "";
 
                 ModelState.Clear();
 
@@ -145,8 +152,11 @@ namespace SistemaFarmaciaG6.Controllers
                     ModelState.AddModelError("Cedula", "Ya existe un usuario con esa cédula.");
 
                 if (!string.IsNullOrWhiteSpace(usuario.Correo) &&
-                    _context.Usuarios.Any(u => u.Correo == usuario.Correo))
+                    _context.Usuarios.Any(u => u.Correo.ToLower() == usuario.Correo))
                     ModelState.AddModelError("Correo", "Ya existe un usuario con ese correo.");
+
+                if (idRol != 0 && !_context.Roles.Any(r => r.IdRol == idRol))
+                    ModelState.AddModelError("idRol", "El rol seleccionado no existe.");
 
                 if (!ModelState.IsValid)
                 {
@@ -263,6 +273,19 @@ namespace SistemaFarmaciaG6.Controllers
 
                 if (idRol == 0)
                     ModelState.AddModelError("idRol", "Debe seleccionar un rol.");
+
+                if (idRol != 0 && !_context.Roles.Any(r => r.IdRol == idRol))
+                    ModelState.AddModelError("idRol", "El rol seleccionado no existe.");
+
+                // Evita que el administrador se bloquee a sí mismo
+                if (id == HttpContext.Session.GetInt32("IdUsuario"))
+                {
+                    if (usuario.Estado != "Activo")
+                        ModelState.AddModelError("Estado", "No puede desactivar su propia cuenta.");
+
+                    if (!EsRolAdministrador(idRol))
+                        ModelState.AddModelError("idRol", "No puede quitarse a sí mismo el rol de Administrador.");
+                }
 
                 if (!ModelState.IsValid)
                 {
