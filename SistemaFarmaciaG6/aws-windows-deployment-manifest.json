@@ -1,0 +1,15 @@
+{
+    "manifestVersion":  1,
+    "deployments":  {
+                        "aspNetCoreWeb":  [
+                                              {
+                                                  "name":  "SistemaFarmaciaG6",
+                                                  "parameters":  {
+                                                                     "iisPath":  "/",
+                                                                     "iisWebSite":  "Default Web Site",
+                                                                     "appBundle":  "site.zip"
+                                                                 }
+                                              }
+                                          ]
+                    }
+}
