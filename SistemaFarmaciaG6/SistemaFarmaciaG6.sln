@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.6.11822.322
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37314.3 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaFarmaciaG6", "SistemaFarmaciaG6.csproj", "{73085064-00CF-79F5-9D3D-6A48747EDF0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaFarmaciaG6.Tests", "..\SistemaFarmaciaG6.Tests\SistemaFarmaciaG6.Tests.csproj", "{5B3E8C21-7D4A-4F6B-9C2E-1A8D3F6B9E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaFarmaciaG6.UI", "..\SistemaFarmaciaG6.UI\SistemaFarmaciaG6.UI.csproj", "{D7E2347E-8FC0-12DD-AD9F-A7E921C90669}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5B3E8C21-7D4A-4F6B-9C2E-1A8D3F6B9E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B3E8C21-7D4A-4F6B-9C2E-1A8D3F6B9E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B3E8C21-7D4A-4F6B-9C2E-1A8D3F6B9E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7E2347E-8FC0-12DD-AD9F-A7E921C90669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7E2347E-8FC0-12DD-AD9F-A7E921C90669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7E2347E-8FC0-12DD-AD9F-A7E921C90669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7E2347E-8FC0-12DD-AD9F-A7E921C90669}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
